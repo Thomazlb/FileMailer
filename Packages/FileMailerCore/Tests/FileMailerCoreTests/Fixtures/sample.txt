@@ -1,0 +1,4 @@
+Bonjour,
+
+Ceci est un document synthétique utilisé pour tester FileMailer.
+Il ne contient aucune donnée personnelle.

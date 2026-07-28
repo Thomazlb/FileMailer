@@ -1,0 +1,6 @@
+// Copiez ce fichier vers Local.xcconfig. Ne commitez jamais Local.xcconfig.
+DEVELOPMENT_TEAM = ABCDE12345
+GOOGLE_CLIENT_ID = 000000000000-local.apps.googleusercontent.invalid
+GOOGLE_REDIRECT_SCHEME = com.googleusercontent.apps.000000000000-local
+BASE_BUNDLE_ID = org.filemailer.local
+GOLDEN_GATE_FEATURES = YES

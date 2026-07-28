@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1024"
+     height="1024"
+     viewBox="220 250 620 520"
+     fill="none">
+  <g id="paper-plane-white" transform="translate(-14 3)">
+    <path d="M255 418
+             C247 421 246 429 253 436
+             L363 539
+             L374 724
+             L419 576
+             L803 283
+             L255 418Z"
+          fill="#FFFFFF"/>
+  </g>
+  <g id="paper-plane-blue" transform="translate(-14 3)">
+    <path d="M803 283
+             L645 724
+             C641 734 632 737 623 731
+             L479 639
+             L374 724
+             L455 608
+             L786 299
+             L803 283Z"
+          fill="#0A84FF"/>
+  </g>
+</svg>

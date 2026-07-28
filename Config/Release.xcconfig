@@ -1,0 +1,6 @@
+#include "Base.xcconfig"
+#include? "Local.xcconfig"
+
+SWIFT_COMPILATION_MODE = wholemodule
+ENABLE_HARDENED_RUNTIME = YES
+VALIDATE_PRODUCT = YES

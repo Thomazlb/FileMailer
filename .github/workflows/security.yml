@@ -1,0 +1,38 @@
+name: Security
+
+on:
+  pull_request:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/dependency-review-action@v4
+
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+
+  license-check:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check declared package versions and notices
+        run: |
+          rg -n 'exact: "2.1.0"' Packages/FileMailerCore/Package.swift
+          rg -n 'exact: "0.9.20"' Packages/FileMailerCore/Package.swift
+          rg -n 'AppAuth.*Apache' THIRD_PARTY_NOTICES.md
+          rg -n 'ZIPFoundation.*MIT' THIRD_PARTY_NOTICES.md

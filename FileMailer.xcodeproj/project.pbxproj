@@ -1,0 +1,952 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0C2A09B3B3DF60CB3692D0AB /* AppIPCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6A5D5C6CD3C07A338EB3DC /* AppIPCService.swift */; };
+		0DDD884A7E9BDE7A0E62BADE /* QuickLookPreviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A20707098343EFCB51552F /* QuickLookPreviewCoordinator.swift */; };
+		237258A1799ECEBCBBF5B002 /* FileMailerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AB5057E54CED1CAE0C044F /* FileMailerApp.swift */; };
+		262A04211084DDA879A7A499 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EBCB46A0E2FB1B96148BF /* AppModel.swift */; };
+		26BCAA56D50DF62DE12D854D /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E1EA4E171C4181CDDCBC592A /* PrivacyInfo.xcprivacy */; };
+		33FEB01ABC5E5A69161F8C45 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 71C0A39010461FD865609ED5 /* Localizable.strings */; };
+		37C40171C266AFA140851BEA /* FileMailerIPC in Frameworks */ = {isa = PBXBuildFile; productRef = 16E1923B7D89A4A2D9080A81 /* FileMailerIPC */; };
+		383F1763B08577B8D83F7936 /* FinderExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9CEB9C06ED461249EEECD239 /* FinderExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3A5AFC232C7B9CD608DED1EC /* FileMail.icon in Resources */ = {isa = PBXBuildFile; fileRef = A14058F0A9322B2D6522144F /* FileMail.icon */; };
+		3D21E5D8E3C43A213454C3A4 /* DiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C1C8A8004FAED20E2FC93C /* DiagnosticsView.swift */; };
+		471AF3E5A12D70C56A58C22E /* QuickPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E350CC21B0702280158D2EB /* QuickPanelView.swift */; };
+		4761509DD5B6C017630F865F /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB23BDA7592FADB85C7C45A /* AppConfiguration.swift */; };
+		5CF69F17BBB611AA2545F54C /* FinderSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0791D9959D28DA0C0BF3F260 /* FinderSync.swift */; };
+		64361A9D72682DECBCEB5B88 /* MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7816EF864F182FE574A1F0DB /* MenuBarController.swift */; };
+		789E11EAD1EDB9BFB5615AC5 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC33DDD74257D735583F1177 /* AppLogger.swift */; };
+		78BE57DBDF4A68F67F02CF37 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F23680CFD8CB39091D80E09 /* GeneralSettingsView.swift */; };
+		E4B7C8D9A1F203456789ABCD /* GoogleAuthorizationDisclosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A5E4B62D9C4A2B8D1E7F03 /* GoogleAuthorizationDisclosure.swift */; };
+		79B510C2821816ED09263E2E /* WindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FE0163FBC2B2B4808D48B0 /* WindowCoordinator.swift */; };
+		7C4DF035B622A65AEA006FC1 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B512CD278D29074D73BA21 /* OnboardingView.swift */; };
+		81BEA92C77B679DC54026A33 /* PlainTextBodyEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8C282A6231317C9E281D90 /* PlainTextBodyEditor.swift */; };
+		881C973E1BBBA2ECADEC9FA0 /* DriveCleanupScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056DCF069B20312CA5BA1429 /* DriveCleanupScheduler.swift */; };
+		9D58D717D92A9037CA09D14C /* RecipientSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38899D31B1D63E63786769BF /* RecipientSettingsView.swift */; };
+		A0AFFA2C352F6D2CE54F53FF /* SettingsRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30780AE177020003F069FFFC /* SettingsRootView.swift */; };
+		A771782DD50C672E34004F30 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FE6BF6D67C6C8653B13EF2F9 /* Localizable.xcstrings */; };
+		AF156F98E009A125363E4ACC /* ComposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8618A998C57C9BE0EA1BF70 /* ComposeViewModel.swift */; };
+		AFC3E60A10980B1748FC5CDB /* FileMailerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFE106E066CF25169C20B7D /* FileMailerUITests.swift */; };
+		B175C004A902283DECA1F52C /* EmailTokenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEDB1C8E18B82CDA89DBFF /* EmailTokenField.swift */; };
+		B9E244597A232D2AE145EEA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE2F9802EAB4F517DDC63102 /* Assets.xcassets */; };
+		BFD74E903047A71BE8E53037 /* FileMailerDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 0F04B28B47F6ACEA60BA3CCA /* FileMailerDomain */; };
+		C8BE0B7489928C2D7A691B13 /* AccountSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6AFD64C4E7F86C1B299EA8 /* AccountSettingsView.swift */; };
+		CB337FDBC2849A3F2E3B8821 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C83EE2280274838142C9306 /* AboutView.swift */; };
+		DB3EF884D4ADB38D5B17A3D5 /* AppLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7BB54B2EDA9C4F38E07088 /* AppLanguage.swift */; };
+		EA77EB504C698E1D41643288 /* FileMailerCore in Frameworks */ = {isa = PBXBuildFile; productRef = E96D484294FC4355E7A38810 /* FileMailerCore */; };
+		EC43967ED44175DE24C8BFD7 /* ComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0EA84C6A2AC9B8BACF7A4 /* ComposeView.swift */; };
+		F02D583F1BE6E6FCA199FD19 /* AttachmentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328C064F1DC8C40F8B735D50 /* AttachmentCard.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		35FBF47B58C8AA35FD451229 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0D7E146CFF28CBFA2BE6E1C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 67585238B72BC8AAB2520F6C;
+			remoteInfo = FinderExtension;
+		};
+		E07CDB411B5C80AB2D3EB61A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0D7E146CFF28CBFA2BE6E1C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4140F3D44687006C9D3041A6;
+			remoteInfo = FileMailer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E65F3CBD929B15264512D05E /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				383F1763B08577B8D83F7936 /* FinderExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		00CEDB1C8E18B82CDA89DBFF /* EmailTokenField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTokenField.swift; sourceTree = "<group>"; };
+		0486A6FF585E815838CE78E7 /* FileMailer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FileMailer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		056DCF069B20312CA5BA1429 /* DriveCleanupScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveCleanupScheduler.swift; sourceTree = "<group>"; };
+		0791D9959D28DA0C0BF3F260 /* FinderSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderSync.swift; sourceTree = "<group>"; };
+		0B129FC26C75FEC406E1EB26 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0ED0EA84C6A2AC9B8BACF7A4 /* ComposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeView.swift; sourceTree = "<group>"; };
+		16DEFD0B6FAC68FE9902C16C /* te */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = te; path = te.lproj/Localizable.strings; sourceTree = "<group>"; };
+		17080ABD7ED08637E93B66A0 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		1F0EBCB46A0E2FB1B96148BF /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		2151A86631F39484FFD0A88D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		264A1A5ABA4117FE2C6B24E6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		268DE990C051D49EE944DEAA /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		26DC52BE944E70926FD2D401 /* FileMailerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FileMailerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D6AFD64C4E7F86C1B299EA8 /* AccountSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsView.swift; sourceTree = "<group>"; };
+		2FB0427E21648D33AC463356 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		30780AE177020003F069FFFC /* SettingsRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRootView.swift; sourceTree = "<group>"; };
+		326D2FD1EEEA7CCEFA614622 /* no */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = no; path = no.lproj/Localizable.strings; sourceTree = "<group>"; };
+		328C064F1DC8C40F8B735D50 /* AttachmentCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentCard.swift; sourceTree = "<group>"; };
+		37CA5BF1CBF976D63DCEF3FB /* FileMailer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FileMailer.entitlements; sourceTree = "<group>"; };
+		38899D31B1D63E63786769BF /* RecipientSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipientSettingsView.swift; sourceTree = "<group>"; };
+		409ADF6A489BD8AE86E9BC92 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4428711459AE256BB0F200C8 /* en-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-CA"; path = "en-CA.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		455B468F3DD9BD9949833058 /* gu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gu; path = gu.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4E350CC21B0702280158D2EB /* QuickPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickPanelView.swift; sourceTree = "<group>"; };
+		4EFE106E066CF25169C20B7D /* FileMailerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMailerUITests.swift; sourceTree = "<group>"; };
+		4F41ED9B241BE37529D7743B /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5F23680CFD8CB39091D80E09 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
+		F1A5E4B62D9C4A2B8D1E7F03 /* GoogleAuthorizationDisclosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthorizationDisclosure.swift; sourceTree = "<group>"; };
+		62BB41D9B6324DB1CE8A3879 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		67B512CD278D29074D73BA21 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		68AB5057E54CED1CAE0C044F /* FileMailerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMailerApp.swift; sourceTree = "<group>"; };
+		6B3BD2CACF1C2C2F3F62185C /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6B7BB54B2EDA9C4F38E07088 /* AppLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguage.swift; sourceTree = "<group>"; };
+		6B8C282A6231317C9E281D90 /* PlainTextBodyEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainTextBodyEditor.swift; sourceTree = "<group>"; };
+		6D0E19839943D6E5510348F3 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		7816EF864F182FE574A1F0DB /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
+		7C83EE2280274838142C9306 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		7D934C4A72C69CC9CD3505CD /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7F3BE757C48516A48A68E617 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		8AB23BDA7592FADB85C7C45A /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		905AEFF8E11D3A347CCBCA68 /* ms */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ms; path = ms.lproj/Localizable.strings; sourceTree = "<group>"; };
+		92377D28A4F699042D833653 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9238D2904E7F18F522121F1B /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9C188640995838E29F0F8961 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9C373D128368405BF6295E1D /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9CEB9C06ED461249EEECD239 /* FinderExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FinderExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E6DCED11B7523DD06B87A6F /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		A14058F0A9322B2D6522144F /* FileMail.icon */ = {isa = PBXFileReference; lastKnownFileType = wrapper.icon; path = FileMail.icon; sourceTree = "<group>"; };
+		A1452744BD5DB964FF4BAF11 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A166F57BC520D6E089C03328 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		A2A20707098343EFCB51552F /* QuickLookPreviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLookPreviewCoordinator.swift; sourceTree = "<group>"; };
+		A2ED6CBE564DE777225D8430 /* ml */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ml; path = ml.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A4FD55176D539E2F4D79F3C1 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		A63F89ADB96EBFA4C4C2F603 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A72D95A0795518DAF75E88FD /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A8618A998C57C9BE0EA1BF70 /* ComposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewModel.swift; sourceTree = "<group>"; };
+		A94BCCC6B41F320683FFAA64 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A99891FA1938101805726B6B /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AA239E8323CC37585A60219E /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B1A3FE3E70574AB9F478B30B /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B23A40185BF05185DD1EAA28 /* or */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = or; path = or.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B2C54A6AB3C8853B8B9F5B72 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BCFF97F1AC3DF0F64CF7271A /* en-AU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-AU"; path = "en-AU.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		BE4F05D3C5233B6730624BE0 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C82E1C7C486AE6FD381B0ED7 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		CB918743D4D60D47355B3808 /* pa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pa; path = pa.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D0EA83CE53BF929E0D43E08F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DC33DDD74257D735583F1177 /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
+		DC92B1415FF6457C4B709CA2 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DD9B3D5081FB129824E1DA77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		DE2F9802EAB4F517DDC63102 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E1E61AEA6CF3ED99AD7DA250 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E1EA4E171C4181CDDCBC592A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		E227C80233BD4B5BFF3B9A07 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E2B37028274788780305E867 /* mr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = mr; path = mr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E4FE0163FBC2B2B4808D48B0 /* WindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCoordinator.swift; sourceTree = "<group>"; };
+		E6539DC3EFF19FC24D518825 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E7C1C8A8004FAED20E2FC93C /* DiagnosticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsView.swift; sourceTree = "<group>"; };
+		E874187408813A0FC784A15B /* FileMailerCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FileMailerCore; path = Packages/FileMailerCore; sourceTree = SOURCE_ROOT; };
+		EDA0AAD5C34D9EE2BE5E3E11 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		EE34BFC47B8D96D4B2630AA5 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EFBFF6613FFA698366B44234 /* ur */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ur; path = ur.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4E4C3078393623F8AF338FE /* bn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bn; path = bn.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F6E31E1EA954563FAF6B5480 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F70388D7CB2042B1FF82964F /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FE6BF6D67C6C8653B13EF2F9 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		FF65AE4CBF5784B11878E5F9 /* kn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kn; path = kn.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FF6A5D5C6CD3C07A338EB3DC /* AppIPCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIPCService.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		19A82F1C9B85BAECC9AA323B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA77EB504C698E1D41643288 /* FileMailerCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4959BA9FE3E017345C468158 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BFD74E903047A71BE8E53037 /* FileMailerDomain in Frameworks */,
+				37C40171C266AFA140851BEA /* FileMailerIPC in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		022BD5545CB1D99248BA6C2E /* Diagnostics */ = {
+			isa = PBXGroup;
+			children = (
+				E7C1C8A8004FAED20E2FC93C /* DiagnosticsView.swift */,
+			);
+			path = Diagnostics;
+			sourceTree = "<group>";
+		};
+		191DCE134ADBF2E39B0CC0EB /* App */ = {
+			isa = PBXGroup;
+			children = (
+				37080DEBE368CAB0007ADEDC /* Application */,
+				5172221009587E80739D2F88 /* Compose */,
+				022BD5545CB1D99248BA6C2E /* Diagnostics */,
+				EC873ECABAD5DA9B5D5A78A7 /* MenuBar */,
+				29BCA3AEEEDD4FCD8A871251 /* Onboarding */,
+				3A240ED9E8722C150ED7B668 /* QuickLook */,
+				CBA8FEB02699D0C17293DE17 /* Resources */,
+				225AD970C49F74F6868D1A14 /* Settings */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		1BF5B5E0BC4588BC201AC998 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				E874187408813A0FC784A15B /* FileMailerCore */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		225AD970C49F74F6868D1A14 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				7C83EE2280274838142C9306 /* AboutView.swift */,
+				2D6AFD64C4E7F86C1B299EA8 /* AccountSettingsView.swift */,
+				5F23680CFD8CB39091D80E09 /* GeneralSettingsView.swift */,
+				F1A5E4B62D9C4A2B8D1E7F03 /* GoogleAuthorizationDisclosure.swift */,
+				38899D31B1D63E63786769BF /* RecipientSettingsView.swift */,
+				30780AE177020003F069FFFC /* SettingsRootView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		29BCA3AEEEDD4FCD8A871251 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				67B512CD278D29074D73BA21 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		2E5D158FFBB04C17C8FA205B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				71C0A39010461FD865609ED5 /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		37080DEBE368CAB0007ADEDC /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				8AB23BDA7592FADB85C7C45A /* AppConfiguration.swift */,
+				FF6A5D5C6CD3C07A338EB3DC /* AppIPCService.swift */,
+				6B7BB54B2EDA9C4F38E07088 /* AppLanguage.swift */,
+				DC33DDD74257D735583F1177 /* AppLogger.swift */,
+				1F0EBCB46A0E2FB1B96148BF /* AppModel.swift */,
+				056DCF069B20312CA5BA1429 /* DriveCleanupScheduler.swift */,
+				68AB5057E54CED1CAE0C044F /* FileMailerApp.swift */,
+				E4FE0163FBC2B2B4808D48B0 /* WindowCoordinator.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		3A240ED9E8722C150ED7B668 /* QuickLook */ = {
+			isa = PBXGroup;
+			children = (
+				A2A20707098343EFCB51552F /* QuickLookPreviewCoordinator.swift */,
+			);
+			path = QuickLook;
+			sourceTree = "<group>";
+		};
+		4CB04237512A3BD1E0FD0005 /* FinderExtension */ = {
+			isa = PBXGroup;
+			children = (
+				0791D9959D28DA0C0BF3F260 /* FinderSync.swift */,
+				2E5D158FFBB04C17C8FA205B /* Resources */,
+			);
+			path = FinderExtension;
+			sourceTree = "<group>";
+		};
+		4E91E0E0F5DD302A72D2A9CA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0486A6FF585E815838CE78E7 /* FileMailer.app */,
+				26DC52BE944E70926FD2D401 /* FileMailerUITests.xctest */,
+				9CEB9C06ED461249EEECD239 /* FinderExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5172221009587E80739D2F88 /* Compose */ = {
+			isa = PBXGroup;
+			children = (
+				328C064F1DC8C40F8B735D50 /* AttachmentCard.swift */,
+				0ED0EA84C6A2AC9B8BACF7A4 /* ComposeView.swift */,
+				A8618A998C57C9BE0EA1BF70 /* ComposeViewModel.swift */,
+				00CEDB1C8E18B82CDA89DBFF /* EmailTokenField.swift */,
+				6B8C282A6231317C9E281D90 /* PlainTextBodyEditor.swift */,
+			);
+			path = Compose;
+			sourceTree = "<group>";
+		};
+		BB7D5CB7B5374E45588C92A5 = {
+			isa = PBXGroup;
+			children = (
+				191DCE134ADBF2E39B0CC0EB /* App */,
+				E3F0B5C86CB8B726D91F77D9 /* AppUITests */,
+				D8C917BDBEFCA18BB2667BA4 /* Config */,
+				4CB04237512A3BD1E0FD0005 /* FinderExtension */,
+				1BF5B5E0BC4588BC201AC998 /* Packages */,
+				4E91E0E0F5DD302A72D2A9CA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CBA8FEB02699D0C17293DE17 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DE2F9802EAB4F517DDC63102 /* Assets.xcassets */,
+				A14058F0A9322B2D6522144F /* FileMail.icon */,
+				37CA5BF1CBF976D63DCEF3FB /* FileMailer.entitlements */,
+				DD9B3D5081FB129824E1DA77 /* Info.plist */,
+				FE6BF6D67C6C8653B13EF2F9 /* Localizable.xcstrings */,
+				E1EA4E171C4181CDDCBC592A /* PrivacyInfo.xcprivacy */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D8C917BDBEFCA18BB2667BA4 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				A166F57BC520D6E089C03328 /* Debug.xcconfig */,
+				17080ABD7ED08637E93B66A0 /* Release.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		E3F0B5C86CB8B726D91F77D9 /* AppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4EFE106E066CF25169C20B7D /* FileMailerUITests.swift */,
+			);
+			path = AppUITests;
+			sourceTree = "<group>";
+		};
+		EC873ECABAD5DA9B5D5A78A7 /* MenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				7816EF864F182FE574A1F0DB /* MenuBarController.swift */,
+				4E350CC21B0702280158D2EB /* QuickPanelView.swift */,
+			);
+			path = MenuBar;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4140F3D44687006C9D3041A6 /* FileMailer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD7DE55E65C3B929EAE500CF /* Build configuration list for PBXNativeTarget "FileMailer" */;
+			buildPhases = (
+				3B6330C48A38DD2A404B4B0E /* Sources */,
+				7E65BFBF0F7AECAC13EDD9BA /* Resources */,
+				19A82F1C9B85BAECC9AA323B /* Frameworks */,
+				E65F3CBD929B15264512D05E /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				02C6A930117DC280BB73AC83 /* PBXTargetDependency */,
+			);
+			name = FileMailer;
+			packageProductDependencies = (
+				E96D484294FC4355E7A38810 /* FileMailerCore */,
+			);
+			productName = FileMailer;
+			productReference = 0486A6FF585E815838CE78E7 /* FileMailer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5581A12D3505BFF898EC91D2 /* FileMailerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7ED136010F20FCECA917AC2C /* Build configuration list for PBXNativeTarget "FileMailerUITests" */;
+			buildPhases = (
+				860E11CB5C89A0D669D8E016 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				51D54ADDE05098656243AAA8 /* PBXTargetDependency */,
+			);
+			name = FileMailerUITests;
+			packageProductDependencies = (
+			);
+			productName = FileMailerUITests;
+			productReference = 26DC52BE944E70926FD2D401 /* FileMailerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		67585238B72BC8AAB2520F6C /* FinderExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 817BBD7DB8CBD988A3229578 /* Build configuration list for PBXNativeTarget "FinderExtension" */;
+			buildPhases = (
+				EA2837ECD74B827F178E7A17 /* Sources */,
+				010DB9A7F56D0E989646288C /* Resources */,
+				4959BA9FE3E017345C468158 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FinderExtension;
+			packageProductDependencies = (
+				0F04B28B47F6ACEA60BA3CCA /* FileMailerDomain */,
+				16E1923B7D89A4A2D9080A81 /* FileMailerIPC */,
+			);
+			productName = FinderExtension;
+			productReference = 9CEB9C06ED461249EEECD239 /* FinderExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C0D7E146CFF28CBFA2BE6E1C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					4140F3D44687006C9D3041A6 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					5581A12D3505BFF898EC91D2 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+						TestTargetID = 4140F3D44687006C9D3041A6;
+					};
+					67585238B72BC8AAB2520F6C = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = ACD1BCF39AFD18CA7D97A5D7 /* Build configuration list for PBXProject "FileMailer" */;
+			developmentRegion = fr;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				ar,
+				bn,
+				ca,
+				cs,
+				da,
+				de,
+				el,
+				en,
+				"en-AU",
+				"en-CA",
+				"en-GB",
+				es,
+				"es-MX",
+				fi,
+				fr,
+				"fr-CA",
+				gu,
+				he,
+				hi,
+				hr,
+				hu,
+				id,
+				it,
+				ja,
+				kn,
+				ko,
+				ml,
+				mr,
+				ms,
+				nl,
+				no,
+				or,
+				pa,
+				pl,
+				"pt-BR",
+				"pt-PT",
+				ro,
+				ru,
+				sk,
+				sl,
+				sv,
+				ta,
+				te,
+				th,
+				tr,
+				uk,
+				ur,
+				vi,
+				"zh-Hans",
+				"zh-Hant",
+			);
+			mainGroup = BB7D5CB7B5374E45588C92A5;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				28F1C870F156817D118FEF2E /* XCLocalSwiftPackageReference "Packages/FileMailerCore" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 4E91E0E0F5DD302A72D2A9CA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4140F3D44687006C9D3041A6 /* FileMailer */,
+				5581A12D3505BFF898EC91D2 /* FileMailerUITests */,
+				67585238B72BC8AAB2520F6C /* FinderExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		010DB9A7F56D0E989646288C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				33FEB01ABC5E5A69161F8C45 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7E65BFBF0F7AECAC13EDD9BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9E244597A232D2AE145EEA5 /* Assets.xcassets in Resources */,
+				3A5AFC232C7B9CD608DED1EC /* FileMail.icon in Resources */,
+				A771782DD50C672E34004F30 /* Localizable.xcstrings in Resources */,
+				26BCAA56D50DF62DE12D854D /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3B6330C48A38DD2A404B4B0E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB337FDBC2849A3F2E3B8821 /* AboutView.swift in Sources */,
+				C8BE0B7489928C2D7A691B13 /* AccountSettingsView.swift in Sources */,
+				4761509DD5B6C017630F865F /* AppConfiguration.swift in Sources */,
+				0C2A09B3B3DF60CB3692D0AB /* AppIPCService.swift in Sources */,
+				DB3EF884D4ADB38D5B17A3D5 /* AppLanguage.swift in Sources */,
+				789E11EAD1EDB9BFB5615AC5 /* AppLogger.swift in Sources */,
+				262A04211084DDA879A7A499 /* AppModel.swift in Sources */,
+				F02D583F1BE6E6FCA199FD19 /* AttachmentCard.swift in Sources */,
+				EC43967ED44175DE24C8BFD7 /* ComposeView.swift in Sources */,
+				AF156F98E009A125363E4ACC /* ComposeViewModel.swift in Sources */,
+				3D21E5D8E3C43A213454C3A4 /* DiagnosticsView.swift in Sources */,
+				881C973E1BBBA2ECADEC9FA0 /* DriveCleanupScheduler.swift in Sources */,
+				B175C004A902283DECA1F52C /* EmailTokenField.swift in Sources */,
+				237258A1799ECEBCBBF5B002 /* FileMailerApp.swift in Sources */,
+				78BE57DBDF4A68F67F02CF37 /* GeneralSettingsView.swift in Sources */,
+				E4B7C8D9A1F203456789ABCD /* GoogleAuthorizationDisclosure.swift in Sources */,
+				64361A9D72682DECBCEB5B88 /* MenuBarController.swift in Sources */,
+				7C4DF035B622A65AEA006FC1 /* OnboardingView.swift in Sources */,
+				81BEA92C77B679DC54026A33 /* PlainTextBodyEditor.swift in Sources */,
+				0DDD884A7E9BDE7A0E62BADE /* QuickLookPreviewCoordinator.swift in Sources */,
+				471AF3E5A12D70C56A58C22E /* QuickPanelView.swift in Sources */,
+				9D58D717D92A9037CA09D14C /* RecipientSettingsView.swift in Sources */,
+				A0AFFA2C352F6D2CE54F53FF /* SettingsRootView.swift in Sources */,
+				79B510C2821816ED09263E2E /* WindowCoordinator.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		860E11CB5C89A0D669D8E016 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AFC3E60A10980B1748FC5CDB /* FileMailerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA2837ECD74B827F178E7A17 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CF69F17BBB611AA2545F54C /* FinderSync.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		02C6A930117DC280BB73AC83 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 67585238B72BC8AAB2520F6C /* FinderExtension */;
+			targetProxy = 35FBF47B58C8AA35FD451229 /* PBXContainerItemProxy */;
+		};
+		51D54ADDE05098656243AAA8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4140F3D44687006C9D3041A6 /* FileMailer */;
+			targetProxy = E07CDB411B5C80AB2D3EB61A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		71C0A39010461FD865609ED5 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				264A1A5ABA4117FE2C6B24E6 /* ar */,
+				F4E4C3078393623F8AF338FE /* bn */,
+				409ADF6A489BD8AE86E9BC92 /* ca */,
+				A94BCCC6B41F320683FFAA64 /* cs */,
+				6B3BD2CACF1C2C2F3F62185C /* da */,
+				2151A86631F39484FFD0A88D /* de */,
+				BE4F05D3C5233B6730624BE0 /* el */,
+				0B129FC26C75FEC406E1EB26 /* en */,
+				BCFF97F1AC3DF0F64CF7271A /* en-AU */,
+				4428711459AE256BB0F200C8 /* en-CA */,
+				A4FD55176D539E2F4D79F3C1 /* en-GB */,
+				D0EA83CE53BF929E0D43E08F /* es */,
+				62BB41D9B6324DB1CE8A3879 /* es-MX */,
+				E6539DC3EFF19FC24D518825 /* fi */,
+				2FB0427E21648D33AC463356 /* fr */,
+				EDA0AAD5C34D9EE2BE5E3E11 /* fr-CA */,
+				455B468F3DD9BD9949833058 /* gu */,
+				4F41ED9B241BE37529D7743B /* he */,
+				EE34BFC47B8D96D4B2630AA5 /* hi */,
+				F70388D7CB2042B1FF82964F /* hr */,
+				9C373D128368405BF6295E1D /* hu */,
+				B1A3FE3E70574AB9F478B30B /* id */,
+				DC92B1415FF6457C4B709CA2 /* it */,
+				9238D2904E7F18F522121F1B /* ja */,
+				FF65AE4CBF5784B11878E5F9 /* kn */,
+				A63F89ADB96EBFA4C4C2F603 /* ko */,
+				A2ED6CBE564DE777225D8430 /* ml */,
+				E2B37028274788780305E867 /* mr */,
+				905AEFF8E11D3A347CCBCA68 /* ms */,
+				E227C80233BD4B5BFF3B9A07 /* nl */,
+				326D2FD1EEEA7CCEFA614622 /* no */,
+				B23A40185BF05185DD1EAA28 /* or */,
+				CB918743D4D60D47355B3808 /* pa */,
+				A1452744BD5DB964FF4BAF11 /* pl */,
+				9E6DCED11B7523DD06B87A6F /* pt-BR */,
+				C82E1C7C486AE6FD381B0ED7 /* pt-PT */,
+				92377D28A4F699042D833653 /* ro */,
+				B2C54A6AB3C8853B8B9F5B72 /* ru */,
+				268DE990C051D49EE944DEAA /* sk */,
+				AA239E8323CC37585A60219E /* sl */,
+				E1E61AEA6CF3ED99AD7DA250 /* sv */,
+				A99891FA1938101805726B6B /* ta */,
+				16DEFD0B6FAC68FE9902C16C /* te */,
+				9C188640995838E29F0F8961 /* th */,
+				7D934C4A72C69CC9CD3505CD /* tr */,
+				F6E31E1EA954563FAF6B5480 /* uk */,
+				EFBFF6613FFA698366B44234 /* ur */,
+				A72D95A0795518DAF75E88FD /* vi */,
+				7F3BE757C48516A48A68E617 /* zh-Hans */,
+				6D0E19839943D6E5510348F3 /* zh-Hant */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		20D6626B7D8492265407503E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = FinderExtension/FinderExtension.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FinderExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_BUNDLE_ID).FinderExtension";
+				PRODUCT_NAME = "$(APP_NAME) Finder Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		2F5363B2D8F6F65355962268 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = FileMail;
+				CODE_SIGNING_ALLOWED = YES;
+				CODE_SIGN_ENTITLEMENTS = App/Resources/FileMailer.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = App/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_BUNDLE_ID)";
+				PRODUCT_NAME = "$(APP_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		499FE542C49FAB46FF500493 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_BUNDLE_ID).UITests";
+				SDKROOT = macosx;
+				TEST_TARGET_NAME = FileMailer;
+			};
+			name = Debug;
+		};
+		4C62AE6084A6F1037DE8E7DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = FileMail;
+				CODE_SIGN_ENTITLEMENTS = App/Resources/FileMailer.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = App/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_BUNDLE_ID)";
+				PRODUCT_NAME = "$(APP_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		6637D5D7ED0A057A62CE94D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A166F57BC520D6E089C03328 /* Debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		85DC7041B1528961FE2501F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17080ABD7ED08637E93B66A0 /* Release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		FBE0FA3953C26524557A1018 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = FinderExtension/FinderExtension.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FinderExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_BUNDLE_ID).FinderExtension";
+				PRODUCT_NAME = "$(APP_NAME) Finder Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		FD7AF99286E20DCC28D14964 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_BUNDLE_ID).UITests";
+				SDKROOT = macosx;
+				TEST_TARGET_NAME = FileMailer;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7ED136010F20FCECA917AC2C /* Build configuration list for PBXNativeTarget "FileMailerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				499FE542C49FAB46FF500493 /* Debug */,
+				FD7AF99286E20DCC28D14964 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		817BBD7DB8CBD988A3229578 /* Build configuration list for PBXNativeTarget "FinderExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBE0FA3953C26524557A1018 /* Debug */,
+				20D6626B7D8492265407503E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		ACD1BCF39AFD18CA7D97A5D7 /* Build configuration list for PBXProject "FileMailer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6637D5D7ED0A057A62CE94D9 /* Debug */,
+				85DC7041B1528961FE2501F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AD7DE55E65C3B929EAE500CF /* Build configuration list for PBXNativeTarget "FileMailer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2F5363B2D8F6F65355962268 /* Debug */,
+				4C62AE6084A6F1037DE8E7DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		28F1C870F156817D118FEF2E /* XCLocalSwiftPackageReference "Packages/FileMailerCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/FileMailerCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0F04B28B47F6ACEA60BA3CCA /* FileMailerDomain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FileMailerDomain;
+		};
+		16E1923B7D89A4A2D9080A81 /* FileMailerIPC */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FileMailerIPC;
+		};
+		E96D484294FC4355E7A38810 /* FileMailerCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FileMailerCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = C0D7E146CFF28CBFA2BE6E1C /* Project object */;
+}

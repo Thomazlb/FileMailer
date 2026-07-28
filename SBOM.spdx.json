@@ -1,0 +1,54 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "name": "FileMailer-0.1.0",
+  "documentNamespace": "https://filemailer.invalid/spdx/FileMailer-0.1.0",
+  "creationInfo": {
+    "created": "2026-07-23T00:00:00Z",
+    "creators": [
+      "Tool: FileMailer repository manifest"
+    ]
+  },
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Package-FileMailer",
+      "name": "FileMailer",
+      "versionInfo": "0.1.0",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-AppAuth",
+      "name": "AppAuth-iOS",
+      "versionInfo": "2.1.0",
+      "downloadLocation": "https://github.com/openid/AppAuth-iOS",
+      "filesAnalyzed": false,
+      "licenseConcluded": "Apache-2.0",
+      "licenseDeclared": "Apache-2.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-ZIPFoundation",
+      "name": "ZIPFoundation",
+      "versionInfo": "0.9.20",
+      "downloadLocation": "https://github.com/weichsel/ZIPFoundation",
+      "filesAnalyzed": false,
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "MIT"
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Package-FileMailer",
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-AppAuth"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-FileMailer",
+      "relationshipType": "DEPENDS_ON",
+      "relatedSpdxElement": "SPDXRef-Package-ZIPFoundation"
+    }
+  ]
+}

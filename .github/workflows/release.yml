@@ -1,0 +1,125 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  developer-id-release:
+    runs-on: [self-hosted, macOS, xcode-27]
+    environment: release
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Validate release secrets
+        env:
+          CERTIFICATE_P12_BASE64: ${{ secrets.CERTIFICATE_P12_BASE64 }}
+          CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
+          BUILD_KEYCHAIN_PASSWORD: ${{ secrets.BUILD_KEYCHAIN_PASSWORD }}
+          DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_REDIRECT_SCHEME: ${{ secrets.GOOGLE_REDIRECT_SCHEME }}
+          BASE_BUNDLE_ID: ${{ secrets.BASE_BUNDLE_ID }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+        run: |
+          test -n "$CERTIFICATE_P12_BASE64" || { echo "::error::Missing release secret CERTIFICATE_P12_BASE64"; exit 1; }
+          test -n "$CERTIFICATE_PASSWORD" || { echo "::error::Missing release secret CERTIFICATE_PASSWORD"; exit 1; }
+          test -n "$BUILD_KEYCHAIN_PASSWORD" || { echo "::error::Missing release secret BUILD_KEYCHAIN_PASSWORD"; exit 1; }
+          test -n "$DEVELOPMENT_TEAM" || { echo "::error::Missing release secret DEVELOPMENT_TEAM"; exit 1; }
+          test -n "$GOOGLE_CLIENT_ID" || { echo "::error::Missing release secret GOOGLE_CLIENT_ID"; exit 1; }
+          test -n "$GOOGLE_REDIRECT_SCHEME" || { echo "::error::Missing release secret GOOGLE_REDIRECT_SCHEME"; exit 1; }
+          test -n "$BASE_BUNDLE_ID" || { echo "::error::Missing release secret BASE_BUNDLE_ID"; exit 1; }
+          test -n "$APPLE_ID" || { echo "::error::Missing release secret APPLE_ID"; exit 1; }
+          test -n "$APPLE_TEAM_ID" || { echo "::error::Missing release secret APPLE_TEAM_ID"; exit 1; }
+          test -n "$APPLE_APP_PASSWORD" || { echo "::error::Missing release secret APPLE_APP_PASSWORD"; exit 1; }
+      - name: Import Developer ID identity
+        env:
+          CERTIFICATE_P12_BASE64: ${{ secrets.CERTIFICATE_P12_BASE64 }}
+          CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
+          BUILD_KEYCHAIN_PASSWORD: ${{ secrets.BUILD_KEYCHAIN_PASSWORD }}
+          DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
+        run: |
+          KEYCHAIN_PATH="$RUNNER_TEMP/filemailer-build.keychain-db"
+          security list-keychains -d user | sed 's/^[[:space:]]*"\(.*\)"$/\1/' > "$RUNNER_TEMP/original-keychains.txt"
+          security create-keychain -p "$BUILD_KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$BUILD_KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          printf '%s' "$CERTIFICATE_P12_BASE64" | base64 --decode > "$RUNNER_TEMP/certificate.p12"
+          security import "$RUNNER_TEMP/certificate.p12" -k "$KEYCHAIN_PATH" -P "$CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$BUILD_KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security list-keychains -d user -s "$KEYCHAIN_PATH" $(cat "$RUNNER_TEMP/original-keychains.txt")
+          security find-identity -v -p codesigning "$KEYCHAIN_PATH" | grep -q "Developer ID Application:.*($DEVELOPMENT_TEAM)"
+      - name: Write release configuration
+        env:
+          DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_REDIRECT_SCHEME: ${{ secrets.GOOGLE_REDIRECT_SCHEME }}
+          BASE_BUNDLE_ID: ${{ secrets.BASE_BUNDLE_ID }}
+        run: |
+          {
+            printf 'DEVELOPMENT_TEAM = %s\n' "$DEVELOPMENT_TEAM"
+            printf 'GOOGLE_CLIENT_ID = %s\n' "$GOOGLE_CLIENT_ID"
+            printf 'GOOGLE_REDIRECT_SCHEME = %s\n' "$GOOGLE_REDIRECT_SCHEME"
+            printf 'BASE_BUNDLE_ID = %s\n' "$BASE_BUNDLE_ID"
+            printf 'GOLDEN_GATE_FEATURES = YES\n'
+          } > Config/Local.xcconfig
+      - name: Audit public source
+        run: make audit-public
+      - name: Test and package
+        env:
+          RELEASE_DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
+        run: |
+          make generate
+          make test
+          make package CODE_SIGNING_ALLOWED=YES
+      - name: Notarize and staple
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+        run: |
+          xcrun notarytool submit build/FileMailer.zip \
+            --apple-id "$APPLE_ID" \
+            --team-id "$APPLE_TEAM_ID" \
+            --password "$APPLE_APP_PASSWORD" \
+            --wait
+          xcrun stapler staple build/FileMailer.xcarchive/Products/Applications/FileMailer.app
+          ditto -c -k --keepParent \
+            build/FileMailer.xcarchive/Products/Applications/FileMailer.app \
+            build/FileMailer.zip
+          (cd build && shasum -a 256 FileMailer.zip > FileMailer.zip.sha256)
+          zsh Scripts/package_dmg.sh \
+            build/FileMailer.xcarchive/Products/Applications/FileMailer.app \
+            build/FileMailer.dmg
+          xcrun notarytool submit build/FileMailer.dmg \
+            --apple-id "$APPLE_ID" \
+            --team-id "$APPLE_TEAM_ID" \
+            --password "$APPLE_APP_PASSWORD" \
+            --wait
+          xcrun stapler staple build/FileMailer.dmg
+          (cd build && shasum -a 256 FileMailer.dmg > FileMailer.dmg.sha256)
+          make verify-release
+      - name: Publish artifacts
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65
+        with:
+          prerelease: true
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+          files: |
+            build/FileMailer.dmg
+            build/FileMailer.dmg.sha256
+            build/FileMailer.zip
+            build/FileMailer.zip.sha256
+            build/FileMailer.spdx.json
+      - name: Restore keychain configuration
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/original-keychains.txt" ]; then
+            security list-keychains -d user -s $(cat "$RUNNER_TEMP/original-keychains.txt")
+          fi
+          security delete-keychain "$RUNNER_TEMP/filemailer-build.keychain-db" || true

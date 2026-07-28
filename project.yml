@@ -1,0 +1,148 @@
+name: FileMailer
+options:
+  minimumXcodeGenVersion: 2.42.0
+  developmentLanguage: fr
+  deploymentTarget:
+    macOS: "26.0"
+  createIntermediateGroups: true
+configs:
+  Debug: debug
+  Release: release
+configFiles:
+  Debug: Config/Debug.xcconfig
+  Release: Config/Release.xcconfig
+packages:
+  FileMailerCore:
+    path: Packages/FileMailerCore
+targets:
+  FileMailer:
+    type: application
+    platform: macOS
+    sources:
+      - path: App
+    resources:
+      - path: App/Resources
+        excludes:
+          - FileMailer.entitlements
+          - Info.plist
+    info:
+      path: App/Resources/Info.plist
+      properties:
+        CFBundleDevelopmentRegion: $(DEVELOPMENT_LANGUAGE)
+        CFBundleDisplayName: $(APP_NAME)
+        CFBundleExecutable: $(EXECUTABLE_NAME)
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        CFBundleInfoDictionaryVersion: "6.0"
+        CFBundleName: $(PRODUCT_NAME)
+        CFBundlePackageType: APPL
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleURLTypes:
+          - CFBundleURLName: org.filemailer.FileMailer.action
+            CFBundleURLSchemes:
+              - filemailer
+          - CFBundleURLName: org.filemailer.FileMailer.google-oauth
+            CFBundleURLSchemes:
+              - $(GOOGLE_REDIRECT_SCHEME)
+        FileMailerBaseBundleID: $(BASE_BUNDLE_ID)
+        FileMailerGoldenGateFeatures: $(GOLDEN_GATE_FEATURES)
+        FileMailerGoogleClientID: $(GOOGLE_CLIENT_ID)
+        FileMailerGoogleRedirectScheme: $(GOOGLE_REDIRECT_SCHEME)
+        LSApplicationCategoryType: public.app-category.productivity
+        LSMinimumSystemVersion: $(MACOSX_DEPLOYMENT_TARGET)
+        LSUIElement: true
+        ITSAppUsesNonExemptEncryption: false
+    entitlements:
+      path: App/Resources/FileMailer.entitlements
+      properties: {}
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(BASE_BUNDLE_ID)
+        PRODUCT_NAME: $(APP_NAME)
+        INFOPLIST_FILE: App/Resources/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        CODE_SIGN_ENTITLEMENTS: App/Resources/FileMailer.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: FileMail
+        LD_RUNPATH_SEARCH_PATHS:
+          - $(inherited)
+          - "@executable_path/../Frameworks"
+        ENABLE_APP_SANDBOX: NO
+      configs:
+        Debug:
+          CODE_SIGNING_ALLOWED: YES
+        Release:
+          ENABLE_HARDENED_RUNTIME: YES
+    dependencies:
+      - package: FileMailerCore
+        product: FileMailerCore
+      - target: FinderExtension
+        embed: true
+  FinderExtension:
+    type: app-extension
+    platform: macOS
+    sources:
+      - path: FinderExtension
+        excludes:
+          - Info.plist
+          - FinderExtension.entitlements
+    resources:
+      - path: FinderExtension/Resources
+    info:
+      path: FinderExtension/Info.plist
+      properties:
+        CFBundleDevelopmentRegion: $(DEVELOPMENT_LANGUAGE)
+        CFBundleExecutable: $(EXECUTABLE_NAME)
+        CFBundleDisplayName: $(APP_NAME) Finder Extension
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        CFBundleInfoDictionaryVersion: "6.0"
+        CFBundleName: $(PRODUCT_NAME)
+        CFBundlePackageType: XPC!
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        ITSAppUsesNonExemptEncryption: false
+        LSMinimumSystemVersion: $(MACOSX_DEPLOYMENT_TARGET)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.FinderSync
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).FinderSync
+    entitlements:
+      path: FinderExtension/FinderExtension.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(BASE_BUNDLE_ID).FinderExtension
+        PRODUCT_NAME: $(APP_NAME) Finder Extension
+        INFOPLIST_FILE: FinderExtension/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        CODE_SIGN_ENTITLEMENTS: FinderExtension/FinderExtension.entitlements
+        SKIP_INSTALL: YES
+        ENABLE_APP_SANDBOX: YES
+        APPLICATION_EXTENSION_API_ONLY: YES
+    dependencies:
+      - package: FileMailerCore
+        product: FileMailerDomain
+      - package: FileMailerCore
+        product: FileMailerIPC
+  FileMailerUITests:
+    type: bundle.ui-testing
+    platform: macOS
+    sources:
+      - path: AppUITests
+    settings:
+      base:
+        TEST_TARGET_NAME: FileMailer
+        PRODUCT_BUNDLE_IDENTIFIER: $(BASE_BUNDLE_ID).UITests
+    dependencies:
+      - target: FileMailer
+schemes:
+  FileMailer:
+    build:
+      targets:
+        FileMailer: all
+        FinderExtension: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - FileMailerUITests

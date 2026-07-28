@@ -1,0 +1,6 @@
+title: FileMailer
+description: Private, user-initiated Gmail sending from Finder on macOS
+url: "https://filemail.online"
+baseurl: ""
+theme: jekyll-theme-minimal
+show_downloads: true

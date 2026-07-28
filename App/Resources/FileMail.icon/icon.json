@@ -1,0 +1,65 @@
+{
+  "fill" : "system-dark",
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "fill-specializations" : [
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "extended-srgb:0.00000,0.53333,1.00000,1.00000"
+              }
+            }
+          ],
+          "image-name" : "03-BluePlane.svg",
+          "name" : "03-BluePlane",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              -13.659437189567257,
+              3.4607383646631433
+            ]
+          }
+        },
+        {
+          "fill-specializations" : [
+            {
+              "appearance" : "dark",
+              "value" : "system-light"
+            }
+          ],
+          "image-name" : "02-WhitePlane.svg",
+          "name" : "02-WhitePlane",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              -13.659437189567257,
+              3.4607383646631433
+            ]
+          }
+        }
+      ],
+      "lighting" : "individual",
+      "refractivity" : {
+        "depth" : 0,
+        "enabled" : false,
+        "strength" : 1
+      },
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.6
+      },
+      "translucency" : {
+        "enabled" : false,
+        "value" : 1
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}

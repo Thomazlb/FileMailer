@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  repository-policy:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate repository policy
+        run: |
+          make audit-public
+          plutil -lint App/Resources/Info.plist
+          plutil -lint FinderExtension/Info.plist
+          plutil -lint FinderExtension/FinderExtension.entitlements
+
+  xcode-27:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: [self-hosted, macOS, xcode-27]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate
+        run: make generate
+      - name: Test core
+        run: make test
+      - name: Build app and Finder extension
+        run: make build CODE_SIGNING_ALLOWED=NO
+      - name: Upload sanitized build logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcode-27-derived-logs
+          path: build/DerivedData/Logs
+          retention-days: 7
