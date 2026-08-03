@@ -107,7 +107,10 @@ jobs:
       - name: Publish artifacts
         uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65
         with:
-          prerelease: true
+          # Keep development tags pre-release, but publish v1.0.0 as the first
+          # stable release. The tag is created only after a signed/notarized
+          # build has completed successfully.
+          prerelease: ${{ github.ref != 'refs/tags/v1.0.0' }}
           generate_release_notes: true
           fail_on_unmatched_files: true
           files: |
