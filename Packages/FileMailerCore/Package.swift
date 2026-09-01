@@ -18,7 +18,7 @@ let package = Package(
         .library(name: "FileMailerCore", targets: ["FileMailerCore"])
     ],
     dependencies: [
-        .package(url: "https://github.com/openid/AppAuth-iOS.git", exact: "2.1.0"),
+        .package(url: "https://github.com/openid/AppAuth-iOS.git", exact: "3.0.0"),
         .package(url: "https://github.com/weichsel/ZIPFoundation.git", exact: "0.9.20")
     ],
     targets: [
