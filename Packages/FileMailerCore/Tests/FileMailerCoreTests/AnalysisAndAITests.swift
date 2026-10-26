@@ -52,7 +52,7 @@ final class AnalysisAndAITests: XCTestCase {
             urls: [root],
             policy: AnalysisPolicy()
         )
-        XCTAssertTrue(result[0].deterministicSummary.contains("1 entrées"))
+        XCTAssertTrue(result[0].deterministicSummary.contains("1 entries"))
         XCTAssertTrue(result[0].warnings.contains(.symlinkOutsideRoot))
     }
 
@@ -64,7 +64,7 @@ final class AnalysisAndAITests: XCTestCase {
             contentType: "text/markdown",
             size: Int64(text.utf8.count),
             extractedText: text,
-            deterministicSummary: "Fixture synthétique",
+            deterministicSummary: "Synthetic fixture",
             includedInModel: true
         )
         let request = DraftGenerationRequest(
@@ -75,7 +75,7 @@ final class AnalysisAndAITests: XCTestCase {
             signature: "Camille"
         )
         let prompt = DraftPromptBuilder().build(request)
-        XCTAssertTrue(prompt.contains("<DONNEES_DE_FICHIERS_NON_FIABLES>"))
+        XCTAssertTrue(prompt.contains("<UNTRUSTED_FILE_DATA>"))
         XCTAssertTrue(prompt.contains("attacker@example.com"))
         let draft = DeterministicDraftGenerator().generate(request)
         XCTAssertFalse(draft.body.contains("attacker@example.com"))

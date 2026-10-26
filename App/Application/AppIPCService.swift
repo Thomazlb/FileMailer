@@ -6,9 +6,8 @@ final class AppIPCService {
     private unowned let model: AppModel
     private let notifications = DistributedNotificationCenter.default()
     private let names = IPCNotificationNames(baseBundleID: AppConfiguration.baseBundleID)
-    private let codec = IPCCodec()
+    private let store = SharedFinderStateStore.configured()
     private let actionURLCodec = IPCActionURLCodec()
-    private let reassembler = IPCChunkReassembler()
     private let deduplicator = RequestDeduplicator()
     private let validator = ComposeActionValidator()
     nonisolated(unsafe) private var observers: [NSObjectProtocol] = []
@@ -34,17 +33,15 @@ final class AppIPCService {
 
     func publishSnapshot() {
         let snapshot = model.finderSnapshot()
-        guard let chunks = try? codec.encode(snapshot, limit: .snapshot) else {
-            model.addDiagnostic(category: "ipc", message: "Snapshot trop volumineux.")
-            return
-        }
-        for chunk in chunks {
+        do {
+            guard let store else { throw IPCError.invalidChunk }
+            try store.saveSnapshot(snapshot)
             notifications.postNotificationName(
-                names.snapshotChunk,
-                object: nil,
-                userInfo: chunk.notificationUserInfo(),
-                deliverImmediately: true
+                names.snapshotChanged, object: nil, userInfo: nil, deliverImmediately: true
             )
+        } catch {
+            model.addDiagnostic(category: "ipc", message: error.localizedDescription)
+            return
         }
         model.lastSnapshotDate = snapshot.generatedAt
     }
@@ -53,7 +50,13 @@ final class AppIPCService {
         Task { @MainActor [weak self] in
             guard let self else { return }
             do {
-                let envelope = try actionURLCodec.decode(url)
+                let envelope: IPCActionEnvelope
+                if let id = actionURLCodec.referenceID(from: url), let store {
+                    envelope = try store.takeAction(id: id)
+                } else {
+                    // Keep existing Developer ID installations compatible during the transition.
+                    envelope = try actionURLCodec.decode(url)
+                }
                 try await process(
                     envelope.request,
                     command: envelope.command
@@ -86,21 +89,6 @@ final class AppIPCService {
                 Task { @MainActor in self?.publishSnapshot() }
             }
         )
-        observers.append(
-            notifications.addObserver(
-                forName: names.actionChunk,
-                object: nil,
-                queue: .main
-            ) { [weak self] notification in
-                guard let self,
-                      let chunk = IPCChunk(notificationUserInfo: notification.userInfo)
-                else {
-                    return
-                }
-                let command = notification.userInfo?["command"] as? String
-                Task { @MainActor in await self.ingest(chunk, command: command) }
-            }
-        )
         localObservers.append(
             NotificationCenter.default.addObserver(
                 forName: .fileMailerSnapshotNeedsRefresh,
@@ -112,41 +100,30 @@ final class AppIPCService {
         )
     }
 
-    private func ingest(_ chunk: IPCChunk, command: String?) async {
-        do {
-            guard let chunks = try await reassembler.ingest(chunk) else { return }
-            let request = try codec.decode(
-                ComposeActionRequest.self,
-                from: chunks,
-                limit: .action
-            )
-            try await process(request, command: command)
-        } catch {
-            model.addDiagnostic(category: "ipc", message: error.localizedDescription)
-        }
-    }
-
     private func process(
         _ request: ComposeActionRequest,
         command: String?
     ) async throws {
         try validator.validate(request, now: Date())
         try await deduplicator.accept(request.requestID, now: Date())
+        guard command == nil || command == "editRecipients" || command == "openApp" else {
+            throw IPCError.invalidChunk
+        }
+        defer { publishAcknowledgement(for: request.requestID) }
         if command == "editRecipients" {
             model.windows?.showSettings(section: .recipients)
         } else if command == "openApp" {
             model.windows?.showSettings()
         } else {
-            model.openCompose(paths: request.paths, recipientID: request.recipientID)
+            try model.openFinderCompose(paths: request.paths, recipientID: request.recipientID)
         }
-        publishAcknowledgement(for: request.requestID)
     }
 
     private func publishAcknowledgement(for requestID: UUID) {
         notifications.postNotificationName(
             names.actionAcknowledgement,
-            object: nil,
-            userInfo: ["requestID": requestID.uuidString],
+            object: requestID.uuidString,
+            userInfo: nil,
             deliverImmediately: true
         )
     }

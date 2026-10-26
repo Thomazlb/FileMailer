@@ -1,0 +1,1 @@
+Turn selected files into an editable email draft. Review every message, send with Gmail, and share large files through private Google Drive links.

@@ -25,9 +25,9 @@ struct RecipientSettingsView: View {
             .overlay {
                 if model.recipients.isEmpty {
                     ContentUnavailableView(
-                        "Aucun destinataire",
+                        "No recipient",
                         systemImage: "person.crop.circle.badge.plus",
-                        description: Text("Ajoutez les personnes que vous contactez le plus souvent.")
+                        description: Text("Add the people you contact most often.")
                     )
                 }
             }
@@ -37,17 +37,17 @@ struct RecipientSettingsView: View {
                 Button {
                     isAdding = true
                 } label: {
-                    Label("Ajouter", systemImage: "plus")
+                    Label("Add", systemImage: "plus")
                 }
                 Spacer()
-                Text("Aperçu Finder: \(finderPreview)")
+                Text(model.localization.format("Finder preview: %@", finderPreview))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
             .padding(10)
         }
         .background(Color.black)
-        .navigationTitle(model.localizedString("Destinataires"))
+        .navigationTitle(model.localizedString("Recipients"))
         .sheet(isPresented: $isAdding) {
             RecipientEditor(
                 recipient: nil,
@@ -65,7 +65,7 @@ struct RecipientSettingsView: View {
             )
         }
         .alert(
-            "Erreur",
+            "Error",
             isPresented: Binding(
                 get: { errorMessage != nil },
                 set: { if !$0 { errorMessage = nil } }
@@ -121,7 +121,7 @@ private struct RecipientRow: View {
                 Image(systemName: recipient.isPinned ? "pin.fill" : "pin")
             }
             .buttonStyle(.plain)
-            .accessibilityLabel(LocalizedStringKey(recipient.isPinned ? "Désépingler" : "Épingler"))
+            .accessibilityLabel(LocalizedStringKey(recipient.isPinned ? "Unpin" : "Pin"))
             VStack(alignment: .leading) {
                 Text(recipient.displayName)
                 Text(recipient.email)
@@ -130,12 +130,12 @@ private struct RecipientRow: View {
             }
             Spacer()
             if !recipient.isEnabled {
-                Text("Masqué")
+                Text("Hidden")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
-            Button("Modifier", action: onEdit)
-            Button("Supprimer", role: .destructive, action: onDelete)
+            Button("Edit", action: onEdit)
+            Button("Delete", role: .destructive, action: onDelete)
         }
         .padding(.vertical, 4)
     }
@@ -176,27 +176,27 @@ private struct RecipientEditor: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Text("Destinataire")
+            Text("Recipient")
                 .font(.title2.weight(.semibold))
             Form {
-                TextField("Nom", text: $displayName)
+                TextField("Name", text: $displayName)
                     .accessibilityIdentifier("recipient-name")
-                TextField("Adresse e-mail", text: $email)
-                Toggle("Épinglé", isOn: $isPinned)
-                Toggle("Visible dans le classement", isOn: $isEnabled)
-                Picker("Compte préféré", selection: $preferredSenderID) {
-                    Text("Automatique").tag(Optional<GmailAccountID>.none)
+                TextField("E-mail address", text: $email)
+                Toggle("Pinned", isOn: $isPinned)
+                Toggle("Visible in the ranking", isOn: $isEnabled)
+                Picker("Preferred account", selection: $preferredSenderID) {
+                    Text("Automatic").tag(Optional<GmailAccountID>.none)
                     ForEach(accounts) { account in
                         Text(account.email).tag(Optional(account.id))
                     }
                 }
-                Picker("Ton", selection: $tone) {
-                    Text("Concis").tag(DraftTone.concise)
-                    Text("Professionnel").tag(DraftTone.professional)
-                    Text("Amical").tag(DraftTone.friendly)
-                    Text("Neutre").tag(DraftTone.neutral)
+                Picker("Tone", selection: $tone) {
+                    Text("Concise").tag(DraftTone.concise)
+                    Text("Professional").tag(DraftTone.professional)
+                    Text("Friendly").tag(DraftTone.friendly)
+                    Text("Neutral").tag(DraftTone.neutral)
                 }
-                TextField("Préférence de rédaction", text: $customInstruction)
+                TextField("Writing preference", text: $customInstruction)
             }
             .scrollContentBackground(.hidden)
             if let validationError {
@@ -206,12 +206,12 @@ private struct RecipientEditor: View {
             }
             HStack {
                 Spacer()
-                Button("Annuler", action: onCancel)
-                Button("Enregistrer") {
+                Button("Cancel", action: onCancel)
+                Button("Save") {
                     do {
                         let address = try EmailAddress(email)
                         guard !displayName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                            validationError = FileMailerLocalization.current.string("Le nom est requis.")
+                            validationError = FileMailerLocalization.current.string("Name Is Required.")
                             return
                         }
                         onSave(

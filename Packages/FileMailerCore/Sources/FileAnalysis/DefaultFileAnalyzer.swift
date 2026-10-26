@@ -16,11 +16,11 @@ public enum FileAnalysisError: Error, LocalizedError, Sendable {
 
     public var errorDescription: String? {
         switch self {
-        case .tooManyPaths: FileMailerLocalization.current.string("Trop de fichiers ont été sélectionnés.")
-        case .archiveInvalid: FileMailerLocalization.current.string("L’archive ne peut pas être lue.")
-        case .archiveSuspicious: FileMailerLocalization.current.string("L’archive présente un risque de sécurité.")
-        case .folderTooLarge: FileMailerLocalization.current.string("Le dossier dépasse les limites d’analyse.")
-        case .cancelled: FileMailerLocalization.current.string("L’analyse a été annulée.")
+        case .tooManyPaths: FileMailerLocalization.current.string("Too many files have been selected.")
+        case .archiveInvalid: FileMailerLocalization.current.string("The archive cannot be read.")
+        case .archiveSuspicious: FileMailerLocalization.current.string("The archive poses a security risk.")
+        case .folderTooLarge: FileMailerLocalization.current.string("The folder exceeds the analysis limits.")
+        case .cancelled: FileMailerLocalization.current.string("The analysis was canceled.")
         }
     }
 }
@@ -86,7 +86,7 @@ public actor DefaultFileAnalyzer: FileAnalyzing {
                 size: size,
                 creationDate: values.creationDate,
                 modificationDate: values.contentModificationDate,
-                deterministicSummary: "Lien symbolique, non suivi automatiquement.",
+                deterministicSummary: "Symbolic link, not followed automatically.",
                 warnings: [.symlinkOutsideRoot]
             )
         }
@@ -131,7 +131,7 @@ public actor DefaultFileAnalyzer: FileAnalyzing {
             creationDate: values.creationDate,
             modificationDate: values.contentModificationDate,
             deterministicSummary: "Fichier \(contentType), \(size) octets.",
-            summaryLocalizationKey: "Fichier %@, %@ octets.",
+            summaryLocalizationKey: "File %@, %@ bytes.",
             summaryLocalizationArguments: [String(contentType), String(size)],
             warnings: [.unsupported]
         )
@@ -154,7 +154,7 @@ public actor DefaultFileAnalyzer: FileAnalyzing {
             size: base?.size ?? 0,
             creationDate: base?.creationDate,
             modificationDate: base?.modificationDate,
-            deterministicSummary: "Fichier inaccessible. Sélectionnez-le à nouveau.",
+            deterministicSummary: "File inaccessible. Select it again.",
             warnings: [.inaccessible]
         )
     }
@@ -190,9 +190,9 @@ struct PlainTextAnalyzer: Sendable {
             creationDate: base.creationDate,
             modificationDate: base.modificationDate,
             extractedText: text,
-            deterministicSummary: "Document texte, \(text.split(separator: "\n").count) lignes\(truncated ? ", extrait tronqué" : "").",
-            summaryLocalizationKey: "Document texte, %@ lignes%@.",
-            summaryLocalizationArguments: [String(text.split(separator: "\n").count), String(truncated ? ", extrait tronqué" : "")],
+            deterministicSummary: "Text document, \(text.split(separator: "\n").count) lines\(truncated ? ", truncated extract" : "").",
+            summaryLocalizationKey: "Text document, %@ lines%@.",
+            summaryLocalizationArguments: [String(text.split(separator: "\n").count), String(truncated ? ", truncated extract" : "")],
             warnings: truncated ? [.truncated] : [],
             includedInModel: !text.isEmpty
         )
@@ -212,7 +212,7 @@ struct PlainTextAnalyzer: Sendable {
             size: base.size,
             creationDate: base.creationDate,
             modificationDate: base.modificationDate,
-            deterministicSummary: "Document texte inaccessible.",
+            deterministicSummary: "Text document inaccessible.",
             warnings: [.inaccessible]
         )
     }
@@ -230,7 +230,7 @@ struct PDFFileAnalyzer: Sendable {
                 displayName: base.name,
                 contentType: base.contentType,
                 size: base.size,
-                deterministicSummary: "PDF illisible.",
+                deterministicSummary: "PDF unreadable.",
                 warnings: [.inaccessible]
             )
         }
@@ -240,8 +240,8 @@ struct PDFFileAnalyzer: Sendable {
                 contentType: base.contentType,
                 size: base.size,
                 pageCount: document.pageCount,
-                deterministicSummary: "PDF chiffré, \(document.pageCount) pages.",
-                summaryLocalizationKey: "PDF chiffré, %@ pages.",
+                deterministicSummary: "Encrypted PDF, \(document.pageCount) pages.",
+                summaryLocalizationKey: "PDF encrypted, %@ pages.",
                 summaryLocalizationArguments: [String(document.pageCount)],
                 warnings: [.encrypted]
             )
@@ -282,7 +282,7 @@ struct PDFFileAnalyzer: Sendable {
             pageCount: document.pageCount,
             extractedText: joined,
             deterministicSummary: "PDF, \(document.pageCount) pages, texte extrait de \(pageTexts.count) pages.",
-            summaryLocalizationKey: "PDF, %@ pages, texte extrait de %@ pages.",
+            summaryLocalizationKey: "PDF, %@ pages, text extracted from %@ pages.",
             summaryLocalizationArguments: [String(document.pageCount), String(pageTexts.count)],
             warnings: warnings,
             includedInModel: !joined.isEmpty
@@ -304,7 +304,7 @@ struct ImageFileAnalyzer: Sendable {
                 displayName: base.name,
                 contentType: base.contentType,
                 size: base.size,
-                deterministicSummary: "Image illisible.",
+                deterministicSummary: "Unreadable image.",
                 warnings: [.inaccessible]
             )
         }
@@ -321,9 +321,9 @@ struct ImageFileAnalyzer: Sendable {
             pixelWidth: width,
             pixelHeight: height,
             extractedText: text.isEmpty ? nil : text,
-            deterministicSummary: "Image \(width ?? 0) × \(height ?? 0) pixels\(text.isEmpty ? "" : ", texte OCR détecté").",
+            deterministicSummary: "Image \(width ?? 0) × \(height ?? 0) pixels\(text.isEmpty ? "" : ", OCR text detected").",
             summaryLocalizationKey: "Image %@ × %@ pixels%@.",
-            summaryLocalizationArguments: [String(width ?? 0), String(height ?? 0), String(text.isEmpty ? "" : ", texte OCR détecté")],
+            summaryLocalizationArguments: [String(width ?? 0), String(height ?? 0), String(text.isEmpty ? "" : ", OCR text detected")],
             includedInModel: !text.isEmpty
         )
     }

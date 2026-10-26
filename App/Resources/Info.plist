@@ -39,6 +39,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FileMailerApplicationGroupIdentifier</key>
+	<string>$(FILEMAILER_APP_GROUP)</string>
 	<key>FileMailerBaseBundleID</key>
 	<string>$(BASE_BUNDLE_ID)</string>
 	<key>FileMailerGoldenGateFeatures</key>
@@ -47,13 +49,13 @@
 	<string>$(GOOGLE_CLIENT_ID)</string>
 	<key>FileMailerGoogleRedirectScheme</key>
 	<string>$(GOOGLE_REDIRECT_SCHEME)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.productivity</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>LSUIElement</key>
 	<true/>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
 </dict>
 </plist>

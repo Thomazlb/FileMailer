@@ -14,8 +14,11 @@ Only explicit UI code can start `GmailUploadCoordinator`.
 
 ## Controls
 
-- Finder Sync uses public APIs only and keeps its menu snapshot in memory.
-- IPC is versioned, checksummed, bounded, expiring and rate-limited.
+- Finder Sync uses public APIs only and loads bounded menu snapshots from the App Group.
+- IPC uses atomic bounded files, one-time request UUIDs, expiry and rate limits.
+- Distributed notifications carry no payload dictionaries. Paths never grant file access.
+- The app uses read-only user-selected permissions, persistent scoped bookmarks
+  and balanced scope leases. The extension has no network or attachment-read entitlement.
 - Recipient IDs are resolved locally; no extension-provided address is trusted.
 - Every Finder action opens a review window and cannot send.
 - OAuth uses the system browser, AppAuth PKCE S256, state, nonce and the

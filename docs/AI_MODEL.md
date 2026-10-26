@@ -7,12 +7,17 @@ actions are outside the current release.
 `SystemLanguageModel.default.availability` selects between:
 
 - on-device guided generation when available;
-- a deterministic French or English draft on macOS 26;
-- a deterministic French or English draft when the device is not eligible,
+- a deterministic draft in the selected application language on macOS 26;
+- a deterministic draft in the selected application language when the device is not eligible,
   Apple Intelligence is disabled or the model is not ready;
 - fully manual composition at all times.
 
-The session receives no tools. Its static instructions say that file content is
+The interface and deterministic templates cover 50 languages. An explicit drafting
+language or a language instruction in the user purpose overrides the application
+language. Unsupported on-device model locales use local templates.
+
+The source prompts and model guides are written in English and explicitly require
+the resolved output language. The session receives no tools. Its static instructions say that file content is
 untrusted, facts must not be invented and sending must never be claimed. The
 user prompt contains bounded metadata, summaries and excerpts inside explicit
 untrusted-data delimiters.

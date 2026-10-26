@@ -30,11 +30,14 @@ final class WindowCoordinator: NSObject {
         self.model = model
     }
 
-    func showCompose(paths: [String], recipient: RecipientProfile?) {
+    func showCompose(
+        urls: [URL], recipient: RecipientProfile?, leases: [SecurityScopedFileAccess] = []
+    ) {
         let viewModel = ComposeViewModel(
             model: model,
-            paths: paths,
-            recipient: recipient
+            urls: urls,
+            recipient: recipient,
+            leases: leases
         )
         presentCompose(viewModel)
     }
@@ -51,7 +54,7 @@ final class WindowCoordinator: NSObject {
             backing: .buffered,
             defer: false
         )
-        window.title = model.localizedString("Nouveau message")
+        window.title = model.localizedString("New message")
         window.contentMinSize = Self.composeMinimumContentSize
         configureWindow(window, transparentTitlebar: false)
         window.contentViewController = NSHostingController(rootView: root)
@@ -92,7 +95,7 @@ final class WindowCoordinator: NSObject {
             backing: .buffered,
             defer: false
         )
-        window.title = model.localizedString("Réglages")
+        window.title = model.localizedString("Settings")
         window.contentMinSize = Self.settingsContentSize
         configureWindow(window)
         window.contentViewController = NSHostingController(rootView: root)
@@ -119,7 +122,7 @@ final class WindowCoordinator: NSObject {
             backing: .buffered,
             defer: false
         )
-        window.title = model.localizedString("Bienvenue dans FileMailer")
+        window.title = model.localizedString("Welcome to FileMailer")
         window.contentMinSize = Self.onboardingContentSize
         configureWindow(window)
         window.contentViewController = NSHostingController(rootView: root)
@@ -136,9 +139,9 @@ final class WindowCoordinator: NSObject {
     }
 
     func refreshLocalizedTitles() {
-        onboardingWindow?.window?.title = model.localizedString("Bienvenue dans FileMailer")
+        onboardingWindow?.window?.title = model.localizedString("Welcome to FileMailer")
         for controller in composeWindows.values {
-            controller.window?.title = model.localizedString("Nouveau message")
+            controller.window?.title = model.localizedString("New message")
         }
     }
 
@@ -152,6 +155,14 @@ final class WindowCoordinator: NSObject {
     }
 
     private func bringToFront(_ controller: NSWindowController) {
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["FILEMAILER_TEST_SCREENSHOT"] == "1",
+           ProcessInfo.processInfo.arguments.contains(where: { $0.hasPrefix("--ui-testing-") }),
+           let window = controller.window {
+            window.setFrame(NSRect(origin: window.frame.origin, size: NSSize(width: 1280, height: 800)), display: true)
+            window.center()
+        }
+        #endif
         controller.showWindow(nil)
         controller.window?.makeKeyAndOrderFront(nil)
         NSRunningApplication.current.activate(options: [.activateAllWindows])

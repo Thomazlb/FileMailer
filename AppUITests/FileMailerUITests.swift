@@ -19,6 +19,61 @@ final class FileMailerUITests: XCTestCase {
         app.terminate()
     }
 
+    func testStoreScreenshotsShowActualEnglishInterface() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--ui-testing-compose"]
+        app.launchEnvironment["FILEMAILER_TEST_LANGUAGE"] = "en"
+        app.launchEnvironment["FILEMAILER_TEST_SCREENSHOT"] = "1"
+        app.launch()
+        let window = app.windows["New message"]
+        XCTAssertTrue(window.waitForExistence(timeout: 8))
+        let sample = FileManager.default.temporaryDirectory.appendingPathComponent("ProjectBrief.txt")
+        try! "Project brief\n\nReview the next milestone and share the updated schedule.\n"
+            .write(to: sample, atomically: true, encoding: .utf8)
+        app.buttons["add-attachment"].click()
+        app.typeKey("g", modifierFlags: [.command, .shift])
+        let path = app.textFields["PathTextField"]
+        XCTAssertTrue(path.waitForExistence(timeout: 4))
+        path.typeText(sample.path)
+        app.typeKey(.return, modifierFlags: [])
+        let open = app.buttons["OKButton"]
+        XCTAssertTrue(open.waitForExistence(timeout: 4))
+        open.click()
+        XCTAssertTrue(app.buttons["Remove ProjectBrief.txt"].waitForExistence(timeout: 8))
+        let address = app.textFields["recipient-address-input"]
+        address.click()
+        address.typeText("alex@example.com")
+        app.typeKey(.return, modifierFlags: [])
+        XCTAssertTrue(app.buttons["Delete alex@example.com"].exists)
+        XCTAssertEqual(address.value as? String, "")
+        let subject = app.textFields["compose-subject"]
+        subject.click()
+        subject.typeText("Project brief")
+        XCTAssertEqual(address.value as? String, "")
+        let body = app.textViews["compose-body"]
+        XCTAssertTrue(body.exists)
+        body.click()
+        body.typeText("Hello Alex,\n\nHere is the project brief for our next meeting.\n\nBest regards")
+        XCTAssertEqual(window.frame.width, 1280, accuracy: 1)
+        XCTAssertEqual(window.frame.height, 800, accuracy: 1)
+        let compose = XCTAttachment(screenshot: window.screenshot())
+        compose.name = "AppStore-01-Compose-en"
+        compose.lifetime = .keepAlways
+        add(compose)
+        app.terminate()
+
+        app.launchArguments = ["--ui-testing-settings"]
+        app.launch()
+        XCTAssertTrue(app.windows["General"].waitForExistence(timeout: 8))
+        app.activate()
+        app.staticTexts["General"].firstMatch.click()
+        let settings = XCTAttachment(screenshot: app.windows["General"].screenshot())
+        settings.name = "AppStore-02-Settings-en"
+        settings.lifetime = .keepAlways
+        add(settings)
+        app.terminate()
+    }
+
     func testFrenchAndEnglishComposeUseSelectedAppLanguage() {
         for (language, title, subject, send) in [
             ("fr", "Nouveau message", "Objet", "Envoyer"),

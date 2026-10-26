@@ -176,9 +176,11 @@ public final class PersistenceController {
         let descriptor = FetchDescriptor<StoredPendingDraft>(
             predicate: #Predicate { $0.id == draft.id }
         )
-        let bookmarks = draft.attachments.compactMap {
-            try? $0.url.bookmarkData(
-                options: .minimalBookmark,
+        let lease = SecurityScopedFileAccess(urls: draft.attachments.map(\.url))
+        defer { withExtendedLifetime(lease) {} }
+        let bookmarks = try draft.attachments.map {
+            try $0.url.bookmarkData(
+                options: [.withSecurityScope, .securityScopeAllowOnlyReadAccess],
                 includingResourceValuesForKeys: nil,
                 relativeTo: nil
             )
@@ -214,17 +216,17 @@ public final class PersistenceController {
     public func pendingDrafts() throws -> [ComposeDraft] {
         let stored = try context.fetch(FetchDescriptor<StoredPendingDraft>())
             .sorted { $0.updatedAt > $1.updatedAt }
-        return stored.map { value in
-            var stale = false
-            let attachments = value.attachmentBookmarks.compactMap { data -> ComposeAttachment? in
-                guard let url = try? URL(
+        return try stored.map { value in
+            let attachments = try value.attachmentBookmarks.map { data -> ComposeAttachment in
+                var stale = false
+                let url = try URL(
                     resolvingBookmarkData: data,
-                    options: [.withoutUI],
+                    options: [.withSecurityScope, .withoutUI],
                     relativeTo: nil,
                     bookmarkDataIsStale: &stale
-                ) else {
-                    return nil
-                }
+                )
+                let lease = SecurityScopedFileAccess(urls: [url])
+                defer { withExtendedLifetime(lease) {} }
                 let values = try? url.resourceValues(
                     forKeys: [.fileSizeKey, .contentTypeKey, .contentModificationDateKey]
                 )

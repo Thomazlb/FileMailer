@@ -151,12 +151,12 @@ final class MenuBarController: NSObject {
     private func showContextMenu(relativeTo button: NSStatusBarButton) {
         closePanel()
         let menu = NSMenu(title: AppConfiguration.appName)
-        menu.addItem(item("Modifier les destinataires…", action: #selector(editRecipients)))
-        menu.addItem(item("Comptes Gmail…", action: #selector(editAccounts)))
-        menu.addItem(item("Préférences…", action: #selector(openPreferences)))
-        menu.addItem(item("Diagnostic de l’extension…", action: #selector(openDiagnostics)))
-        menu.addItem(item("À propos de FileMailer", action: #selector(openAbout)))
-        menu.addItem(item("Quitter FileMailer", action: #selector(quit)))
+        menu.addItem(item("Edit recipients…", action: #selector(editRecipients)))
+        menu.addItem(item("Gmail accounts…", action: #selector(editAccounts)))
+        menu.addItem(item("Preferences…", action: #selector(openPreferences)))
+        menu.addItem(item("Extension diagnostics…", action: #selector(openDiagnostics)))
+        menu.addItem(item("About FileMailer", action: #selector(openAbout)))
+        menu.addItem(item("Exit FileMailer", action: #selector(quit)))
         menu.popUp(
             positioning: nil,
             at: NSPoint(x: 0, y: button.bounds.height + 4),

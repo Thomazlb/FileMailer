@@ -76,9 +76,14 @@ final class ComposeViewModel: ObservableObject, Identifiable {
     private var languageCancellable: AnyCancellable?
     private let recipientInstruction: String?
     private var hasHandledWindowClose = false
+    private var fileAccessLeases: [SecurityScopedFileAccess]
 
-    init(model: AppModel, paths: [String], recipient: RecipientProfile?) {
+    init(
+        model: AppModel, urls: [URL], recipient: RecipientProfile?,
+        leases: [SecurityScopedFileAccess] = []
+    ) {
         self.model = model
+        fileAccessLeases = leases + [SecurityScopedFileAccess(urls: urls)]
         let connectedAccounts = model.accounts.filter { $0.authStatus == .connected }
         accounts = connectedAccounts
         usesAppleIntelligence = FoundationModelAvailability.current == .available
@@ -88,7 +93,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
         let recipientAddress = recipient.flatMap {
             try? EmailAddress($0.email, displayName: $0.displayName)
         }
-        let attachments = paths.prefix(50).map(Self.attachment(for:))
+        let attachments = urls.prefix(50).map(Self.attachment(for:))
         draft = ComposeDraft(
             senderID: selectedAccount?.id,
             to: recipientAddress.map { [$0] } ?? [],
@@ -106,6 +111,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
 
     init(model: AppModel, draft: ComposeDraft) {
         self.model = model
+        fileAccessLeases = [SecurityScopedFileAccess(urls: draft.attachments.map(\.url))]
         accounts = model.accounts.filter { $0.authStatus == .connected }
         usesAppleIntelligence = FoundationModelAvailability.current == .available
         tone = .professional
@@ -153,29 +159,29 @@ final class ComposeViewModel: ObservableObject, Identifiable {
     }
 
     var attachmentCountText: String {
-        draft.attachments.isEmpty ? model.localizedString("Aucune pièce jointe")
-            : model.localization.format("%@ pièce(s) jointe(s)", String(draft.attachments.count))
+        draft.attachments.isEmpty ? model.localizedString("No Attachments")
+            : model.localization.format("%@ attachment(s)", String(draft.attachments.count))
     }
 
     var activityTitle: String {
         if processingPhase == .idle {
-            return model.localizedString("Prêt à rédiger")
+            return model.localizedString("Ready to Write")
         }
         if !usesAppleIntelligence
             && (processingPhase == .thinking || processingPhase == .writing) {
-            return model.localizedString("Préparation du brouillon")
+            return model.localizedString("Preparing Draft")
         }
         switch processingPhase {
         case .idle:
             return ""
         case .analyzing:
-            return model.localizedString("Analyse du contenu des fichiers")
+            return model.localizedString("Analysing File Contents")
         case .thinking:
-            return model.localizedString("Apple Intelligence réfléchit")
+            return model.localizedString("Apple Intelligence Is Thinking")
         case .writing:
-            return model.localizedString("Rédaction de l’objet et du message")
+            return model.localizedString("Writing Subject and Message")
         case .ready:
-            return model.localizedString("Brouillon prêt à relire")
+            return model.localizedString("Draft Ready to Review")
         }
     }
 
@@ -199,9 +205,9 @@ final class ComposeViewModel: ObservableObject, Identifiable {
 
     var sendButtonTitle: String {
         guard let email = selectedAccount?.email else {
-            return model.localizedString("Envoyer")
+            return model.localizedString("Send")
         }
-        return model.localization.format("Envoyer avec %@", email)
+        return model.localization.format("Send with %@", email)
     }
 
     var canSend: Bool {
@@ -296,7 +302,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
         let resolvedMode: AttachmentDeliveryMode = requiresGoogleDrive ? .googleDrive : mode
         if requiresGoogleDrive, mode == .attachment {
             errorMessage = model.localizedString(
-                "Gmail bloque ce type de fichier. Utilisez le lien Google Drive proposé."
+                "Gmail blocks this file type. Use the suggested Google Drive link."
             )
         }
         guard draft.attachments[index].deliveryMode != resolvedMode else { return }
@@ -479,10 +485,18 @@ final class ComposeViewModel: ObservableObject, Identifiable {
     }
 
     func addAttachments(_ urls: [URL]) {
+        let selection: FileAccessController.Selection
+        do {
+            selection = try model.fileAccess.userSelected(Array(urls.prefix(max(0, 50 - draft.attachments.count))))
+        } catch {
+            errorMessage = error.localizedDescription
+            return
+        }
+        fileAccessLeases.append(contentsOf: selection.leases)
         let existing = Set(draft.attachments.map { $0.url.standardizedFileURL })
-        for url in urls.prefix(max(0, 50 - draft.attachments.count))
+        for url in selection.urls
             where !existing.contains(url.standardizedFileURL) {
-            let attachment = Self.attachment(for: url.path)
+            let attachment = Self.attachment(for: url)
             draft.attachments.append(attachment)
             if attachment.usesGoogleDrive {
                 prepareDriveUpload(for: attachment)
@@ -526,7 +540,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
         guard attachment.contentType == "inode/directory" else { return }
         isAnalyzing = true
         processingPhase = .analyzing
-        progressKey = "Compression du dossier…"
+        progressKey = "Compressing the folder…"
         Task {
             do {
                 guard let destination = try await model.temporaryFiles?.makeTemporaryFile(
@@ -551,7 +565,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
                     isTemporary: true,
                     warning: manifest.excludedPaths.isEmpty
                         ? nil
-                        : "\(manifest.excludedPaths.count) éléments exclus",
+                        : "\(manifest.excludedPaths.count) excluded items",
                     deliveryMode: .attachment
                 )
                 if AttachmentDeliveryPolicy.usesGoogleDriveByDefault(for: zip) {
@@ -576,7 +590,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
     func analyzeAttachments(willGenerate: Bool = false) async {
         isAnalyzing = true
         processingPhase = .analyzing
-        progressKey = "Lecture du nom et du contenu des fichiers…"
+        progressKey = "Reading File Names and Contents…"
         defer {
             isAnalyzing = false
             progressKey = ""
@@ -636,8 +650,8 @@ final class ComposeViewModel: ObservableObject, Identifiable {
         processingPhase = .thinking
         draft.generationState = .generating
         progressKey = usesAppleIntelligence
-            ? "Apple Intelligence prépare le brouillon…"
-            : "Préparation locale du brouillon…"
+            ? "Apple Intelligence Is Preparing the Draft…"
+            : "Preparing the Draft Locally…"
         generationTask = Task { [weak self] in
             guard let self else { return }
             let generator: any EmailDraftGenerating
@@ -650,7 +664,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
                 for try await generated in generator.streamDraft(request: request) {
                     guard isCurrentGeneration(generationID), !Task.isCancelled else { return }
                     processingPhase = .writing
-                    progressKey = "Rédaction de l’objet et du message…"
+                    progressKey = "Writing Subject and Message…"
                     var candidate = generated
                     if choice == .body { candidate.subject = originalSubject }
                     if choice == .subject { candidate.body = originalBody }
@@ -751,7 +765,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
         sendTask?.cancel()
         isSending = true
         errorMessage = nil
-        progressKey = "Vérification des pièces jointes…"
+        progressKey = "Checking Attachments…"
         sendTask = Task { [weak self] in
             guard let self else { return }
             do {
@@ -766,7 +780,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
                 let driveRecipients = baseSnapshot.to + baseSnapshot.cc + baseSnapshot.bcc
                 let driveAttachments = draft.attachments.filter(\.usesGoogleDrive)
                 if !driveAttachments.isEmpty {
-                    progressKey = "Préparation des liens Google Drive…"
+                    progressKey = "Preparing Google Drive links…"
                 }
                 for attachment in driveAttachments {
                     let current = draft.attachments.first(where: { $0.id == attachment.id }) ?? attachment
@@ -774,7 +788,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
                     guard let updated = draft.attachments.first(where: { $0.id == attachment.id }) else {
                         throw CancellationError()
                     }
-                    progressKey = "Activation du lien Google Drive…"
+                    progressKey = "Activating the Google Drive link…"
                     let accessExpiresAt = updated.resolvedDriveAccessExpiry()
                     try await model.driveTransfers?.grantRecipientReaderAccess(
                         to: file,
@@ -799,7 +813,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
                         baseSnapshot.body,
                         attachments: draft.attachments.filter(\.usesGoogleDrive),
                         heading: FileMailerLocalization(languageIdentifier: draftLanguageIdentifier)
-                            .string("Fichiers disponibles via un lien Google Drive :")
+                            .string("Google Drive files heading")
                     ),
                     attachments: draft.attachments.filter { $0.deliveryMode == .attachment },
                     capturedRevision: baseSnapshot.capturedRevision
@@ -814,11 +828,11 @@ final class ComposeViewModel: ObservableObject, Identifiable {
                 ) else {
                     throw MIMEError.writeFailure
                 }
-                progressKey = "Construction du message…"
+                progressKey = "Building Message…"
                 let build = try await Task.detached {
                     try MIMEWriter().write(snapshot, to: destination)
                 }.value
-                progressKey = "Envoi avec Gmail…"
+                progressKey = "Sending with Gmail…"
                 let receipt = try await GmailUploadCoordinator(
                     sender: model.mailSender,
                     tokenProvider: model.tokenProvider
@@ -840,7 +854,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
                 }
                 model.reload()
                 sendSucceeded = true
-                progressKey = "Message envoyé"
+                progressKey = "Message Sent"
             } catch {
                 errorMessage = error.localizedDescription
                 model.addDiagnostic(category: "send", message: error.localizedDescription)
@@ -949,8 +963,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
         return accounts.first(where: \.isDefault) ?? accounts.first
     }
 
-    private static func attachment(for path: String) -> ComposeAttachment {
-        let url = URL(fileURLWithPath: path)
+    private static func attachment(for url: URL) -> ComposeAttachment {
         let values = try? url.resourceValues(
             forKeys: [
                 .fileSizeKey, .contentTypeKey, .contentModificationDateKey,

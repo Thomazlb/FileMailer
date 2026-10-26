@@ -165,7 +165,7 @@ public struct FinderMenuSnapshot: Codable, Sendable, Equatable {
     public init(
         schemaVersion: Int = 1,
         generatedAt: Date = Date(),
-        menuTitle: String = "Envoyer par e-mail",
+        menuTitle: String = "Send by email",
         recipients: [FinderMenuRecipient],
         visibleRecipientCount: Int,
         languageIdentifier: String? = nil

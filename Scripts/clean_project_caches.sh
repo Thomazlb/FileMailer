@@ -27,5 +27,5 @@ for cache_directory in "${cache_directories[@]}"; do
 done
 
 freed_megabytes=$(( size_before_kb / 1024 ))
-echo "Caches FileMailer vidés: environ ${freed_megabytes} Mo libérés."
-echo "Les sources, les dossiers et les dépendances téléchargées sont conservés."
+echo "FileMailer caches cleared: approximately ${freed_megabytes} MB freed."
+echo "Sources, directories and downloaded dependencies are preserved."

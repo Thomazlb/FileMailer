@@ -19,6 +19,7 @@ jobs:
         run: |
           make audit-public
           python3 Scripts/check_localizations.py
+          python3 Scripts/check_app_store.py
           plutil -lint App/Resources/Info.plist
           plutil -lint FinderExtension/Info.plist
           plutil -lint FinderExtension/FinderExtension.entitlements

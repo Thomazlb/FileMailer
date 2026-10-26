@@ -20,7 +20,7 @@ struct FileMailerApp: App {
 private struct SettingsCommand: View {
     @ObservedObject var model: AppModel
     var body: some View {
-        Button(model.localizedString("Réglages…")) { model.windows?.showSettings() }
+        Button(model.localizedString("Settings…")) { model.windows?.showSettings() }
             .keyboardShortcut(",", modifiers: .command)
     }
 }
@@ -34,8 +34,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var pendingActionURLs: [URL] = []
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        let arguments = ProcessInfo.processInfo.arguments
         #if DEBUG
+        let arguments = ProcessInfo.processInfo.arguments
         if arguments.contains(where: { $0.hasPrefix("--ui-testing-") }) {
             NSApp.setActivationPolicy(.regular)
         }
@@ -48,15 +48,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         ipc = AppIPCService(model: model)
         let actionURLs = pendingActionURLs
         pendingActionURLs.removeAll()
-        actionURLs.forEach { ipc?.handleActionURL($0) }
+        handleOpenedURLs(actionURLs)
+        #if DEBUG
         if arguments.contains("--ui-testing-settings") {
             windows.showSettings()
         } else if arguments.contains("--ui-testing-compose") {
-            windows.showCompose(paths: [], recipient: nil)
+            windows.showCompose(urls: [], recipient: nil)
         } else if arguments.contains("--ui-testing-onboarding")
                     || (model.accounts.isEmpty && model.recipients.isEmpty) {
             windows.showOnboarding()
         }
+        #else
+        if model.accounts.isEmpty && model.recipients.isEmpty { windows.showOnboarding() }
+        #endif
     }
 
     func applicationWillTerminate(_ notification: Notification) {
@@ -64,11 +68,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func application(_ application: NSApplication, open urls: [URL]) {
-        guard let ipc else {
+        guard ipc != nil else {
             pendingActionURLs.append(contentsOf: urls)
             return
         }
-        urls.forEach(ipc.handleActionURL)
+        handleOpenedURLs(urls)
+    }
+
+    private func handleOpenedURLs(_ urls: [URL]) {
+        let files = urls.filter(\.isFileURL)
+        if !files.isEmpty { model.openUserSelectedFiles(files) }
+        urls.filter { !$0.isFileURL }.forEach { ipc?.handleActionURL($0) }
     }
 
     func applicationShouldHandleReopen(

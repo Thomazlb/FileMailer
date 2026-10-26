@@ -7,25 +7,25 @@ struct DiagnosticsView: View {
 
     var body: some View {
         Form {
-            Section("Extension Finder") {
-                LabeledContent("Heartbeat") {
+            Section("Finder Extension") {
+                LabeledContent("Presence signal") {
                     Text(model.lastExtensionHeartbeat?.formatted(.dateTime.locale(model.interfaceLocale)) ?? model.localizedString("Absent"))
                 }
-                LabeledContent("Dernier snapshot") {
+                LabeledContent("Latest Snapshot") {
                     Text(model.lastSnapshotDate?.formatted(.dateTime.locale(model.interfaceLocale)) ?? model.localizedString("Absent"))
                 }
-                LabeledContent("Schéma IPC") {
+                LabeledContent("IPC Schema") {
                     Text("1")
                 }
-                Button("Ouvrir les réglages d’extensions…") {
+                Button("Open extension settings…") {
                     model.windows?.showExtensionManagement()
                 }
-                Text("Si le menu n’apparaît pas, activez FileMailer dans Réglages Système > Général > Ouverture et extensions > Extensions du Finder, puis rouvrez le menu contextuel.")
+                Text("If the menu does not appear, enable FileMailer in System Settings > General > Login Items & Extensions > Finder Extensions, then reopen the context menu.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
 
-            Section("Rapport nettoyé") {
+            Section("Sanitised Report") {
                 ScrollView {
                     Text(model.diagnosticReport())
                         .font(.system(.caption, design: .monospaced))
@@ -38,7 +38,7 @@ struct DiagnosticsView: View {
                     NSPasteboard.general.setString(model.diagnosticReport(), forType: .string)
                     copied = true
                 } label: {
-                    Text(LocalizedStringKey(copied ? "Copié" : "Copier le rapport"))
+                    Text(LocalizedStringKey(copied ? "Copied" : "Copy Report"))
                 }
             }
         }
@@ -46,6 +46,6 @@ struct DiagnosticsView: View {
         .scrollContentBackground(.hidden)
         .padding()
         .background(Color.black)
-        .navigationTitle(model.localizedString("Diagnostic"))
+        .navigationTitle(model.localizedString("Diagnostics"))
     }
 }

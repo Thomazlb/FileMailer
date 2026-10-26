@@ -6,27 +6,24 @@
 Finder
   -> FinderExtension.appex
        sandbox: enabled
-       network: none
-       file reads: none
-       state: bounded in-memory menu snapshot
-  -> DistributedNotificationCenter
-       versioned, chunked, checksummed, size-limited, unauthenticated
+       network and attachment reads: none
+  -> App Group container
+       bounded menu snapshot and expiring action requests
   -> FileMailer.app
-       LSUIElement: true
-       sandbox: disabled
-       review window required
-       file analysis, Foundation Models, Keychain, MIME, Gmail and Drive
+       sandbox: enabled
+       user-selected read-only access and scoped bookmarks
+       local analysis, drafting, Keychain, MIME, Gmail and Drive
 ```
 
-The app is distributed outside the Mac App Store with Developer ID because its
-core flow needs durable access to files explicitly handed over by Finder. The
-main app is not sandboxed. The Finder extension is sandboxed, has no App Group,
-no file entitlement and no network entitlement.
+The main app and Finder extension share a team-prefixed macOS App Group, authorized
+by provisioning profiles with the App Groups capability. Only the main app has
+outgoing network and user-selected-file entitlements. Both Developer ID and
+App Store configurations use the sandbox.
 
 ## Modules
 
 - `FileMailerDomain`: immutable messages, accounts, recipients and protocols
-- `FileMailerIPC`: chunk codec, SHA-256 checks, expiry, limits and deduplication
+- `FileMailerIPC`: bounded shared state, request references, expiry, limits and deduplication
 - `RecipientRanking`: pinned ordering and frequency/recency scoring
 - `GmailAuth`: AppAuth browser flow, application redirect and Keychain archives
 - `GmailAPI`: targeted REST uploads with typed errors
@@ -38,19 +35,30 @@ no file entitlement and no network entitlement.
 
 ## Finder transport
 
-The extension posts at most 50 paths, a random request ID, a local recipient ID,
-selection context and timestamp. It cannot name a Gmail account or supply an
-email address as trusted state. The app resolves identifiers in SwiftData and
-always opens a visible compose window.
+The extension writes at most 50 absolute paths, a random request ID, a local
+recipient ID, selection context and timestamp to the shared container. It opens
+the containing app explicitly using a URL with only that request ID. A request
+cannot supply a Gmail account or email address as trusted state. The app resolves
+recipient IDs locally and always opens a visible compose window.
 
-Payloads are split into at most 64 chunks. A chunk is at most 64 KiB, a snapshot
-is at most 256 KiB and an action is at most 128 KiB. The reassembler expires
-partial messages after five seconds and checks a SHA-256 digest before decode.
-Actions older than 30 seconds and duplicate request IDs are rejected.
+Distributed notifications carry signals only, with `userInfo: nil`, as required
+for sandboxed senders. Snapshots are read from atomic files, not notifications.
+Acknowledgements carry only a request UUID in the notification's string object.
+Actions expire after 30 seconds, are consumed once, and pass rate and duplicate
+checks. Payloads are capped at 128 KiB for actions and 256 KiB for snapshots.
+Symlink payload files and invalid menu counts are rejected. Abandoned actions
+are pruned and the queue is bounded to 100 entries. The legacy URL codec remains
+for compatibility with earlier Developer ID installations.
 
-`DistributedNotificationCenter` is not an authentication mechanism. A local
-process can forge a notification. This cannot cause sending because the only
-result of a valid request is a review window.
+A path alone grants no file access. The app resolves remembered read-only
+security-scoped bookmarks. If a requested file is still inaccessible, the native
+file picker asks the user to select it or its containing folder. Successful scope
+leases remain alive through analysis, compression, upload and sending, and are
+balanced when the compose operation ends. Pending drafts store scoped bookmarks
+and surface bookmark failures instead of silently dropping attachments.
+
+The App Group contains no OAuth tokens, attachments or message bodies. A forged
+notification cannot supply a request payload or send an email.
 
 ## Send data flow
 

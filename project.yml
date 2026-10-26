@@ -1,16 +1,18 @@
 name: FileMailer
 options:
   minimumXcodeGenVersion: 2.42.0
-  developmentLanguage: fr
+  developmentLanguage: en
   deploymentTarget:
     macOS: "26.0"
   createIntermediateGroups: true
 configs:
   Debug: debug
   Release: release
+  AppStore: release
 configFiles:
   Debug: Config/Debug.xcconfig
   Release: Config/Release.xcconfig
+  AppStore: Config/AppStore.xcconfig
 packages:
   FileMailerCore:
     path: Packages/FileMailerCore
@@ -45,6 +47,7 @@ targets:
             CFBundleURLSchemes:
               - $(GOOGLE_REDIRECT_SCHEME)
         FileMailerBaseBundleID: $(BASE_BUNDLE_ID)
+        FileMailerApplicationGroupIdentifier: $(FILEMAILER_APP_GROUP)
         FileMailerGoldenGateFeatures: $(GOLDEN_GATE_FEATURES)
         FileMailerGoogleClientID: $(GOOGLE_CLIENT_ID)
         FileMailerGoogleRedirectScheme: $(GOOGLE_REDIRECT_SCHEME)
@@ -54,7 +57,13 @@ targets:
         ITSAppUsesNonExemptEncryption: false
     entitlements:
       path: App/Resources/FileMailer.entitlements
-      properties: {}
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.network.client: true
+        com.apple.security.files.user-selected.read-only: true
+        com.apple.security.files.bookmarks.app-scope: true
+        com.apple.security.application-groups:
+          - $(FILEMAILER_APP_GROUP)
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: $(BASE_BUNDLE_ID)
@@ -66,12 +75,20 @@ targets:
         LD_RUNPATH_SEARCH_PATHS:
           - $(inherited)
           - "@executable_path/../Frameworks"
-        ENABLE_APP_SANDBOX: NO
+        ENABLE_APP_SANDBOX: YES
       configs:
         Debug:
           CODE_SIGNING_ALLOWED: YES
         Release:
           ENABLE_HARDENED_RUNTIME: YES
+          CODE_SIGN_IDENTITY: Developer ID Application
+          CODE_SIGN_STYLE: Manual
+          PROVISIONING_PROFILE_SPECIFIER: $(FILEMAILER_DIRECT_PROFILE)
+        AppStore:
+          ENABLE_HARDENED_RUNTIME: YES
+          CODE_SIGN_IDENTITY: Apple Distribution
+          CODE_SIGN_STYLE: Manual
+          PROVISIONING_PROFILE_SPECIFIER: $(FILEMAILER_APP_STORE_PROFILE)
     dependencies:
       - package: FileMailerCore
         product: FileMailerCore
@@ -97,10 +114,12 @@ targets:
         CFBundleInfoDictionaryVersion: "6.0"
         CFBundleName: $(PRODUCT_NAME)
         CFBundlePackageType: XPC!
+        FileMailerApplicationGroupIdentifier: $(FILEMAILER_APP_GROUP)
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         ITSAppUsesNonExemptEncryption: false
         LSMinimumSystemVersion: $(MACOSX_DEPLOYMENT_TARGET)
+        LSUIElement: true
         NSExtension:
           NSExtensionPointIdentifier: com.apple.FinderSync
           NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).FinderSync
@@ -108,6 +127,8 @@ targets:
       path: FinderExtension/FinderExtension.entitlements
       properties:
         com.apple.security.app-sandbox: true
+        com.apple.security.application-groups:
+          - $(FILEMAILER_APP_GROUP)
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: $(BASE_BUNDLE_ID).FinderExtension
@@ -118,6 +139,15 @@ targets:
         SKIP_INSTALL: YES
         ENABLE_APP_SANDBOX: YES
         APPLICATION_EXTENSION_API_ONLY: YES
+      configs:
+        Release:
+          CODE_SIGN_IDENTITY: Developer ID Application
+          CODE_SIGN_STYLE: Manual
+          PROVISIONING_PROFILE_SPECIFIER: $(FILEMAILER_FINDER_DIRECT_PROFILE)
+        AppStore:
+          CODE_SIGN_IDENTITY: Apple Distribution
+          CODE_SIGN_STYLE: Manual
+          PROVISIONING_PROFILE_SPECIFIER: $(FILEMAILER_FINDER_APP_STORE_PROFILE)
     dependencies:
       - package: FileMailerCore
         product: FileMailerDomain

@@ -38,19 +38,19 @@ struct AttachmentCard: View {
                     Text(attachment.displayName)
                         .font(.subheadline.weight(.medium))
                         .lineLimit(1)
-                    Text(analysis?.localizedSummary(using: localization) ?? localization.string("Analyse en cours…"))
+                    Text(analysis?.localizedSummary(using: localization) ?? localization.string("Analysis in progress…"))
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
                     HStack(spacing: 8) {
                         Button(
                             LocalizedStringKey(attachment.contentType == "inode/directory"
-                                ? "Compresser" : "Aperçu"),
+                                ? "Compress" : "Preview"),
                             action: attachment.contentType == "inode/directory"
                                 ? onCompress
                                 : onPreview
                         )
-                        Button("Révéler", action: onReveal)
+                        Button("Reveal", action: onReveal)
                     }
                     .buttonStyle(.link)
                 }
@@ -60,7 +60,7 @@ struct AttachmentCard: View {
                         .foregroundStyle(.secondary)
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("Retirer \(attachment.displayName)")
+                .accessibilityLabel(Text(verbatim: localization.format("Remove %@", attachment.displayName)))
             }
 
             if attachment.contentType != "inode/directory" {
@@ -70,7 +70,7 @@ struct AttachmentCard: View {
                     driveControls
                 } else if requiresGoogleDrive {
                     Label(
-                        "Gmail bloque ce type de fichier. Un lien Google Drive est requis.",
+                        "Gmail blocks this file type. A Google Drive link is required.",
                         systemImage: "link.badge.plus"
                     )
                     .font(.caption2)
@@ -83,7 +83,7 @@ struct AttachmentCard: View {
                 if !attachment.usesGoogleDrive,
                    attachment.size > AttachmentDeliveryPolicy.directAttachmentLimit {
                     Label(
-                        "Utilisez Google Drive pour les fichiers de plus de 18 Mo.",
+                        "Use Google Drive for files larger than 18 MB.",
                         systemImage: "exclamationmark.triangle"
                     )
                     .font(.caption2)
@@ -113,13 +113,13 @@ struct AttachmentCard: View {
     @ViewBuilder
     private var driveControls: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("Seuls les destinataires de ce message pourront télécharger.")
+            Text("Only recipients of this message will be able to download.")
                 .font(.caption2)
                 .foregroundStyle(.secondary)
 
             if attachment.driveAccessExpiry == .custom {
                 DatePicker(
-                    "Expiration",
+                    "Expiry",
                     selection: Binding(
                         get: {
                             attachment.customDriveAccessExpiry
@@ -142,7 +142,7 @@ struct AttachmentCard: View {
                     .lineLimit(1)
                 Spacer(minLength: 0)
                 if driveUploadState == .notRequested || isFailed {
-                    Button("Importer") { onPrepareDrive() }
+                    Button("Import") { onPrepareDrive() }
                         .buttonStyle(.link)
                 }
             }
@@ -154,17 +154,17 @@ struct AttachmentCard: View {
             Button {
                 onDeliveryModeChange(.attachment)
             } label: {
-                Label("Pièce jointe Gmail", systemImage: "paperclip")
+                Label("Gmail attachment", systemImage: "paperclip")
             }
 
             Button {
                 onDeliveryModeChange(.googleDrive)
             } label: {
-                Label("Lien Google Drive", systemImage: "link")
+                Label("Google Drive link", systemImage: "link")
             }
         } label: {
             Label(
-                LocalizedStringKey(attachment.usesGoogleDrive ? "Lien Google Drive" : "Pièce jointe Gmail"),
+                LocalizedStringKey(attachment.usesGoogleDrive ? "Google Drive link" : "Gmail attachment"),
                 systemImage: attachment.usesGoogleDrive ? "link" : "paperclip"
             )
             .lineLimit(1)
@@ -172,8 +172,8 @@ struct AttachmentCard: View {
         }
         .menuStyle(.borderedButton)
         .controlSize(.small)
-        .help("Mode de livraison")
-        .accessibilityLabel("Mode de livraison")
+        .help("Delivery method")
+        .accessibilityLabel("Delivery method")
     }
 
     private var driveDeliveryControls: some View {
@@ -192,23 +192,23 @@ struct AttachmentCard: View {
 
     private var driveExpiryMenu: some View {
         Menu {
-            Button("Conserver sans suppression automatique") {
+            Button("Keep without automatic deletion") {
                 onDriveAccessExpiryChange(.never)
             }
-            Button("Supprimer après 1 jour") {
+            Button("Delete after 1 day") {
                 onDriveAccessExpiryChange(.oneDay)
             }
-            Button("Supprimer après 7 jours") {
+            Button("Delete after 7 days") {
                 onDriveAccessExpiryChange(.sevenDays)
             }
-            Button("Supprimer après 30 jours") {
+            Button("Delete after 30 days") {
                 onDriveAccessExpiryChange(.thirtyDays)
             }
-            Button("Supprimer après 90 jours") {
+            Button("Delete after 90 days") {
                 onDriveAccessExpiryChange(.ninetyDays)
             }
             Divider()
-            Button("Date de suppression personnalisée") {
+            Button("Custom deletion date") {
                 onDriveAccessExpiryChange(.custom)
             }
         } label: {
@@ -218,8 +218,8 @@ struct AttachmentCard: View {
         }
         .menuStyle(.borderedButton)
         .controlSize(.small)
-        .help("Expiration de l’accès")
-        .accessibilityLabel("Expiration de l’accès")
+        .help("Access expiry")
+        .accessibilityLabel("Access expiry")
     }
 
     private var driveCleanupMenu: some View {
@@ -227,17 +227,17 @@ struct AttachmentCard: View {
             Button {
                 onDriveCleanupActionChange(.keep)
             } label: {
-                Label("Conserver dans Drive", systemImage: "archivebox")
+                Label("Store in Drive", systemImage: "archivebox")
             }
             Button {
                 onDriveCleanupActionChange(.trash)
             } label: {
-                Label("Mettre à la corbeille", systemImage: "trash")
+                Label("Move to Trash", systemImage: "trash")
             }
             Button(role: .destructive) {
                 onDriveCleanupActionChange(.delete)
             } label: {
-                Label("Supprimer définitivement", systemImage: "trash.fill")
+                Label("Permanently delete", systemImage: "trash.fill")
             }
         } label: {
             driveCleanupMenuLabel
@@ -246,19 +246,19 @@ struct AttachmentCard: View {
         }
         .menuStyle(.borderedButton)
         .controlSize(.small)
-        .help("Action après expiration")
-        .accessibilityLabel("Action après expiration")
+        .help("Action after expiration")
+        .accessibilityLabel("Action after expiration")
     }
 
     @ViewBuilder
     private var driveCleanupMenuLabel: some View {
         switch attachment.driveCleanupAction {
         case .keep:
-            Label("Garder", systemImage: "trash")
+            Label("Keep", systemImage: "trash")
         case .trash:
-            Label("Corbeille", systemImage: "trash")
+            Label("Trash", systemImage: "trash")
         case .delete:
-            Label("Définitif", systemImage: "trash.fill")
+            Label("Permanent", systemImage: "trash.fill")
         }
     }
 
@@ -289,13 +289,13 @@ struct AttachmentCard: View {
         case .never:
             "∞"
         case .oneDay:
-            localization.string("1 j")
+            localization.string("1 day")
         case .sevenDays:
-            localization.string("7 j")
+            localization.string("7 days")
         case .thirtyDays:
-            localization.string("30 j")
+            localization.string("30 days")
         case .ninetyDays:
-            localization.string("90 j")
+            localization.string("90 days")
         case .custom:
             attachment.customDriveAccessExpiry?
                 .formatted(.dateTime.day().month(.abbreviated).locale(locale))
@@ -325,13 +325,13 @@ struct AttachmentCard: View {
     private var driveStatusText: String {
         switch driveUploadState {
         case .notRequested:
-            localization.string("Prêt à importer dans votre dossier FileMailer")
+            localization.string("Ready to upload to your FileMailer folder")
         case .needsAuthorization:
-            localization.string("Autorisez Google Drive pour ce compte")
+            localization.string("Authorize Google Drive for this account")
         case .uploading:
-            localization.string("Importation vers Google Drive…")
+            localization.string("Import to Google Drive…")
         case .ready:
-            localization.string("Lien privé prêt pour les destinataires de ce message.")
+            localization.string("Private link ready for recipients of this message.")
         case let .failed(message):
             message
         }

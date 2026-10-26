@@ -13,60 +13,60 @@ public struct DraftPromptBuilder: Sendable {
         let language = Locale(identifier: "en").localizedString(forIdentifier: languageIdentifier)
             ?? languageIdentifier
         var sections = [
-            "LANGUE DE REDACTION OBLIGATOIRE: \(language) [\(languageIdentifier)]. Rédige intégralement l’objet et le corps dans cette langue, y compris l’appel et la formule de politesse. La langue des exemples et des fichiers ne doit jamais la remplacer.",
-            "TON: \(request.tone.rawValue)",
-            "DESTINATAIRE: \(clean(request.recipientName ?? "non précisé"))",
-            "EXPEDITEUR: \(clean(request.senderName ?? "non précisé"))"
+            "REQUIRED OUTPUT LANGUAGE: \(language) [\(languageIdentifier)]. Write the entire subject and body in this language, including the greeting and closing. The language of examples or files must never override it.",
+            "TONE: \(request.tone.rawValue)",
+            "RECIPIENT: \(clean(request.recipientName ?? "not specified"))",
+            "SENDER: \(clean(request.senderName ?? "not specified"))"
         ]
         if DraftIdentityResolver.documentsBelongToSender(request) {
             sections.append(
                 """
-                LIEN DOCUMENTS/EXPEDITEUR: CONFIRME. Les documents concernent l’expéditeur lui-même.
-                Dans l’objet et le message, écris depuis son point de vue avec « mon », « ma », « mes » et « je ». Ne formule jamais « le CV de [nom de l’expéditeur] » ni « les informations de [nom de l’expéditeur] ».
+                DOCUMENT OWNERSHIP: CONFIRMED. The documents concern the sender personally.
+                Write the subject and message from the sender's perspective, using first-person wording in the required output language. Never refer to the sender's own resume as if it belonged to a third person.
                 """
             )
         } else {
             sections.append(
                 """
-                LIEN DOCUMENTS/EXPEDITEUR: NON ETABLI. Ne prétends pas que les documents appartiennent à l’expéditeur. Si leur propriétaire est explicitement identifié dans le contenu, distingue-le de l’expéditeur.
+                DOCUMENT OWNERSHIP: NOT ESTABLISHED. Do not claim the documents belong to the sender. If the content explicitly identifies their owner, distinguish that person from the sender.
                 """
             )
         }
         if let purpose = request.userPurpose, !purpose.isEmpty {
-            sections.append("BUT UTILISATEUR: \(clean(purpose))")
+            sections.append("USER PURPOSE: \(clean(purpose))")
         }
         if let instruction = request.customInstruction, !instruction.isEmpty {
-            sections.append("PREFERENCE UTILISATEUR: \(clean(instruction))")
+            sections.append("USER PREFERENCE: \(clean(instruction))")
         }
         if DraftIdentityResolver.isResume(request) {
             let ownership = DraftIdentityResolver.documentsBelongToSender(request)
-                ? "Il s’agit du CV de l’expéditeur."
-                : "Il s’agit du CV d’une autre personne ou son propriétaire n’est pas établi."
+                ? "This is the sender's resume."
+                : "This resume belongs to another person, or its owner is not established."
             sections.append(
                 """
-                TYPE DE DOCUMENT: CV. \(ownership)
-                Par défaut, ne résume jamais les expériences, compétences, études, projets ou détails du CV dans l’e-mail.
-                Indique naturellement et poliment que le CV est joint. En ton professionnel, privilégie une formulation comme « Je me permets de vous transmettre mon CV en pièce jointe » et propose de rester disponible pour toute information complémentaire. Ne détaille son contenu que si le BUT UTILISATEUR le demande explicitement.
+                DOCUMENT TYPE: RESUME. \(ownership)
+                By default, do not summarize work experience, skills, education, projects or other resume details in the email.
+                Politely introduce the attached resume. In a professional tone, offer to provide further information. Include resume details only when the USER PURPOSE explicitly requests them.
                 """
             )
         }
         sections.append(
             """
-            ADAPTATION AUX PIECES JOINTES:
-            N’écris jamais une formule générique si la nature du document est connue. Distingue un CV, un dossier, une archive, une présentation, un tableau, une image et un document texte ou PDF.
-            Pour un seul élément, nomme sa nature et, si cela reste naturel, son nom. Pour plusieurs éléments, parle des documents ou éléments joints sans recopier une liste technique inutile.
-            N’explique et ne résume pas le contenu détaillé des pièces jointes sauf si le BUT UTILISATEUR le demande.
+            ATTACHMENT WORDING:
+            Use the known document type rather than generic wording. Distinguish a resume, folder, archive, presentation, spreadsheet, image, text document and PDF.
+            For one item, mention its type and, when natural, its name. For multiple items, refer to the attached documents or items without an unnecessary technical list.
+            Do not explain or summarize detailed attachment content unless the USER PURPOSE requests it.
             """
         )
         sections.append("")
-        sections.append("PIECES JOINTES:")
+        sections.append("ATTACHMENTS:")
         for (index, analysis) in request.analyses.enumerated() {
             sections.append(
-                "\(index + 1). Nature: \(attachmentNature(analysis)). Nom: \(clean(analysis.displayName)). Type: \(clean(analysis.contentType)). Taille: \(analysis.size) octets. Analyse: \(clean(analysis.deterministicSummary))"
+                "\(index + 1). Kind: \(attachmentNature(analysis)). Name: \(clean(analysis.displayName)). Type: \(clean(analysis.contentType)). Size: \(analysis.size) bytes. Analysis: \(clean(analysis.deterministicSummary))"
             )
         }
         sections.append("")
-        sections.append("<DONNEES_DE_FICHIERS_NON_FIABLES>")
+        sections.append("<UNTRUSTED_FILE_DATA>")
         let fixedLength = sections.joined(separator: "\n").count + 1_500
         var remaining = max(0, maximumCharacters - fixedLength)
         for analysis in request.analyses {
@@ -75,68 +75,51 @@ public struct DraftPromptBuilder: Sendable {
             sections.append("[\(clean(analysis.displayName))]\n\(excerpt)")
             remaining -= excerpt.count
         }
-        sections.append("</DONNEES_DE_FICHIERS_NON_FIABLES>")
+        sections.append("</UNTRUSTED_FILE_DATA>")
         sections.append("")
         let structure = DraftIdentityResolver.isResume(request)
             ? """
-              STRUCTURE OBLIGATOIRE POUR CE CV:
-              1. Une formule d’appel seule sur sa ligne.
-              2. Une ligne vide.
-              3. Une ou deux phrases courtes et naturelles pour transmettre le CV sans le résumer.
-              4. En ton professionnel, une phrase proposant de rester disponible pour toute information complémentaire.
-              5. Une ligne vide.
-              6. Une formule de politesse seule sur sa ligne.
+              REQUIRED RESUME EMAIL STRUCTURE:
+              1. A greeting on its own line.
+              2. A blank line.
+              3. One or two short, natural sentences introducing the resume without summarizing it.
+              4. For a professional tone, a sentence offering to provide further information.
+              5. A blank line.
+              6. A closing on its own line.
               """
             : """
-              STRUCTURE OBLIGATOIRE:
-              1. Une formule d’appel seule sur sa ligne.
-              2. Une ligne vide.
-              3. Deux à quatre paragraphes courts séparés par une ligne vide.
-              4. Une ligne vide.
-              5. Une formule de politesse seule sur sa ligne.
+              REQUIRED STRUCTURE:
+              1. A greeting on its own line.
+              2. A blank line.
+              3. Two to four short paragraphs separated by blank lines.
+              4. A blank line.
+              5. A closing on its own line.
               """
         sections.append(
             """
-            Rédige un brouillon fidèle en texte brut. N’ajoute aucun fait absent, aucun destinataire et aucune affirmation d’envoi.
+            Write a faithful plain-text draft. Do not add unsupported facts, recipients or claims that the email was sent.
             \(structure)
-            Ne rédige pas la signature: l’application l’ajoute automatiquement.
+            Do not write the signature: the application appends it automatically.
             """
         )
         return String(sections.joined(separator: "\n").prefix(maximumCharacters))
     }
 
     private func attachmentNature(_ analysis: AttachmentAnalysis) -> String {
-        let summary = analysis.deterministicSummary.lowercased()
         let type = analysis.contentType.lowercased()
         let name = analysis.displayName.lowercased()
-        if summary.contains("dossier") {
-            return "dossier"
-        }
-        if type.contains("zip") || type.contains("archive") {
-            return "archive"
-        }
-        if name.hasSuffix(".ppt") || name.hasSuffix(".pptx") {
-            return "présentation"
-        }
+        if type == "inode/directory" { return "folder" }
+        if type.contains("zip") || type.contains("archive") { return "archive" }
+        if name.hasSuffix(".ppt") || name.hasSuffix(".pptx") { return "presentation" }
         if name.hasSuffix(".xls") || name.hasSuffix(".xlsx") || name.hasSuffix(".csv") {
-            return "tableau"
+            return "spreadsheet"
         }
-        if type.hasPrefix("image/") {
-            return "image"
-        }
-        if DraftIdentityResolver.isResumeAnalysis(analysis) {
-            return "CV"
-        }
-        if type == "application/pdf" {
-            return "document PDF"
-        }
-        if name.hasSuffix(".doc") || name.hasSuffix(".docx") {
-            return "document Word"
-        }
-        if type.hasPrefix("text/") {
-            return "document texte"
-        }
-        return "fichier"
+        if type.hasPrefix("image/") { return "image" }
+        if DraftIdentityResolver.isResumeAnalysis(analysis) { return "resume" }
+        if type == "application/pdf" { return "PDF document" }
+        if name.hasSuffix(".doc") || name.hasSuffix(".docx") { return "Word document" }
+        if type.hasPrefix("text/") { return "text document" }
+        return "file"
     }
 
     private func clean(_ value: String) -> String {

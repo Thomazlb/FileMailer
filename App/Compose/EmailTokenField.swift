@@ -2,6 +2,7 @@ import FileMailerCore
 import SwiftUI
 
 struct EmailTokenField: View {
+    @Environment(\.locale) private var locale
     @Binding var addresses: [EmailAddress]
     @Binding var input: String
     var placeholder: LocalizedStringKey
@@ -26,7 +27,8 @@ struct EmailTokenField: View {
                                 .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
-                        .accessibilityLabel("Supprimer \(address.address)")
+                        .accessibilityLabel(Text(verbatim: FileMailerLocalization(languageIdentifier: locale.identifier)
+                            .format("Delete %@", address.address)))
                     }
                     .font(.body)
                     .padding(.leading, 9)
@@ -36,10 +38,11 @@ struct EmailTokenField: View {
                 }
 
                 TextField(
-                    addresses.isEmpty ? placeholder : LocalizedStringKey(""),
+                    placeholder,
                     text: $input
                 )
                 .textFieldStyle(.plain)
+                .accessibilityIdentifier("recipient-address-input")
                 .focused($isInputFocused)
                 .frame(minWidth: addresses.isEmpty ? 180 : 90)
                 .onSubmit(commitInput)
@@ -60,8 +63,9 @@ struct EmailTokenField: View {
     }
 
     private func commitInput() {
-        addAddress(input)
+        let pending = input
         input = ""
+        addAddress(pending)
     }
 
     private func commitSeparatedAddresses(in value: String) {

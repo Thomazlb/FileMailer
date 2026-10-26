@@ -43,7 +43,7 @@ struct ComposeView: View {
             }
         }
         .alert(
-            "Impossible de terminer l’opération",
+            "Unable to Complete the Operation",
             isPresented: Binding(
                 get: { viewModel.errorMessage != nil },
                 set: { if !$0 { viewModel.errorMessage = nil } }
@@ -95,7 +95,7 @@ struct ComposeView: View {
                 && !viewModel.isGenerating
                 && !viewModel.isAnalyzing {
                 TextField(
-                    "Indiquez comment réécrire le message…",
+                    "Describe How to Rewrite the Message…",
                     text: $revisionInstruction
                 )
                 .focused($isRevisionEditorFocused)
@@ -115,7 +115,7 @@ struct ComposeView: View {
                         Image(systemName: viewModel.usesAppleIntelligence ? "apple.intelligence" : "arrow.clockwise")
                     } else {
                         Label(
-                            "Relancer",
+                            "Rewrite",
                             systemImage: viewModel.usesAppleIntelligence
                                 ? "apple.intelligence"
                                 : "arrow.clockwise"
@@ -127,8 +127,8 @@ struct ComposeView: View {
                         .trimmingCharacters(in: .whitespacesAndNewlines)
                         .isEmpty
                 )
-                .help("Relancer la rédaction avec cette instruction")
-                .accessibilityLabel("Relancer")
+                .help("Rewrite Using This Instruction")
+                .accessibilityLabel("Rewrite")
 
                 Button {
                     closeRevisionEditor()
@@ -136,11 +136,11 @@ struct ComposeView: View {
                     if compact {
                         Image(systemName: "xmark")
                     } else {
-                        Label("Annuler", systemImage: "xmark")
+                        Label("Cancel", systemImage: "xmark")
                     }
                 }
-                .help("Fermer l’instruction de réécriture")
-                .accessibilityLabel("Annuler")
+                .help("Close Rewrite Instruction")
+                .accessibilityLabel("Cancel")
             } else {
                 Button {
                     handleRewriteButton()
@@ -157,7 +157,7 @@ struct ComposeView: View {
                     } else {
                         Label(
                             LocalizedStringKey(viewModel.isGenerating || viewModel.isAnalyzing
-                                ? "Arrêter" : "Régénérer"),
+                                ? "Stop" : "Regenerate"),
                             systemImage: viewModel.isGenerating || viewModel.isAnalyzing
                                 ? "stop.fill"
                                 : (viewModel.usesAppleIntelligence
@@ -169,10 +169,10 @@ struct ComposeView: View {
                 }
                 .help(
                     LocalizedStringKey(viewModel.isGenerating || viewModel.isAnalyzing
-                        ? "Arrêter la rédaction"
+                        ? "Stop Writing"
                         : (viewModel.usesAppleIntelligence
-                            ? "Donner une instruction à Apple Intelligence"
-                            : "Relancer le brouillon local"))
+                            ? "Give Apple Intelligence an Instruction"
+                            : "Restart local draft"))
                 )
             }
 
@@ -187,7 +187,7 @@ struct ComposeView: View {
                     )
                 } else {
                     Label(
-                        LocalizedStringKey(viewModel.isSending ? "Envoi…" : "Envoyer"),
+                        LocalizedStringKey(viewModel.isSending ? "Sending…" : "Send"),
                         systemImage: viewModel.isSending
                             ? "hourglass"
                             : "paperplane"
@@ -196,25 +196,25 @@ struct ComposeView: View {
             }
             .disabled(!viewModel.canSend)
             .keyboardShortcut(.return, modifiers: .command)
-            .help(LocalizedStringKey(viewModel.isSending ? "Envoi en cours" : "Envoyer le message"))
-            .accessibilityLabel(LocalizedStringKey(viewModel.isSending ? "Envoi en cours" : "Envoyer"))
-            .accessibilityHint("Envoie le message visible après validation")
+            .help(LocalizedStringKey(viewModel.isSending ? "Sending" : "Send Message"))
+            .accessibilityLabel(LocalizedStringKey(viewModel.isSending ? "Sending" : "Send"))
+            .accessibilityHint("Sends the visible message after review")
         }
         .frame(maxWidth: .infinity)
     }
 
     private var recipientFields: some View {
         VStack(spacing: 0) {
-            fieldRow("De") {
+            fieldRow("From") {
                 Picker(
-                    "Compte expéditeur",
+                    "Sender Account",
                     selection: Binding(
                         get: { viewModel.draft.senderID },
                         set: viewModel.selectSender
                     )
                 ) {
                     if viewModel.accounts.isEmpty {
-                        Text("Aucun compte Gmail").tag(Optional<GmailAccountID>.none)
+                        Text("No Gmail account").tag(Optional<GmailAccountID>.none)
                     }
                     ForEach(viewModel.accounts) { account in
                         Text(account.displayName.map { "\($0) · \(account.email)" } ?? account.email)
@@ -228,7 +228,7 @@ struct ComposeView: View {
 
             fieldDivider
 
-            fieldRow("À") {
+            fieldRow("To") {
                 EmailTokenField(
                     addresses: Binding(
                         get: { viewModel.draft.to },
@@ -238,18 +238,18 @@ struct ComposeView: View {
                         get: { viewModel.recipientInput(for: .to) },
                         set: { viewModel.setRecipientInput($0, field: .to) }
                     ),
-                    placeholder: "Adresse e-mail"
+                    placeholder: "E-mail address"
                 )
                 .frame(height: 26)
 
-                Button(LocalizedStringKey(viewModel.showCc ? "Masquer Cc" : "Cc")) {
+                Button(LocalizedStringKey(viewModel.showCc ? "Hide Cc" : "Cc")) {
                     withAnimation(.snappy(duration: 0.18)) {
                         viewModel.showCc.toggle()
                     }
                 }
                 .buttonStyle(.link)
 
-                Button(LocalizedStringKey(viewModel.showBcc ? "Masquer Cci" : "Cci")) {
+                Button(LocalizedStringKey(viewModel.showBcc ? "Hide Bcc" : "Bcc")) {
                     withAnimation(.snappy(duration: 0.18)) {
                         viewModel.showBcc.toggle()
                     }
@@ -269,7 +269,7 @@ struct ComposeView: View {
                             get: { viewModel.recipientInput(for: .cc) },
                             set: { viewModel.setRecipientInput($0, field: .cc) }
                         ),
-                        placeholder: "Copie"
+                        placeholder: "Cc label"
                     )
                     .frame(height: 26)
                 }
@@ -278,7 +278,7 @@ struct ComposeView: View {
 
             if viewModel.showBcc {
                 fieldDivider
-                fieldRow("Cci") {
+                fieldRow("Bcc") {
                     EmailTokenField(
                         addresses: Binding(
                             get: { viewModel.draft.bcc },
@@ -288,7 +288,7 @@ struct ComposeView: View {
                             get: { viewModel.recipientInput(for: .bcc) },
                             set: { viewModel.setRecipientInput($0, field: .bcc) }
                         ),
-                        placeholder: "Copie cachée"
+                        placeholder: "Bcc label"
                     )
                     .frame(height: 26)
                 }
@@ -297,9 +297,9 @@ struct ComposeView: View {
 
             fieldDivider
 
-            fieldRow("Objet") {
+            fieldRow("Subject") {
                 TextField(
-                    "Ajoutez un objet",
+                    "Add a Subject",
                     text: Binding(
                         get: { viewModel.draft.subject },
                         set: viewModel.updateSubject
@@ -365,7 +365,7 @@ struct ComposeView: View {
                     && !viewModel.selectedAccountHasGoogleDriveAccess {
                     Button(
                         LocalizedStringKey(viewModel.isAuthorizingDrive
-                            ? "Autorisation…" : "Autoriser Google Drive")
+                            ? "Authorisation…" : "Allow Google Drive")
                     ) {
                         authorizationDisclosure = .drive
                     }
@@ -379,7 +379,9 @@ struct ComposeView: View {
                         .frame(width: 18, height: 18)
                 }
                 .buttonStyle(.plain)
-                .help("Ajouter une pièce jointe")
+                .help("Add Attachment")
+                .accessibilityLabel(Text("Add Attachment"))
+                .accessibilityIdentifier("add-attachment")
             }
             .padding(.horizontal, 16)
             .frame(height: 38)
@@ -440,8 +442,8 @@ struct ComposeView: View {
 
     private var generationBar: some View {
         HStack(spacing: 10) {
-            Picker("Langue", selection: $viewModel.language) {
-                Text("Langue de l’application").tag(DraftLanguage.automatic)
+            Picker("Language", selection: $viewModel.language) {
+                Text("Application language").tag(DraftLanguage.automatic)
                 ForEach(DraftLanguage.allCases.filter { $0 != .automatic }) { language in
                     Text(verbatim: language.nativeDisplayName).tag(language)
                 }
@@ -450,16 +452,16 @@ struct ComposeView: View {
             .labelsHidden()
             .frame(minWidth: 180, idealWidth: 220, maxWidth: 260)
 
-            Picker("Ton", selection: $viewModel.tone) {
-                Text("Concis").tag(DraftTone.concise)
-                Text("Professionnel").tag(DraftTone.professional)
-                Text("Amical").tag(DraftTone.friendly)
-                Text("Neutre").tag(DraftTone.neutral)
+            Picker("Tone", selection: $viewModel.tone) {
+                Text("Concise").tag(DraftTone.concise)
+                Text("Professional").tag(DraftTone.professional)
+                Text("Friendly").tag(DraftTone.friendly)
+                Text("Neutral").tag(DraftTone.neutral)
             }
             .labelsHidden()
             .frame(width: 150)
 
-            Button("Écrire manuellement") {
+            Button("Write manually") {
                 viewModel.useManualMode()
             }
             .buttonStyle(.link)
@@ -467,7 +469,7 @@ struct ComposeView: View {
             Spacer()
 
             if let suggestion = viewModel.suggestion {
-                Button("Appliquer la suggestion") {
+                Button("Apply Suggestion") {
                     _ = suggestion
                     viewModel.applySuggestion()
                 }
@@ -560,7 +562,7 @@ private struct AIActivityPill: View {
                         .contentTransition(.interpolate)
                     Text(
                         LocalizedStringKey(usesAppleIntelligence
-                            ? "Apple Intelligence sur ce Mac" : "Traitement local")
+                            ? "Apple Intelligence on This Mac" : "Local Processing")
                     )
                     .font(.caption2)
                     .foregroundStyle(.secondary)

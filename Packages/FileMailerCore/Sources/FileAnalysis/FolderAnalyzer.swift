@@ -23,7 +23,7 @@ struct FolderInspector: Sendable {
                 displayName: base.name,
                 contentType: "application/zip",
                 size: base.size,
-                deterministicSummary: "Dossier inaccessible.",
+                deterministicSummary: "Folder inaccessible.",
                 warnings: [.inaccessible]
             )
         }
@@ -67,15 +67,15 @@ struct FolderInspector: Sendable {
         }
         let exclusionSummary = exclusions.isEmpty
             ? ""
-            : " \(exclusions.count) éléments exclus par défaut."
+            : " \(exclusions.count) items excluded by default."
         return AttachmentAnalysis(
             displayName: base.name,
             contentType: "application/zip",
             size: totalSize,
             creationDate: base.creationDate,
             modificationDate: base.modificationDate,
-            deterministicSummary: "Dossier à compresser en ZIP, \(entries.count) entrées.\(exclusionSummary)",
-            summaryLocalizationKey: "Dossier à compresser en ZIP, %@ entrées.",
+            deterministicSummary: "Folder to compress as ZIP, \(entries.count) entries.\(exclusionSummary)",
+            summaryLocalizationKey: "Folder to compress as ZIP, %@ entries.",
             summaryLocalizationArguments: [String(entries.count)],
             warnings: warnings
         )

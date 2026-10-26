@@ -15,8 +15,8 @@ public enum OAuthStoreError: Error, LocalizedError, Sendable {
 
     public var errorDescription: String? {
         switch self {
-        case let .keychain(status): FileMailerLocalization.current.format("Erreur Trousseau %@.", String(status))
-        case .archive: FileMailerLocalization.current.string("L’état OAuth ne peut pas être lu.")
+        case let .keychain(status): FileMailerLocalization.current.format("Keychain error %@.", String(status))
+        case .archive: FileMailerLocalization.current.string("The OAuth state could not be read.")
         }
     }
 }

@@ -9,9 +9,9 @@ public enum MIMEError: Error, LocalizedError, Sendable {
 
     public var errorDescription: String? {
         switch self {
-        case .invalidHeader: FileMailerLocalization.current.string("Un en-tête MIME est invalide.")
-        case let .attachmentUnavailable(name): FileMailerLocalization.current.format("Impossible de lire la pièce jointe « %@ ».", String(name))
-        case .writeFailure: FileMailerLocalization.current.string("Impossible de créer le message MIME.")
+        case .invalidHeader: FileMailerLocalization.current.string("A MIME header is invalid.")
+        case let .attachmentUnavailable(name): FileMailerLocalization.current.format("Unable to read attachment “%@”.", String(name))
+        case .writeFailure: FileMailerLocalization.current.string("Unable to create the MIME message.")
         }
     }
 }

@@ -1,33 +1,26 @@
-# Icône FileMailer
+# FileMailer icon
 
-Le document source utilisé par Xcode et par l’application distribuée dans le DMG
-est [`App/Resources/FileMail.icon`](../../../App/Resources/FileMail.icon).
-Ouvrir ce paquet dans Icon Composer pour modifier l’icône. Le nom sélectionné
-dans `project.yml` est `FileMail`.
+The source document used by Xcode and the app distributed in the DMG is
+[`App/Resources/FileMail.icon`](../../../App/Resources/FileMail.icon).
+Open the package in Icon Composer to edit it. The icon selected in `project.yml`
+is `FileMail`.
 
-Le fichier [`Design/FileMailerIcon.png`](../../FileMailerIcon.png) est un export
-direct d’Icon Composer : plateforme iOS/macOS, apparence Default, 1024 pt, 1×.
-Il conserve le rendu natif et sert de logo au README GitHub. Après un nouvel
-export à cet emplacement, lancer depuis la racine du dépôt :
+[`Design/FileMailerIcon.png`](../../FileMailerIcon.png) is a direct Icon Composer
+export for iOS/macOS, Default appearance, 1024 pt at 1x. It preserves the native
+rendering and is the GitHub README logo. After replacing that export, run:
 
 ```sh
 zsh Scripts/generate_app_icon.sh
 ```
 
-Cette commande met à jour les PNG de l’ancien catalogue `AppIcon.appiconset`
-avec la même icône. Le document `.icon` reste la source de l’icône compilée.
+The script updates the PNGs in the legacy `AppIcon.appiconset` to match. The
+`.icon` document remains the source of the compiled app icon.
 
-[`Design/FileMailerIcon.svg`](../../FileMailerIcon.svg) et
-[`FileMailerIcon.svg`](FileMailerIcon.svg) sont les prévisualisations vectorielles
-statiques. Elles reprennent les tracés, l’ordre des calques et leur translation
-dans le document `.icon`, sur un fond sombre arrondi. Les effets d’éclairage,
-d’ombre et de matériau propres à macOS sont conservés dans le document `.icon`
-et son export PNG.
+[`Design/FileMailerIcon.svg`](../../FileMailerIcon.svg) and
+[`FileMailerIcon.svg`](FileMailerIcon.svg) are static vector previews with the
+same paths, layer order and translation. Native Icon Composer lighting and glass
+effects are preserved in the `.icon` document and PNG export.
 
-Les fichiers `01-Background.svg`, `02-WhitePlane.svg` et `03-BluePlane.svg`
-conservent les éléments vectoriels de départ, sur un canevas de 1024 × 1024.
-Le document final place le calque blanc au-dessus du bleu et applique aux deux
-une translation de `(-13.659437189567257, 3.4607383646631433)` points.
-
-Couleurs des calques : blanc `#FFFFFF`, bleu `#0A84FF`. Le fond du document
-Icon Composer utilise la couleur système `system-dark`.
+The white layer sits above the blue layer. Both use a translation of
+`(-13.659437189567257, 3.4607383646631433)` points. Layer colors are white
+`#FFFFFF` and blue `#0A84FF`; the Icon Composer background is `system-dark`.

@@ -1,0 +1,12 @@
+FileMailer is a native macOS menu bar email utility with an embedded Finder Sync extension.
+
+1. Launch the app. Onboarding can be completed without connecting an account.
+2. Use New Message or Choose Files to inspect manual composition and local drafting without signing in.
+3. For Finder integration, enable FileMailer in System Settings > General > Login Items & Extensions > Finder Extensions, then right-click a file and choose Send by Email.
+4. The first request for a file outside the app container may show the native file picker. Select the requested files or their containing folder to grant read-only access. The app remembers security-scoped bookmarks and never requests Full Disk Access.
+5. Sending uses the reviewer's own Gmail account through Google's system-browser OAuth flow. FileMailer has no separate registration, developer-controlled account system or shared demo account. Only the Gmail send scope is requested; the app does not read an inbox.
+6. Google Drive delivery is optional and has a separate disclosure and authorization step. It uses drive.file and shares the selected upload only with message recipients.
+7. Apple Intelligence is optional and gated to macOS 27 and eligible devices. Deterministic drafting and manual editing remain available when it is disabled or unavailable.
+8. No message is sent until Send is explicitly selected. Please use a recipient controlled by the review team when testing delivery.
+
+Sandbox entitlements: outgoing network requests support Google OAuth, Gmail sending and optional Drive uploads; user-selected read-only access and app-scoped bookmarks support attachments; the app group carries only bounded Finder menu metadata and action requests, never tokens or message bodies. The Finder extension has no network or attachment-reading entitlement.

@@ -11,76 +11,76 @@ final class NativeMenuLocalizer {
     private var isRefreshing = false
 
     private static let titles: [String: String] = [
-        "Show Tab Bar": "Afficher la barre d’onglets",
-        "Hide Tab Bar": "Masquer la barre d’onglets",
-        "Show All Tabs": "Afficher tous les onglets",
-        "Exit Tab Overview": "Quitter l’aperçu des onglets",
-        "Show Previous Tab": "Afficher l’onglet précédent",
-        "Show Next Tab": "Afficher l’onglet suivant",
-        "Move Tab to New Window": "Déplacer l’onglet vers une nouvelle fenêtre",
-        "Merge All Windows": "Fusionner toutes les fenêtres",
-        "Left of Screen": "À gauche de l’écran",
-        "Right of Screen": "À droite de l’écran",
-        "Edit": "Édition",
-        "View": "Présentation",
-        "Window": "Fenêtre",
-        "Help": "Aide",
-        "About FileMailer": "À propos de FileMailer",
+        "Show Tab Bar": "Show Tab Bar",
+        "Hide Tab Bar": "Hide Tab Bar",
+        "Show All Tabs": "Show All Tabs",
+        "Exit Tab Overview": "Exit Tab Overview",
+        "Show Previous Tab": "Show Previous Tab",
+        "Show Next Tab": "Show Next Tab",
+        "Move Tab to New Window": "Move Tab to New Window",
+        "Merge All Windows": "Merge All Windows",
+        "Left of Screen": "Left of Screen",
+        "Right of Screen": "Right of Screen",
+        "Edit": "Edit menu",
+        "View": "View",
+        "Window": "Window",
+        "Help": "Help",
+        "About FileMailer": "About FileMailer",
         "Services": "Services",
-        "Hide FileMailer": "Masquer FileMailer",
-        "Hide Others": "Masquer les autres",
-        "Show All": "Tout afficher",
-        "Quit FileMailer": "Quitter FileMailer",
-        "Undo": "Annuler la dernière action",
-        "Redo": "Rétablir",
-        "Cut": "Couper",
-        "Copy": "Copier",
-        "Paste": "Coller",
-        "Delete": "Supprimer",
-        "Select All": "Tout sélectionner",
-        "AutoFill": "Remplissage automatique",
+        "Hide FileMailer": "Hide FileMailer",
+        "Hide Others": "Hide Others",
+        "Show All": "Show All",
+        "Quit FileMailer": "Exit FileMailer",
+        "Undo": "Undo",
+        "Redo": "Redo",
+        "Cut": "Cut",
+        "Copy": "Copy",
+        "Paste": "Paste",
+        "Delete": "Delete",
+        "Select All": "Select All",
+        "AutoFill": "AutoFill",
         "Contact…": "Contact…",
-        "Passwords…": "Mots de passe…",
-        "Credit Card…": "Carte bancaire…",
-        "Start Dictation": "Démarrer la dictée",
-        "Emoji & Symbols": "Emoji et symboles",
-        "Enter Full Screen": "Activer le plein écran",
-        "Exit Full Screen": "Quitter le plein écran",
-        "Close": "Fermer",
-        "Close All": "Tout fermer",
-        "Minimize": "Réduire",
-        "Minimize All": "Tout réduire",
+        "Passwords…": "Passwords…",
+        "Credit Card…": "Credit Card…",
+        "Start Dictation": "Start Dictation",
+        "Emoji & Symbols": "Emoji & Symbols",
+        "Enter Full Screen": "Enter Full Screen",
+        "Exit Full Screen": "Exit Full Screen",
+        "Close": "Close",
+        "Close All": "Close All",
+        "Minimize": "Minimize",
+        "Minimize All": "Minimize All",
         "Zoom": "Zoom",
-        "Zoom All": "Tout agrandir",
-        "Fill": "Remplir",
-        "Center": "Centrer",
-        "Move & Resize": "Déplacer et redimensionner",
-        "Halves": "Moitiés",
-        "Left": "Gauche",
-        "Right": "Droite",
-        "Top": "Haut",
-        "Bottom": "Bas",
-        "Quarters": "Quarts",
-        "Top Left": "En haut à gauche",
-        "Top Right": "En haut à droite",
-        "Bottom Left": "En bas à gauche",
-        "Bottom Right": "En bas à droite",
-        "Arrange": "Disposer",
-        "Left & Right": "Gauche et droite",
-        "Left & Quarters": "Gauche et quarts",
-        "Right & Left": "Droite et gauche",
-        "Right & Quarters": "Droite et quarts",
-        "Top & Bottom": "Haut et bas",
-        "Top & Quarters": "Haut et quarts",
-        "Bottom & Top": "Bas et haut",
-        "Bottom & Quarters": "Bas et quarts",
-        "Return to Previous Size": "Rétablir la taille précédente",
-        "Full Screen Tile": "Mosaïque plein écran",
-        "Bring All to Front": "Tout ramener au premier plan",
-        "Arrange in Front": "Disposer au premier plan",
-        "Remove Window from Set": "Retirer la fenêtre du groupe",
-        "Send FileMailer Feedback to Apple": "Envoyer des commentaires sur FileMailer à Apple",
-        "FileMailer Help": "Aide FileMailer",
+        "Zoom All": "Zoom All",
+        "Fill": "Fill",
+        "Center": "Center",
+        "Move & Resize": "Move & Resize",
+        "Halves": "Halves",
+        "Left": "Left",
+        "Right": "Right",
+        "Top": "Top",
+        "Bottom": "Bottom",
+        "Quarters": "Quarters",
+        "Top Left": "Top Left",
+        "Top Right": "Top Right",
+        "Bottom Left": "Bottom Left",
+        "Bottom Right": "Bottom Right",
+        "Arrange": "Arrange",
+        "Left & Right": "Left & Right",
+        "Left & Quarters": "Left & Quarters",
+        "Right & Left": "Right & Left",
+        "Right & Quarters": "Right & Quarters",
+        "Top & Bottom": "Top & Bottom",
+        "Top & Quarters": "Top & Quarters",
+        "Bottom & Top": "Bottom & Top",
+        "Bottom & Quarters": "Bottom & Quarters",
+        "Return to Previous Size": "Return to Previous Size",
+        "Full Screen Tile": "Full Screen Tile",
+        "Bring All to Front": "Bring All to Front",
+        "Arrange in Front": "Arrange in Front",
+        "Remove Window from Set": "Remove Window from Set",
+        "Send FileMailer Feedback to Apple": "Send FileMailer Feedback to Apple",
+        "FileMailer Help": "FileMailer Help",
     ]
 
     private lazy var aliases: [String: String] = {
@@ -147,20 +147,20 @@ final class NativeMenuLocalizer {
             if action == "makeKeyAndOrderFront:" { continue }
             let key: String?
             switch action {
-            case "undo:": key = "Annuler la dernière action"
-            case "redo:": key = "Rétablir"
-            case "cut:": key = "Couper"
-            case "copy:": key = "Copier"
-            case "paste:": key = "Coller"
-            case "delete:": key = "Supprimer"
-            case "selectAll:": key = "Tout sélectionner"
-            case "orderFrontStandardAboutPanel:": key = "À propos de FileMailer"
-            case "hide:": key = "Masquer FileMailer"
-            case "hideOtherApplications:": key = "Masquer les autres"
-            case "unhideAllApplications:": key = "Tout afficher"
-            case "terminate:": key = "Quitter FileMailer"
-            case "performMiniaturize:": key = "Réduire"
-            case "arrangeInFront:": key = "Tout ramener au premier plan"
+            case "undo:": key = "Undo"
+            case "redo:": key = "Redo"
+            case "cut:": key = "Cut"
+            case "copy:": key = "Copy"
+            case "paste:": key = "Paste"
+            case "delete:": key = "Delete"
+            case "selectAll:": key = "Select All"
+            case "orderFrontStandardAboutPanel:": key = "About FileMailer"
+            case "hide:": key = "Hide FileMailer"
+            case "hideOtherApplications:": key = "Hide Others"
+            case "unhideAllApplications:": key = "Show All"
+            case "terminate:": key = "Exit FileMailer"
+            case "performMiniaturize:": key = "Minimize"
+            case "arrangeInFront:": key = "Bring All to Front"
             default: key = aliases[item.title]
             }
             if let key {

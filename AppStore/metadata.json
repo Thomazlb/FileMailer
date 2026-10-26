@@ -1,0 +1,13 @@
+{
+  "name": "FileMailer: Send from Anywhere",
+  "subtitle": "Send any file from Finder",
+  "primaryLocale": "en-US",
+  "platform": "MAC_OS",
+  "version": "1.0.0",
+  "primaryCategory": "PRODUCTIVITY",
+  "secondaryCategory": "UTILITIES",
+  "releaseType": "MANUAL",
+  "supportURL": "https://github.com/Thomazlb/FileMailer/issues",
+  "marketingURL": "https://filemail.online/",
+  "privacyPolicyURL": "https://filemail.online/privacy/"
+}

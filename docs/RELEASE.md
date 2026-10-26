@@ -1,100 +1,129 @@
 # Release
 
-## Mac App Store status
+## Mac App Store preparation
 
-The current project targets Developer ID distribution outside the Mac App Store.
-It is **not ready for Mac App Store submission**: the main target explicitly
-sets `ENABLE_APP_SANDBOX = NO` and has an empty entitlements file. Apple requires
-Mac App Store apps to be sandboxed under
-[App Review Guideline 2.4.5(i)](https://developer.apple.com/app-store/review/guidelines/#hardware-compatibility).
+The main app and Finder extension use App Sandbox. The main app has outgoing
+network access, user-selected read-only file access and app-scoped bookmarks.
+The extension has only sandbox and App Group entitlements. A Finder path is a
+request, never a grant: the app resolves an existing bookmark or asks the user
+for read-only access in a native file picker.
 
-A store variant needs a sandbox-compatible file-access and Finder-to-app flow,
-appropriate network and user-selected-file entitlements, and validation of
-bookmarks and file access after relaunch. The existing Finder IPC sends file
-paths, which alone do not grant a sandboxed app permission to read those files.
-Turning the build setting on without adapting and testing that flow is not a
-completed store migration.
+Both targets share `$(DEVELOPMENT_TEAM).$(BASE_BUNDLE_ID).shared`. This is a
+team-prefixed macOS App Group. Enable App Groups for both bundle identifiers
+and regenerate both provisioning profiles. Apple documents this namespace and
+profile authorization in its [App Groups guidance](https://developer.apple.com/forums/thread/721701).
+The shared container carries menu metadata and expiring action files. Distributed
+notifications have no `userInfo`, and launch URLs contain only a request UUID.
 
-The store archive also needs its own distribution signing and App Store Connect
-validation. No App Store upload or review acceptance is established by the
-Developer ID notarization procedure below.
+The `AppStore` configuration uses Apple Distribution signing and separate profiles
+for the main app and Finder extension. Developer ID distribution uses `Release`
+and its own profiles. All four profile names belong in the ignored
+`Config/Local.xcconfig`; see the public template. Configure a maintainer-owned,
+verified Google OAuth client matching the final bundle ID there as well.
 
-All 50 supported languages have interface and deterministic drafting resources.
-Before release, complete fluent-speaker review beyond the languages manually
-checked, and run the Finder-extension language checks in the manual test plan
-against the installed release build.
+Requirements: Xcode 27, macOS 27 SDK, macOS 26 deployment target, active Apple
+Developer Program membership, signing certificates with their private keys and
+matching profiles. Apple Intelligence is optional and guarded at macOS 27;
+manual editing and deterministic drafting support macOS 26.
 
-## Prerequisites
-
-- Apple Developer Program membership
-- Developer ID Application certificate and private key
-- Xcode 27 and macOS 27 SDK
-- Deployment target macOS 26, with Apple Intelligence guarded at macOS 27
-- App-specific notarization credentials stored in a Keychain profile
-- Maintainer-owned verified Google OAuth iOS client matching the macOS bundle ID
-
-Set release values in a non-committed `Config/Local.xcconfig` or CI environment.
-Never place a certificate, private key, Keychain password or notarization token
-in the repository.
-
-Run the public-source audit before generating release artifacts:
-
-```bash
-make audit-public
-```
-
-## Build and package
+## Checks and signed store archive
 
 ```bash
 make generate
+make audit-public
 make test
-make build CODE_SIGNING_ALLOWED=NO
+make check-app-store
+make export-app-store CODE_SIGNING_ALLOWED=YES
+```
+
+`export-app-store` creates a signed universal archive in
+`build/FileMailer-AppStore.xcarchive` and a signed installer in
+`build/AppStore/FileMailer.pkg`. It derives export profile names from the embedded
+profiles and writes export options under the ignored build directory. Install
+both an Apple Distribution certificate and a Mac Installer Distribution
+certificate with their private keys before export. This command does not upload,
+submit or publish the app.
+
+Inspect an existing archive independently:
+
+```bash
+python3 Scripts/check_app_store.py --archive build/FileMailer-AppStore.xcarchive
+```
+
+This checks both signatures, universal architectures, read-only sandbox
+entitlements, group authorization in the embedded profiles, matching versions
+and bundled privacy manifests. It does not replace installed-app testing,
+Transporter validation, App Store Connect validation or App Review.
+
+Complete the [manual test plan](MANUAL_TEST_PLAN.md), including file access after
+relaunch, revoked access, a folder, multiple files, Finder-to-app handoff and
+actual Gmail/Drive delivery. Test migration from a previous direct-download
+installation: sandbox containers change local database and credential access.
+Do not claim upgrade compatibility until this has been checked.
+
+## App Store Connect
+
+Reusable English metadata and review instructions are in `AppStore/`. The store
+name is **FileMailer: Send from Anywhere** (30 characters); the subtitle is
+**Send any file from Finder**. The app and repository remain named FileMailer.
+Finder files and folders are supported; arbitrary selections in other apps are
+not promised.
+
+Before submission, verify:
+
+- Current developer agreements are accepted by the account holder.
+- The correct version and build are uploaded, processed and selected.
+- The review contact has valid private name, email and telephone fields.
+- Real macOS screenshots use an accepted App Store size and show the final UI.
+- Pricing, country availability, category, age rating, support and privacy URLs
+  match the intended release.
+- The App Privacy answers match both the privacy policy and the shipped code.
+  Account identifiers, names, email addresses and user-selected message/file
+  contents go to Google for app functionality; they are linked to the account
+  and are not used for tracking. The Finder extension does not collect data.
+- Google OAuth verification and public-user access are complete. Signing an
+  archive does not establish that new users can authorize Google successfully.
+- All 50 languages have resource coverage; fluent-speaker review is still needed
+  beyond the languages inspected. Test both interface and drafting behavior.
+
+Using the [App Store Connect CLI](https://github.com/rorkai/App-Store-Connect-CLI):
+
+```bash
+asc validate --app "$APP_ID" --version 1.0.0 --platform MAC_OS --output json
+```
+
+CLI versions support different flags; inspect local help before using examples
+from a newer release. App Privacy publication is verified in the authenticated
+web interface because the public API cannot establish its published state.
+Keep release type manual until the account holder explicitly chooses release.
+
+A locally exported installer, a processed build, a clean metadata validation and
+Apple review acceptance are separate outcomes. Report each one with evidence.
+
+## Direct download
+
+```bash
 make archive CODE_SIGNING_ALLOWED=YES
 make package CODE_SIGNING_ALLOWED=YES
 ```
 
-Release archives default to manual `Developer ID Application` signing. Override
-`RELEASE_CODE_SIGN_IDENTITY` only when using a differently named Developer ID
-identity.
+`Release` uses Developer ID Application signing and separate main/extension
+profiles with App Groups enabled. Both targets remain sandboxed. Xcode signs
+nested code in the correct order; do not use `codesign --deep` for signing.
 
-Inspect the app and embedded extension separately:
-
-```bash
-codesign -d --entitlements :- build/FileMailer.xcarchive/Products/Applications/FileMailer.app
-codesign -d --entitlements :- build/FileMailer.xcarchive/Products/Applications/FileMailer.app/Contents/PlugIns/FileMailer\ Finder\ Extension.appex
-```
-
-The main app must have Hardened Runtime, no app sandbox and no App Group. The
-extension must have app sandbox, no network entitlement, no file entitlement
-and no App Group. Do not use `codesign --deep`; Xcode signs nested code in the
-correct order.
-
-## Notarize and verify
-
-Store credentials once:
+Store notarization credentials once in a Keychain profile:
 
 ```bash
 xcrun notarytool store-credentials FileMailerNotary
-```
-
-Then:
-
-```bash
 NOTARY_KEYCHAIN_PROFILE=FileMailerNotary make notarize CODE_SIGNING_ALLOWED=YES
 make verify-release
 ```
 
-The `package` target creates both a ZIP and a compressed DMG. The DMG contains
-`FileMailer.app` and an `Applications` shortcut. The `notarize` target first
-notarizes and staples the application, recreates the DMG with that stapled app,
-then notarizes and staples the DMG itself. It also recreates the downloadable
-ZIP after stapling so both distributed containers include the same final
-application. Checksum manifests use portable filenames and can be verified from
-the directory containing the downloaded artifacts.
+The package target creates a ZIP, a DMG containing the app and Applications
+shortcut, and portable SHA-256 manifests. Notarization staples the app, rebuilds
+the containers, then notarizes and staples the DMG. Verify Gatekeeper on a clean
+Mac and distribute the dependency notices and SBOM with the release.
 
-Publish the DMG, ZIP, their SHA-256 files, release notes and a simple dependency
-list from `Package.resolved`. Confirm Gatekeeper assessment on a clean Mac
-before announcing a release.
-
-Archive creation, notarization submission, Apple acceptance and stapling are
-separate outcomes and must be reported separately.
+The native Icon Composer source is `App/Resources/FileMail.icon`; the GitHub PNG
+and SVG exports are under `Design/`. The same artwork is used for application
+and disk image branding.

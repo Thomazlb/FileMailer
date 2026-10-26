@@ -1,4 +1,6 @@
 #include "Base.xcconfig"
+FILEMAILER_DIRECT_PROFILE = FileMailer Developer ID
+FILEMAILER_FINDER_DIRECT_PROFILE = FileMailer Finder Extension Developer ID
 #include? "Local.xcconfig"
 
 SWIFT_COMPILATION_MODE = wholemodule

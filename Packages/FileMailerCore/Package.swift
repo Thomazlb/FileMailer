@@ -3,7 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "FileMailerCore",
-    defaultLocalization: "fr",
+    defaultLocalization: "en",
     platforms: [.macOS("26.0")],
     products: [
         .library(name: "FileMailerDomain", targets: ["FileMailerDomain"]),

@@ -37,7 +37,8 @@ def main():
                 failures.append(f'Format arguments differ {locale}: {key}')
             if re.search(r'98765\d|\[PH\s*\d+\]', value):
                 failures.append(f'Translation marker {locale}: {key}')
-            if (not locale.startswith(('en', 'fr')) and value == english and english != key
+            if (not locale.startswith('en') and value == english and key != 'Apple Intelligence'
+                    and not (locale.startswith('fr') and key == 'Image %@ × %@ pixels%@.')
                     and len(re.findall(r'\w+', english)) > 1):
                 failures.append(f'English copied into {locale}: {key}')
     for source in [*(ROOT / 'App').rglob('*.swift'), *(ROOT / 'Packages/FileMailerCore/Sources').rglob('*.swift')]:

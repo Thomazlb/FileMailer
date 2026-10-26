@@ -8,10 +8,10 @@ public enum EmailAddressError: Error, LocalizedError, Equatable, Sendable {
 
     public var errorDescription: String? {
         switch self {
-        case .empty: FileMailerLocalization.current.string("L’adresse e-mail est vide.")
-        case .invalid: FileMailerLocalization.current.string("L’adresse e-mail n’est pas valide.")
-        case .headerInjection: FileMailerLocalization.current.string("L’adresse contient un caractère interdit.")
-        case .tooLong: FileMailerLocalization.current.string("L’adresse e-mail est trop longue.")
+        case .empty: FileMailerLocalization.current.string("The email address is empty.")
+        case .invalid: FileMailerLocalization.current.string("The email address is invalid.")
+        case .headerInjection: FileMailerLocalization.current.string("The address contains a prohibited character.")
+        case .tooLong: FileMailerLocalization.current.string("The email address is too long.")
         }
     }
 }
@@ -335,10 +335,10 @@ public enum OutboundMessageError: Error, LocalizedError, Equatable, Sendable {
 
     public var errorDescription: String? {
         switch self {
-        case .invalidRecipients: FileMailerLocalization.current.string("Ajoutez au moins un destinataire valide.")
-        case .headerInjection: FileMailerLocalization.current.string("Un en-tête contient un caractère interdit.")
-        case .emptySubjectAndBody: FileMailerLocalization.current.string("L’objet et le message sont vides.")
-        case let .attachmentChanged(name): FileMailerLocalization.current.format("La pièce jointe « %@ » a changé.", String(name))
+        case .invalidRecipients: FileMailerLocalization.current.string("Add at least one valid recipient.")
+        case .headerInjection: FileMailerLocalization.current.string("A header contains a prohibited character.")
+        case .emptySubjectAndBody: FileMailerLocalization.current.string("The subject and message are empty.")
+        case let .attachmentChanged(name): FileMailerLocalization.current.format("The attachment “%@” has changed.", String(name))
         }
     }
 }

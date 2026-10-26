@@ -1,0 +1,20 @@
+Send files from Finder with an email draft you can review before sending.
+
+FileMailer lives in your Mac menu bar and adds a Send by Email menu to Finder. Select files or a folder, choose a saved recipient, and prepare a message using your own Gmail account.
+
+REVIEW EVERY MESSAGE
+Edit recipients, the subject, the message and attachments in a dedicated compose window. FileMailer sends only when you choose Send. It does not read your inbox or existing Gmail messages.
+
+LOCAL DRAFTING
+Prepare editable drafts from locally analyzed text, PDFs, images and common office documents. Apple Intelligence drafting is available on compatible devices running macOS 27 or later, when enabled and supported for the selected language. Local deterministic drafts and manual composition remain available on macOS 26 and when Apple Intelligence is unavailable.
+
+LARGE FILES AND FOLDERS
+Compress folders as ZIP attachments or choose a private Google Drive link for larger files. Drive access is limited to the files FileMailer creates or that you select with it. Links are shared with the recipients you choose; FileMailer does not create public links.
+
+YOUR LANGUAGE
+Choose from 50 application languages. Drafting follows the application language unless you select another drafting language or explicitly request one in your writing instructions.
+
+PRIVACY BY DESIGN
+File analysis and draft preparation run locally. Google authorization uses the system browser, and account tokens are stored in the macOS Keychain. FileMailer has no developer-operated mail server, advertising or tracking analytics.
+
+Requires macOS 26 or later. Sending requires an internet connection and a Gmail account. Google Drive delivery requires separate, optional authorization. Finder integration must be enabled in macOS System Settings. Apple Intelligence availability depends on your Mac, system settings, language and region.

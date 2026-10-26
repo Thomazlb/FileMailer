@@ -1,6 +1,12 @@
-// Copiez ce fichier vers Local.xcconfig. Ne commitez jamais Local.xcconfig.
+// Copy to Local.xcconfig. Never commit Local.xcconfig.
 DEVELOPMENT_TEAM = ABCDE12345
 GOOGLE_CLIENT_ID = 000000000000-local.apps.googleusercontent.invalid
 GOOGLE_REDIRECT_SCHEME = com.googleusercontent.apps.000000000000-local
 BASE_BUNDLE_ID = org.filemailer.local
 GOLDEN_GATE_FEATURES = YES
+
+// Create matching profiles with App Groups enabled for both targets.
+FILEMAILER_APP_STORE_PROFILE = FileMailer Mac App Store
+FILEMAILER_FINDER_APP_STORE_PROFILE = FileMailer Finder Extension Mac App Store
+FILEMAILER_DIRECT_PROFILE = FileMailer Developer ID
+FILEMAILER_FINDER_DIRECT_PROFILE = FileMailer Finder Extension Developer ID

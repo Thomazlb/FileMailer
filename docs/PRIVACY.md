@@ -6,7 +6,7 @@ permalink: /privacy/
 
 # FileMailer Privacy Policy
 
-Last updated: July 28, 2026.
+Last updated: October 26, 2026.
 
 This policy explains how FileMailer, an open-source native macOS application,
 accesses, uses, stores and shares Google user data. It applies to the official
@@ -53,6 +53,12 @@ expiry, FileMailer sets that expiry on each recipient permission. The user can
 also choose to trash or permanently delete the uploaded Drive file after the
 selected period.
 
+Google stores account information and sent message or uploaded file contents in
+the user’s Google account to provide these services. These data can include
+names, email addresses, account identifiers, email text, images, videos, audio
+and other selected file contents. They are associated with the account, used
+for app functionality and not used by FileMailer for advertising or tracking.
+
 ## Sharing, transfer and disclosure of Google user data
 
 FileMailer does not sell, rent, transfer or disclose Google user data to
@@ -86,6 +92,11 @@ FileMailer stores the following data on the user’s Mac:
   per OpenID Connect subject. The keychain item is accessible only while the
   device is unlocked and is not migrated to another device.
 - Account and recipient metadata in the local FileMailer SwiftData store.
+- Up to 200 read-only security-scoped file or folder grants in the private app
+  container, remembered after a user selects files or folders in the native picker.
+  Grants are reused for later Finder requests and do not copy attachment contents.
+- A shared App Group with Finder menu metadata and expiring file-selection requests.
+  It contains no message bodies, attachment contents or account tokens.
 - Optional locally saved pending drafts and security-scoped bookmarks to their
   original attachments. Attachments themselves are not copied into saved drafts.
 - Temporary MIME and ZIP files in a directory with mode `0700`; individual

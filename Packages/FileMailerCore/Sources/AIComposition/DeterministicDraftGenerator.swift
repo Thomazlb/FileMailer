@@ -15,33 +15,33 @@ public struct DeterministicDraftGenerator: EmailDraftGenerating {
         let localizer = FileMailerLocalization(languageIdentifier: DraftLanguageResolver.resolve(request))
         let recipient = request.recipientName?.trimmingCharacters(in: .whitespacesAndNewlines)
         let salutation = recipient.flatMap { $0.isEmpty ? nil : $0 }
-            .map { localizer.format("Bonjour %@,", $0) } ?? localizer.string("Bonjour,")
+            .map { localizer.format("Hello %@,", $0) } ?? localizer.string("Hello,")
         let subject: String
         var message: String
         if DraftIdentityResolver.isResume(request) {
             let own = DraftIdentityResolver.documentsBelongToSender(request)
-            subject = localizer.string(own ? "Transmission de mon CV" : "Transmission du CV joint")
+            subject = localizer.string(own ? "My résumé" : "Attached résumé")
             message = localizer.string(own
-                ? "Je me permets de vous transmettre mon CV en pièce jointe."
-                : "Je me permets de vous transmettre le CV en pièce jointe.")
+                ? "Please find my résumé attached."
+                : "Please find the résumé attached.")
         } else if request.analyses.count == 1, let analysis = request.analyses.first {
-            subject = localizer.format("Envoi de « %@ »", analysis.displayName)
+            subject = localizer.format("Sending “%@”", analysis.displayName)
             message = localizer.format(attachmentMessage(analysis), analysis.displayName)
         } else if request.analyses.isEmpty {
-            subject = localizer.string("Nouveau message")
-            message = localizer.string("Je vous écris au sujet de notre échange.")
+            subject = localizer.string("New message")
+            message = localizer.string("I am writing regarding our conversation.")
         } else {
-            subject = localizer.string("Envoi des documents sélectionnés")
-            message = localizer.string("Veuillez trouver les documents suivants en pièces jointes :")
+            subject = localizer.string("Sending selected documents")
+            message = localizer.string("Please find the following documents attached:")
                 + "\n" + request.analyses.map { "- \($0.displayName)" }.joined(separator: "\n")
         }
         if request.tone == .professional {
-            message += "\n\n" + localizer.string("Je reste à votre disposition pour toute information complémentaire.")
+            message += "\n\n" + localizer.string("Please let me know if you need any further information.")
         }
         let savedSignature = request.signature?.trimmingCharacters(in: .whitespacesAndNewlines)
         let signature = savedSignature?.isEmpty == false ? savedSignature
             : request.senderName?.trimmingCharacters(in: .whitespacesAndNewlines)
-        let body = [salutation, "", message, "", localizer.string("Bien cordialement,"), signature]
+        let body = [salutation, "", message, "", localizer.string("Kind regards,"), signature]
             .compactMap { $0 }.joined(separator: "\n")
         return GeneratedDraftSnapshot(subject: String(subject.prefix(120)), body: body, isFinal: true)
     }
@@ -50,23 +50,23 @@ public struct DeterministicDraftGenerator: EmailDraftGenerating {
         let type = analysis.contentType.lowercased()
         let name = analysis.displayName.lowercased()
         if type == "inode/directory" || analysis.deterministicSummary.hasPrefix("Dossier") {
-            return "Je vous transmets le dossier « %@ » en pièce jointe."
+            return "Please find the folder “%@” attached."
         }
         if type.contains("zip") || type.contains("archive") {
-            return "Je vous transmets l’archive « %@ » en pièce jointe."
+            return "Please find the archive “%@” attached."
         }
         if name.hasSuffix(".ppt") || name.hasSuffix(".pptx") {
-            return "Je vous transmets la présentation « %@ » en pièce jointe."
+            return "Please find the presentation “%@” attached."
         }
         if [".xls", ".xlsx", ".csv"].contains(where: name.hasSuffix) {
-            return "Je vous transmets le tableau « %@ » en pièce jointe."
+            return "Please find the spreadsheet “%@” attached."
         }
-        if type.hasPrefix("image/") { return "Je vous transmets l’image « %@ » en pièce jointe." }
-        if type == "application/pdf" { return "Je vous transmets le document PDF « %@ » en pièce jointe." }
+        if type.hasPrefix("image/") { return "Please find the image “%@” attached." }
+        if type == "application/pdf" { return "Please find the PDF document “%@” attached." }
         if name.hasSuffix(".doc") || name.hasSuffix(".docx") {
-            return "Je vous transmets le document Word « %@ » en pièce jointe."
+            return "Please find the Word document “%@” attached."
         }
-        if type.hasPrefix("text/") { return "Je vous transmets le document texte « %@ » en pièce jointe." }
-        return "Je vous transmets le fichier « %@ » en pièce jointe."
+        if type.hasPrefix("text/") { return "Please find the text document “%@” attached." }
+        return "Please find the file “%@” attached."
     }
 }

@@ -8,18 +8,18 @@ final class LocalizationTests: XCTestCase {
         for identifier in FileMailerLocalization.supportedIdentifiers {
             let localization = FileMailerLocalization(languageIdentifier: identifier)
             XCTAssertEqual(localization.languageIdentifier, identifier)
-            for key in ["Annuler", "Langue de l’application", "Bonjour,", "Je vous écris au sujet de notre échange."] {
+            for key in ["Cancel", "Application language", "Hello,", "I am writing regarding our conversation."] {
                 let value = localization.string(key)
                 XCTAssertFalse(value.isEmpty, "\(identifier): \(key)")
-                if !identifier.hasPrefix("fr") {
+                if !identifier.hasPrefix("en") {
                     XCTAssertNotEqual(value, key, "Untranslated \(identifier): \(key)")
                 }
             }
             let request = DraftGenerationRequest(language: .automatic, tone: .professional,
                 analyses: [], appLanguageIdentifier: identifier)
             let draft = DeterministicDraftGenerator().generate(request)
-            XCTAssertTrue(draft.body.hasPrefix(localization.string("Bonjour,")), identifier)
-            XCTAssertTrue(draft.body.contains(localization.string("Bien cordialement,")), identifier)
+            XCTAssertTrue(draft.body.hasPrefix(localization.string("Hello,")), identifier)
+            XCTAssertTrue(draft.body.contains(localization.string("Kind regards,")), identifier)
         }
     }
 
@@ -92,7 +92,7 @@ final class LocalizationTests: XCTestCase {
     func testAnalysisSummaryCanChangeLanguageWithoutReanalysis() {
         let analysis = AttachmentAnalysis(displayName: "test.pdf", contentType: "application/pdf", size: 10,
             deterministicSummary: "PDF, 2 pages, texte extrait de 1 pages.",
-            summaryLocalizationKey: "PDF, %@ pages, texte extrait de %@ pages.",
+            summaryLocalizationKey: "PDF, %@ pages, text extracted from %@ pages.",
             summaryLocalizationArguments: ["2", "1"])
         XCTAssertEqual(analysis.localizedSummary(using: .init(languageIdentifier: "fr")),
                        "PDF, 2 pages, texte extrait de 1 pages.")

@@ -1,5 +1,5 @@
 {
-  "sourceLanguage": "fr",
+  "sourceLanguage": "en",
   "strings": {
     "1": {
       "localizations": {
@@ -609,7 +609,7 @@
         }
       }
     },
-    "À propos": {
+    "About": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -914,7 +914,7 @@
         }
       }
     },
-    "Ajouter": {
+    "Add": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -1219,7 +1219,7 @@
         }
       }
     },
-    "Ajouter un compte": {
+    "Add an account": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -1524,7 +1524,7 @@
         }
       }
     },
-    "Ajouter…": {
+    "Add…": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -1829,7 +1829,7 @@
         }
       }
     },
-    "Ajoutez les personnes que vous contactez le plus souvent.": {
+    "Add the people you contact most often.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -2133,7 +2133,7 @@
         }
       }
     },
-    "Amical": {
+    "Friendly": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -2437,7 +2437,7 @@
         }
       }
     },
-    "Aperçu": {
+    "Preview": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -2742,7 +2742,7 @@
         }
       }
     },
-    "Aperçu Finder: %@": {
+    "Finder preview: %@": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -3046,7 +3046,7 @@
         }
       }
     },
-    "Apple Intelligence désactivé": {
+    "Apple Intelligence disabled": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -3351,7 +3351,7 @@
         }
       }
     },
-    "Apple Intelligence disponible": {
+    "Apple Intelligence available": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -3656,7 +3656,7 @@
         }
       }
     },
-    "Arrêter": {
+    "Stop": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -3961,7 +3961,7 @@
         }
       }
     },
-    "Aucun compte Gmail": {
+    "No Gmail account": {
       "localizations": {
         "en": {
           "stringUnit": {
@@ -4265,7 +4265,7 @@
         }
       }
     },
-    "Aucun destinataire enregistré": {
+    "No registered recipient": {
       "localizations": {
         "en": {
           "stringUnit": {
@@ -4873,7 +4873,7 @@
         }
       }
     },
-    "Automatique": {
+    "Automatic": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -5177,7 +5177,7 @@
         }
       }
     },
-    "Autre destinataire…": {
+    "Other recipient…": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -5482,7 +5482,7 @@
         }
       }
     },
-    "Bienvenue dans FileMailer": {
+    "Welcome to FileMailer": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -5787,7 +5787,7 @@
         }
       }
     },
-    "Brouillon déterministe": {
+    "Deterministic draft": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -6397,7 +6397,7 @@
         }
       }
     },
-    "Cci": {
+    "Bcc": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -6702,7 +6702,7 @@
         }
       }
     },
-    "Choisir un fichier…": {
+    "Choose a file…": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -7007,7 +7007,7 @@
         }
       }
     },
-    "Compilée": {
+    "Compiled": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -7311,7 +7311,7 @@
         }
       }
     },
-    "Compresser": {
+    "Compress": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -7616,7 +7616,7 @@
         }
       }
     },
-    "Comptes Gmail": {
+    "Gmail accounts": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -7921,7 +7921,7 @@
         }
       }
     },
-    "Concis": {
+    "Concise": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -8225,7 +8225,7 @@
         }
       }
     },
-    "Continuer": {
+    "Continue": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -8530,7 +8530,7 @@
         }
       }
     },
-    "Dans le Finder, faites un clic droit sur un fichier, choisissez Envoyer par e-mail, puis un destinataire.": {
+    "In Finder, right-click a file, choose Send by Email, then choose a recipient.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -8834,7 +8834,7 @@
         }
       }
     },
-    "De": {
+    "From": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -9139,7 +9139,7 @@
         }
       }
     },
-    "Déposez des fichiers ici pour rédiger un message": {
+    "Drop files here to write a message": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -9444,7 +9444,7 @@
         }
       }
     },
-    "Destinataire": {
+    "Recipient": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -9748,7 +9748,7 @@
         }
       }
     },
-    "Destinataires": {
+    "Recipients": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -10053,7 +10053,7 @@
         }
       }
     },
-    "Destinataires du menu Finder": {
+    "Finder Menu Recipients": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -10357,7 +10357,7 @@
         }
       }
     },
-    "Destinataires principaux": {
+    "Main recipients": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -10662,7 +10662,7 @@
         }
       }
     },
-    "Diagnostic": {
+    "Diagnostics": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -11271,7 +11271,7 @@
         }
       }
     },
-    "Envoyer": {
+    "Send": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -11576,7 +11576,7 @@
         }
       }
     },
-    "Envoyez des fichiers depuis le Finder avec une vérification complète avant chaque envoi.": {
+    "Send files from Finder with full verification before each send.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -11880,7 +11880,7 @@
         }
       }
     },
-    "État système: %@": {
+    "System Status: %@": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -12489,7 +12489,7 @@
         }
       }
     },
-    "Français": {
+    "French": {
       "localizations": {
         "en": {
           "stringUnit": {
@@ -12793,7 +12793,7 @@
         }
       }
     },
-    "Général": {
+    "General": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -13098,7 +13098,7 @@
         }
       }
     },
-    "Générer": {
+    "Generate": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -13403,7 +13403,7 @@
         }
       }
     },
-    "Le brouillon déterministe et la rédaction manuelle restent disponibles.": {
+    "Deterministic drafting and manual writing remain available.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -13707,7 +13707,7 @@
         }
       }
     },
-    "Les destinataires épinglés comptent dans cette limite.": {
+    "Pinned recipients count toward this limit.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -14011,7 +14011,7 @@
         }
       }
     },
-    "Les fichiers joints ne sont jamais copiés dans un brouillon.": {
+    "Attached files are never copied to a draft.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -14315,7 +14315,7 @@
         }
       }
     },
-    "Masqué": {
+    "Hidden": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -14619,7 +14619,7 @@
         }
       }
     },
-    "Modifier les destinataires…": {
+    "Edit recipients…": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -14924,7 +14924,7 @@
         }
       }
     },
-    "Neutre": {
+    "Neutral": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -15228,7 +15228,7 @@
         }
       }
     },
-    "Nouveau message": {
+    "New message": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -15533,7 +15533,7 @@
         }
       }
     },
-    "Nouveau message…": {
+    "New message…": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -15838,7 +15838,7 @@
         }
       }
     },
-    "OAuth système · PKCE · Trousseau macOS": {
+    "System OAuth · PKCE · macOS Keychain": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -16142,7 +16142,7 @@
         }
       }
     },
-    "Objet": {
+    "Subject": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -16447,7 +16447,7 @@
         }
       }
     },
-    "Objet et message": {
+    "Subject and message": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -16752,7 +16752,7 @@
         }
       }
     },
-    "Objet uniquement": {
+    "Subject only": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -17362,7 +17362,7 @@
         }
       }
     },
-    "Ouvrir FileMailer…": {
+    "Open FileMailer action": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -17667,7 +17667,7 @@
         }
       }
     },
-    "Ouvrir les réglages d’extensions": {
+    "Open extension settings": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -17972,7 +17972,7 @@
         }
       }
     },
-    "Pièces jointes": {
+    "Attachments": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -18277,7 +18277,7 @@
         }
       }
     },
-    "Précédent": {
+    "Previous": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -18582,7 +18582,7 @@
         }
       }
     },
-    "Professionnel": {
+    "Professional": {
       "localizations": {
         "en": {
           "stringUnit": {
@@ -18886,7 +18886,7 @@
         }
       }
     },
-    "Projet open source sous licence MIT. Aucun analytics, tracking ou serveur intermédiaire.": {
+    "Open source project under MIT license. No analytics, tracking or intermediate server.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -19190,7 +19190,7 @@
         }
       }
     },
-    "Quitter FileMailer": {
+    "Exit FileMailer": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -19495,7 +19495,7 @@
         }
       }
     },
-    "Rédiger moi-même": {
+    "Write it myself": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -19800,7 +19800,7 @@
         }
       }
     },
-    "Réglages": {
+    "Settings": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -20105,7 +20105,7 @@
         }
       }
     },
-    "Réglages…": {
+    "Settings…": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -20410,7 +20410,7 @@
         }
       }
     },
-    "Reprendre le brouillon": {
+    "Resume draft": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -20715,7 +20715,7 @@
         }
       }
     },
-    "Révéler": {
+    "Reveal": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -21020,7 +21020,7 @@
         }
       }
     },
-    "Si le menu n’apparaît pas, activez FileMailer dans Réglages Système > Général > Ouverture et extensions > Extensions du Finder, puis rouvrez le menu contextuel.": {
+    "If the menu does not appear, enable FileMailer in System Settings > General > Login Items & Extensions > Finder Extensions, then reopen the context menu.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -21324,7 +21324,7 @@
         }
       }
     },
-    "Terminer": {
+    "Finish": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -21629,7 +21629,7 @@
         }
       }
     },
-    "Traitement sur l’appareil": {
+    "On-device processing": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -21934,7 +21934,7 @@
         }
       }
     },
-    "Un compte est requis uniquement au moment d’envoyer.": {
+    "An account is only required when sending.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -22238,7 +22238,7 @@
         }
       }
     },
-    "Une suggestion est prête sans écraser vos modifications.": {
+    "A suggestion is ready without overwriting your changes.": {
       "extractionState": "stale",
       "localizations": {
         "en": {
@@ -22847,7 +22847,7 @@
         }
       }
     },
-    "Langue": {
+    "Language": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -23151,7 +23151,7 @@
         }
       }
     },
-    "Langue de l’application": {
+    "Application language": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -23455,7 +23455,7 @@
         }
       }
     },
-    "Langue du système": {
+    "System language": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -23759,7 +23759,7 @@
         }
       }
     },
-    "Par défaut, FileMailer suit la langue de macOS.": {
+    "By default, FileMailer follows the macOS language.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -24063,7 +24063,7 @@
         }
       }
     },
-    "activé": {
+    "enabled": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -24367,7 +24367,7 @@
         }
       }
     },
-    "autorisation requise": {
+    "approval required": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -24671,7 +24671,7 @@
         }
       }
     },
-    "indisponible": {
+    "unavailable": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -24975,7 +24975,7 @@
         }
       }
     },
-    "désactivé": {
+    "disabled": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -25279,7 +25279,7 @@
         }
       }
     },
-    "inconnu": {
+    "unknown": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -25583,7 +25583,7 @@
         }
       }
     },
-    "Sur l’appareil": {
+    "On Device": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -25887,7 +25887,7 @@
         }
       }
     },
-    "Appareil non éligible": {
+    "Device Not Eligible": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -26191,7 +26191,7 @@
         }
       }
     },
-    "Désactivé": {
+    "Disabled": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -26495,7 +26495,7 @@
         }
       }
     },
-    "Modèle pas encore prêt": {
+    "Model Not Ready": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -26799,7 +26799,7 @@
         }
       }
     },
-    "Modèle en préparation": {
+    "Model Preparing": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -27103,7 +27103,7 @@
         }
       }
     },
-    "Autorisation d’envoi accordée": {
+    "Send Permission Granted": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -27407,7 +27407,7 @@
         }
       }
     },
-    "Autorisation d’envoi manquante": {
+    "Send Permission Missing": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -27711,7 +27711,7 @@
         }
       }
     },
-    "Prêt à rédiger": {
+    "Ready to Write": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -28015,7 +28015,7 @@
         }
       }
     },
-    "Préparation du brouillon": {
+    "Preparing Draft": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -28319,7 +28319,7 @@
         }
       }
     },
-    "Analyse du contenu des fichiers": {
+    "Analysing File Contents": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -28623,7 +28623,7 @@
         }
       }
     },
-    "Apple Intelligence réfléchit": {
+    "Apple Intelligence Is Thinking": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -28927,7 +28927,7 @@
         }
       }
     },
-    "Rédaction de l’objet et du message": {
+    "Writing Subject and Message": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -29231,7 +29231,7 @@
         }
       }
     },
-    "Brouillon prêt à relire": {
+    "Draft Ready to Review": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -29535,7 +29535,7 @@
         }
       }
     },
-    "Lecture du nom et du contenu des fichiers…": {
+    "Reading File Names and Contents…": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -29839,7 +29839,7 @@
         }
       }
     },
-    "Apple Intelligence prépare le brouillon…": {
+    "Apple Intelligence Is Preparing the Draft…": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -30143,7 +30143,7 @@
         }
       }
     },
-    "Préparation locale du brouillon…": {
+    "Preparing the Draft Locally…": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -30447,7 +30447,7 @@
         }
       }
     },
-    "Rédaction de l’objet et du message…": {
+    "Writing Subject and Message…": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -30751,7 +30751,7 @@
         }
       }
     },
-    "Vérification des pièces jointes…": {
+    "Checking Attachments…": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -31055,7 +31055,7 @@
         }
       }
     },
-    "Construction du message…": {
+    "Building Message…": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -31359,7 +31359,7 @@
         }
       }
     },
-    "Envoi avec Gmail…": {
+    "Sending with Gmail…": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -31663,7 +31663,7 @@
         }
       }
     },
-    "Message envoyé": {
+    "Message Sent": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -31967,7 +31967,7 @@
         }
       }
     },
-    "Une application macOS open source pour préparer et relire chaque envoi depuis le Finder.": {
+    "An open source macOS app for preparing and reviewing every message sent from Finder.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -32271,7 +32271,7 @@
         }
       }
     },
-    "Local par défaut": {
+    "Local by Default": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -32575,7 +32575,7 @@
         }
       }
     },
-    "L’analyse et la génération Apple Intelligence restent sur votre Mac. Le message et ses pièces jointes vont uniquement chez Google au moment où vous appuyez sur Envoyer.": {
+    "Analysis and Apple Intelligence generation stay on your Mac. The message and its attachments go to Google only when you press Send.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -32879,7 +32879,7 @@
         }
       }
     },
-    "Activez l’extension Finder": {
+    "Enable the Finder Extension": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -33183,7 +33183,7 @@
         }
       }
     },
-    "macOS exige une activation manuelle. FileMailer n’injecte aucun code dans le Finder.": {
+    "macOS requires manual activation. FileMailer does not inject code into Finder.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -33487,7 +33487,7 @@
         }
       }
     },
-    "Ajoutez un compte Gmail": {
+    "Add a Gmail Account": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -33791,7 +33791,7 @@
         }
       }
     },
-    "Le navigateur système s’ouvrira avec les seules autorisations nécessaires à l’envoi.": {
+    "The system browser will open with only the permissions required to send.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -34095,7 +34095,7 @@
         }
       }
     },
-    "Ajoutez vos destinataires": {
+    "Add Your Recipients": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -34399,7 +34399,7 @@
         }
       }
     },
-    "Épinglez vos contacts principaux et choisissez leur ordre dans le menu Finder.": {
+    "Pin your main contacts and choose their order in the Finder menu.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -34703,7 +34703,7 @@
         }
       }
     },
-    "Gérer les destinataires": {
+    "Manage Recipients": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -35007,7 +35007,7 @@
         }
       }
     },
-    "Lancement à la connexion": {
+    "Open at Login": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -35311,7 +35311,7 @@
         }
       }
     },
-    "FileMailer est configuré pour démarrer à la connexion.": {
+    "FileMailer is configured to open at login.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -35615,7 +35615,7 @@
         }
       }
     },
-    "Ce choix reste facultatif et modifiable dans les réglages.": {
+    "This option is optional and can be changed in Settings.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -35919,7 +35919,7 @@
         }
       }
     },
-    "Désactiver": {
+    "Disable": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -36223,7 +36223,7 @@
         }
       }
     },
-    "Activer": {
+    "Enable": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -36527,7 +36527,7 @@
         }
       }
     },
-    "Essayez avec un fichier non sensible": {
+    "Try a Non-Sensitive File": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -36831,7 +36831,7 @@
         }
       }
     },
-    "Choisissez un fichier de test. Une fenêtre de composition s’ouvrira, sans jamais envoyer automatiquement.": {
+    "Choose a test file. A compose window will open without ever sending automatically.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -37135,7 +37135,7 @@
         }
       }
     },
-    "Le modèle Foundation Models est disponible sur cet appareil.": {
+    "The Foundation Models model is available on this device.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -37439,7 +37439,7 @@
         }
       }
     },
-    "Cet appareil n’est pas éligible. Le brouillon déterministe et la rédaction manuelle restent disponibles.": {
+    "This device is not eligible. The deterministic draft and manual writing remain available.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -37743,7 +37743,7 @@
         }
       }
     },
-    "Apple Intelligence est désactivé. Vous pourrez l’activer plus tard dans Réglages Système.": {
+    "Apple Intelligence is disabled. You can enable it later in System Settings.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -38047,7 +38047,7 @@
         }
       }
     },
-    "Le modèle est en préparation. FileMailer utilisera le fallback déterministe entre-temps.": {
+    "The model is preparing. FileMailer will use its deterministic fallback in the meantime.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -38351,7 +38351,7 @@
         }
       }
     },
-    "Reconnecter": {
+    "Reconnect": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -38655,7 +38655,7 @@
         }
       }
     },
-    "Par défaut": {
+    "Default": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -38959,7 +38959,7 @@
         }
       }
     },
-    "Retirer ce compte ?": {
+    "Remove This Account?": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -39263,7 +39263,7 @@
         }
       }
     },
-    "Révoquer et supprimer": {
+    "Revoke and Remove": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -39567,7 +39567,7 @@
         }
       }
     },
-    "Supprimer localement": {
+    "Remove Locally": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -39871,7 +39871,7 @@
         }
       }
     },
-    "Annuler": {
+    "Cancel": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -40175,7 +40175,7 @@
         }
       }
     },
-    "Extension Finder": {
+    "Finder Extension": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -40479,7 +40479,7 @@
         }
       }
     },
-    "Heartbeat": {
+    "Presence signal": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -40783,7 +40783,7 @@
         }
       }
     },
-    "Dernier snapshot": {
+    "Latest Snapshot": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -41391,7 +41391,7 @@
         }
       }
     },
-    "Schéma IPC": {
+    "IPC Schema": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -41695,7 +41695,7 @@
         }
       }
     },
-    "Rapport nettoyé": {
+    "Sanitised Report": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -41999,7 +41999,7 @@
         }
       }
     },
-    "Copié": {
+    "Copied": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -42303,7 +42303,7 @@
         }
       }
     },
-    "Copier le rapport": {
+    "Copy Report": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -42607,7 +42607,7 @@
         }
       }
     },
-    "Impossible de terminer l’opération": {
+    "Unable to Complete the Operation": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -42911,7 +42911,7 @@
         }
       }
     },
-    "Indiquez comment réécrire le message…": {
+    "Describe How to Rewrite the Message…": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -43215,7 +43215,7 @@
         }
       }
     },
-    "Relancer": {
+    "Rewrite": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -43519,7 +43519,7 @@
         }
       }
     },
-    "Relancer la rédaction avec cette instruction": {
+    "Rewrite Using This Instruction": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -43823,7 +43823,7 @@
         }
       }
     },
-    "Fermer l’instruction de réécriture": {
+    "Close Rewrite Instruction": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -44127,7 +44127,7 @@
         }
       }
     },
-    "Régénérer": {
+    "Regenerate": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -44431,7 +44431,7 @@
         }
       }
     },
-    "Arrêter la rédaction": {
+    "Stop Writing": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -44735,7 +44735,7 @@
         }
       }
     },
-    "Donner une instruction à Apple Intelligence": {
+    "Give Apple Intelligence an Instruction": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -45039,7 +45039,7 @@
         }
       }
     },
-    "Envoi…": {
+    "Sending…": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -45343,7 +45343,7 @@
         }
       }
     },
-    "Envoi en cours": {
+    "Sending": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -45647,7 +45647,7 @@
         }
       }
     },
-    "Envoyer le message": {
+    "Send Message": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -45951,7 +45951,7 @@
         }
       }
     },
-    "Envoie le message visible après validation": {
+    "Sends the visible message after review": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -46255,7 +46255,7 @@
         }
       }
     },
-    "Compte expéditeur": {
+    "Sender Account": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -46559,7 +46559,7 @@
         }
       }
     },
-    "Masquer Cc": {
+    "Hide Cc": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -46863,7 +46863,7 @@
         }
       }
     },
-    "Masquer Cci": {
+    "Hide Bcc": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -47167,7 +47167,7 @@
         }
       }
     },
-    "Copie": {
+    "Cc label": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -47471,7 +47471,7 @@
         }
       }
     },
-    "Copie cachée": {
+    "Bcc label": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -47775,7 +47775,7 @@
         }
       }
     },
-    "Ajoutez un objet": {
+    "Add a Subject": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -48079,7 +48079,7 @@
         }
       }
     },
-    "Aucune pièce jointe": {
+    "No Attachments": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -48383,7 +48383,7 @@
         }
       }
     },
-    "Ajouter une pièce jointe": {
+    "Add Attachment": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -48687,7 +48687,7 @@
         }
       }
     },
-    "Appliquer la suggestion": {
+    "Apply Suggestion": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -48991,7 +48991,7 @@
         }
       }
     },
-    "Traitement local": {
+    "Local Processing": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -49295,7 +49295,7 @@
         }
       }
     },
-    "Apple Intelligence sur ce Mac": {
+    "Apple Intelligence on This Mac": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -49599,7 +49599,7 @@
         }
       }
     },
-    "Le nom est requis.": {
+    "Name Is Required.": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -49903,7 +49903,7 @@
         }
       }
     },
-    "Épingler": {
+    "Pin": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -50207,7 +50207,7 @@
         }
       }
     },
-    "Désépingler": {
+    "Unpin": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -50511,7 +50511,7 @@
         }
       }
     },
-    "Erreur": {
+    "Error": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -50815,7 +50815,7 @@
         }
       }
     },
-    "Enregistrer": {
+    "Save": {
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -51119,7 +51119,7 @@
         }
       }
     },
-    " %@ éléments exclus par défaut.": {
+    "%@ items excluded by default.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -51424,7 +51424,7 @@
         }
       }
     },
-    "%@ analysé sans exécuter Office, %@ entrées.": {
+    "%1$@ analyzed without running Office, %2$@ entries.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -51729,7 +51729,7 @@
         }
       }
     },
-    "%@ compte(s) connecté(s).": {
+    "%@ connected account(s).": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -52034,7 +52034,7 @@
         }
       }
     },
-    "%@ pièce(s) jointe(s)": {
+    "%@ attachment(s)": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -52339,7 +52339,7 @@
         }
       }
     },
-    "%@ éléments exclus": {
+    "%@ excluded items": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -52644,7 +52644,7 @@
         }
       }
     },
-    ", extrait tronqué": {
+    ", truncated extract": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -52949,7 +52949,7 @@
         }
       }
     },
-    ", texte OCR détecté": {
+    ", OCR text detected": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -53254,7 +53254,7 @@
         }
       }
     },
-    "Action après expiration": {
+    "Action after expiration": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -53559,7 +53559,7 @@
         }
       }
     },
-    "Activation du lien Google Drive…": {
+    "Activating the Google Drive link…": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -53864,7 +53864,7 @@
         }
       }
     },
-    "Activez Apple Intelligence dans Réglages Système.": {
+    "Enable Apple Intelligence in System Settings.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -54169,7 +54169,7 @@
         }
       }
     },
-    "Adresse e-mail": {
+    "E-mail address": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -54474,7 +54474,7 @@
         }
       }
     },
-    "Ajoutez GOOGLE_CLIENT_ID dans Config/Local.xcconfig.": {
+    "Add GOOGLE_CLIENT_ID to Config/Local.xcconfig.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -54779,7 +54779,7 @@
         }
       }
     },
-    "Ajoutez GOOGLE_REDIRECT_SCHEME dans Config/Local.xcconfig.": {
+    "Add GOOGLE_REDIRECT_SCHEME to Config/Local.xcconfig.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -55084,7 +55084,7 @@
         }
       }
     },
-    "Ajoutez au moins un destinataire avant de créer un lien Google Drive.": {
+    "Add at least one recipient before creating a Google Drive link.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -55389,7 +55389,7 @@
         }
       }
     },
-    "Ajoutez au moins un destinataire valide.": {
+    "Add at least one valid recipient.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -55694,7 +55694,7 @@
         }
       }
     },
-    "Analyse en cours…": {
+    "Analysis in progress…": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -56304,7 +56304,7 @@
         }
       }
     },
-    "Apple Intelligence est disponible dans FileMailer à partir de macOS 27. Le brouillon déterministe reste disponible sur macOS 26.": {
+    "Apple Intelligence is available in FileMailer from macOS 27. The deterministic draft remains available on macOS 26.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -56609,7 +56609,7 @@
         }
       }
     },
-    "Archive illisible.": {
+    "Unreadable archive.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -56914,7 +56914,7 @@
         }
       }
     },
-    "Archive, %@ entrées. %@": {
+    "Archive, %@ entries. %@": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -57219,7 +57219,7 @@
         }
       }
     },
-    "Aucun destinataire": {
+    "No recipient": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -57524,7 +57524,7 @@
         }
       }
     },
-    "Autorisation…": {
+    "Authorisation…": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -57829,7 +57829,7 @@
         }
       }
     },
-    "Autoriser Google Drive": {
+    "Allow Google Drive": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -58134,7 +58134,7 @@
         }
       }
     },
-    "Autorisez Google Drive pour ce compte": {
+    "Authorize Google Drive for this account": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -58439,7 +58439,7 @@
         }
       }
     },
-    "Autorisez Google Drive pour ce compte avant d’envoyer ce lien.": {
+    "Authorize Google Drive for this account before sending this link.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -58744,7 +58744,7 @@
         }
       }
     },
-    "Avant de connecter Google": {
+    "Before connecting Google": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -59049,7 +59049,7 @@
         }
       }
     },
-    "Avant d’autoriser Google Drive": {
+    "Before authorizing Google Drive": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -59354,7 +59354,7 @@
         }
       }
     },
-    "Bien cordialement,": {
+    "Kind regards,": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -59659,7 +59659,7 @@
         }
       }
     },
-    "Bonjour %@,": {
+    "Hello %@,": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -59964,7 +59964,7 @@
         }
       }
     },
-    "Brouillon déterministe sur macOS 26": {
+    "Deterministic draft on macOS 26": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -60269,7 +60269,7 @@
         }
       }
     },
-    "Brouillon local": {
+    "Local draft": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -60574,7 +60574,7 @@
         }
       }
     },
-    "Cet appareil n’est pas compatible avec Apple Intelligence.": {
+    "This device is not compatible with Apple Intelligence.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -60879,7 +60879,7 @@
         }
       }
     },
-    "Compression du dossier…": {
+    "Compressing the folder…": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -61184,7 +61184,7 @@
         }
       }
     },
-    "Compte préféré": {
+    "Preferred account": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -61489,7 +61489,7 @@
         }
       }
     },
-    "Comptes Gmail…": {
+    "Gmail accounts…": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -61794,7 +61794,7 @@
         }
       }
     },
-    "Conserver dans Drive": {
+    "Store in Drive": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -62099,7 +62099,7 @@
         }
       }
     },
-    "Conserver sans suppression automatique": {
+    "Keep without automatic deletion": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -62404,7 +62404,7 @@
         }
       }
     },
-    "Continuer avec Google": {
+    "Continue with Google": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -62709,7 +62709,7 @@
         }
       }
     },
-    "Corbeille": {
+    "Trash": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -63014,7 +63014,7 @@
         }
       }
     },
-    "Corps du message": {
+    "Message body": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -63319,7 +63319,7 @@
         }
       }
     },
-    "Date de suppression personnalisée": {
+    "Custom deletion date": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -63624,7 +63624,7 @@
         }
       }
     },
-    "Destinataires visibles": {
+    "Visible recipients": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -63929,7 +63929,7 @@
         }
       }
     },
-    "Diagnostic de l’extension…": {
+    "Extension diagnostics…": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -64234,7 +64234,7 @@
         }
       }
     },
-    "Document Office Open XML illisible.": {
+    "The Office Open XML document could not be read.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -64539,7 +64539,7 @@
         }
       }
     },
-    "Document Office présentant une structure ZIP suspecte.": {
+    "The Office document has a suspicious ZIP structure.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -64844,7 +64844,7 @@
         }
       }
     },
-    "Document texte inaccessible.": {
+    "Text document inaccessible.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -65149,7 +65149,7 @@
         }
       }
     },
-    "Document texte, %@ lignes%@.": {
+    "Text document, %@ lines%@.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -65454,7 +65454,7 @@
         }
       }
     },
-    "Dossier inaccessible.": {
+    "Folder inaccessible.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -65759,7 +65759,7 @@
         }
       }
     },
-    "Dossier à compresser en ZIP, %@ entrées.%@": {
+    "Folder to compress into ZIP, %@ entries.%@": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -66064,7 +66064,7 @@
         }
       }
     },
-    "Définitif": {
+    "Permanent": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -66369,7 +66369,7 @@
         }
       }
     },
-    "Démarrage": {
+    "Startup": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -66674,7 +66674,7 @@
         }
       }
     },
-    "Désactivé par défaut. Les fichiers joints ne sont jamais copiés dans un brouillon.": {
+    "Disabled by default. Attached files are never copied to a draft.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -67284,7 +67284,7 @@
         }
       }
     },
-    "Effacer les brouillons": {
+    "Clear drafts": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -67589,7 +67589,7 @@
         }
       }
     },
-    "Effacer les brouillons enregistrés": {
+    "Clear saved drafts": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -67894,7 +67894,7 @@
         }
       }
     },
-    "Effacer tous les brouillons enregistrés ?": {
+    "Clear all saved drafts?": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -68199,7 +68199,7 @@
         }
       }
     },
-    "Enregistrer les brouillons localement": {
+    "Save drafts locally": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -68504,7 +68504,7 @@
         }
       }
     },
-    "Envoi de « %@ »": {
+    "Sending “%@”": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -68809,7 +68809,7 @@
         }
       }
     },
-    "Envoi des documents sélectionnés": {
+    "Sending selected documents": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -69114,7 +69114,7 @@
         }
       }
     },
-    "Envoyer avec %@": {
+    "Send with %@": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -69419,7 +69419,7 @@
         }
       }
     },
-    "Envoyer ce dossier par e-mail": {
+    "Send this folder by email": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -69724,7 +69724,7 @@
         }
       }
     },
-    "Envoyer par e-mail": {
+    "Send by email": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -70029,7 +70029,7 @@
         }
       }
     },
-    "Erreur Trousseau %@.": {
+    "Keychain error %@.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -70334,7 +70334,7 @@
         }
       }
     },
-    "Expiration de l’accès": {
+    "Access expiry": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -70639,7 +70639,7 @@
         }
       }
     },
-    "Extension Golden Gate": {
+    "Golden Gate extension": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -70944,7 +70944,7 @@
         }
       }
     },
-    "Fichier %@, %@ octets.": {
+    "File %@, %@ bytes.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -71249,7 +71249,7 @@
         }
       }
     },
-    "Fichier inaccessible. Sélectionnez-le à nouveau.": {
+    "File inaccessible. Select it again.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -71554,7 +71554,7 @@
         }
       }
     },
-    "Fichiers disponibles via un lien Google Drive :": {
+    "Google Drive files heading": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -72164,7 +72164,7 @@
         }
       }
     },
-    "FileMailer demandera votre nom et votre adresse e-mail Google, ainsi que l’autorisation d’envoyer les messages que vous avez relus et choisi d’envoyer. FileMailer ne lit pas votre boîte de réception, vos messages existants ni vos brouillons Gmail. Le contenu du message et ses pièces jointes ne sont transmis à Gmail qu’après votre action explicite sur Envoyer.": {
+    "FileMailer will request your Google name and email address, plus permission to send only the messages you review and choose to send. FileMailer does not read your inbox, existing Gmail messages, or Gmail drafts. Message content and attachments are sent to Gmail only after you explicitly select Send.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -73079,7 +73079,7 @@
         }
       }
     },
-    "Fragment IPC invalide.": {
+    "Invalid IPC fragment.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -73384,7 +73384,7 @@
         }
       }
     },
-    "Garder": {
+    "Keep": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -73689,7 +73689,7 @@
         }
       }
     },
-    "Gmail bloque ce type de fichier. Un lien Google Drive est requis.": {
+    "Gmail blocks this file type. A Google Drive link is required.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -73994,7 +73994,7 @@
         }
       }
     },
-    "Gmail bloque ce type de fichier. Utilisez le lien Google Drive proposé.": {
+    "Gmail blocks this file type. Use the suggested Google Drive link.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -74299,7 +74299,7 @@
         }
       }
     },
-    "Google Drive a répondu avec l’erreur %@.": {
+    "Google Drive responded with error %@.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -74604,7 +74604,7 @@
         }
       }
     },
-    "Google Drive ne permet pas de rendre ce fichier accessible par lien.": {
+    "Google Drive does not allow this file to be made accessible by link.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -74909,7 +74909,7 @@
         }
       }
     },
-    "Google a refusé une adresse de destinataire.": {
+    "Google refused a recipient address.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -75214,7 +75214,7 @@
         }
       }
     },
-    "Google n’a pas accordé toutes les autorisations nécessaires.": {
+    "Google has not granted all necessary permissions.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -75519,7 +75519,7 @@
         }
       }
     },
-    "Google n’a pas renvoyé les jetons attendus.": {
+    "Google did not return the expected tokens.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -75824,7 +75824,7 @@
         }
       }
     },
-    "Gérer l’extension Finder…": {
+    "Manage the Finder extension…": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -76434,7 +76434,7 @@
         }
       }
     },
-    "Image illisible.": {
+    "Unreadable image.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -76739,7 +76739,7 @@
         }
       }
     },
-    "Importation vers Google Drive…": {
+    "Import to Google Drive…": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -77044,7 +77044,7 @@
         }
       }
     },
-    "Importer": {
+    "Import": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -77349,7 +77349,7 @@
         }
       }
     },
-    "Impossible de charger la configuration OpenID de Google.": {
+    "Unable to load Google’s OpenID configuration.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -77654,7 +77654,7 @@
         }
       }
     },
-    "Impossible de créer le message MIME.": {
+    "Unable to create the MIME message.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -77959,7 +77959,7 @@
         }
       }
     },
-    "Impossible de lire la pièce jointe « %@ ».": {
+    "Unable to read attachment “%@”.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -78264,7 +78264,7 @@
         }
       }
     },
-    "Je me permets de vous transmettre le CV en pièce jointe.": {
+    "Please find the résumé attached.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -78569,7 +78569,7 @@
         }
       }
     },
-    "Je me permets de vous transmettre mon CV en pièce jointe.": {
+    "Please find my résumé attached.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -78874,7 +78874,7 @@
         }
       }
     },
-    "Je reste à votre disposition pour toute information complémentaire.": {
+    "Please let me know if you need any further information.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -79179,7 +79179,7 @@
         }
       }
     },
-    "Je vous transmets la présentation « %@ » en pièce jointe.": {
+    "Please find the presentation “%@” attached.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -79484,7 +79484,7 @@
         }
       }
     },
-    "Je vous transmets le document PDF « %@ » en pièce jointe.": {
+    "Please find the PDF document “%@” attached.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -79789,7 +79789,7 @@
         }
       }
     },
-    "Je vous transmets le document Word « %@ » en pièce jointe.": {
+    "Please find the Word document “%@” attached.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -80094,7 +80094,7 @@
         }
       }
     },
-    "Je vous transmets le document texte « %@ » en pièce jointe.": {
+    "Please find the text document “%@” attached.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -80399,7 +80399,7 @@
         }
       }
     },
-    "Je vous transmets le dossier « %@ » en pièce jointe.": {
+    "Please find the folder “%@” attached.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -80704,7 +80704,7 @@
         }
       }
     },
-    "Je vous transmets le fichier « %@ » en pièce jointe.": {
+    "Please find the file “%@” attached.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -81009,7 +81009,7 @@
         }
       }
     },
-    "Je vous transmets le tableau « %@ » en pièce jointe.": {
+    "Please find the spreadsheet “%@” attached.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -81314,7 +81314,7 @@
         }
       }
     },
-    "Je vous transmets l’archive « %@ » en pièce jointe.": {
+    "Please find the archive “%@” attached.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -81619,7 +81619,7 @@
         }
       }
     },
-    "Je vous transmets l’image « %@ » en pièce jointe.": {
+    "Please find the image “%@” attached.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -81924,7 +81924,7 @@
         }
       }
     },
-    "Je vous écris au sujet de notre échange.": {
+    "I am writing regarding our conversation.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -82229,7 +82229,7 @@
         }
       }
     },
-    "J’ai lu ces informations et je souhaite continuer avec Google.": {
+    "I have read this information and want to continue with Google.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -82534,7 +82534,7 @@
         }
       }
     },
-    "La base locale n’a pas pu être ouverte.": {
+    "The local database could not be opened.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -82839,7 +82839,7 @@
         }
       }
     },
-    "La connexion Google a été annulée.": {
+    "Google sign-in was canceled.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -83144,7 +83144,7 @@
         }
       }
     },
-    "La date d’expiration Drive doit être comprise entre maintenant et un an.": {
+    "The Drive expiration date must be between now and one year.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -83449,7 +83449,7 @@
         }
       }
     },
-    "La demande Finder a déjà été traitée.": {
+    "The Finder request has already been processed.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -83754,7 +83754,7 @@
         }
       }
     },
-    "La demande Finder a expiré.": {
+    "The Finder request has expired.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -84059,7 +84059,7 @@
         }
       }
     },
-    "La pièce jointe « %@ » a changé.": {
+    "The attachment “%@” has changed.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -84364,7 +84364,7 @@
         }
       }
     },
-    "La réponse Gmail est illisible.": {
+    "The Gmail response could not be read.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -84669,7 +84669,7 @@
         }
       }
     },
-    "La réponse Google Drive est illisible.": {
+    "The Google Drive response could not be read.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -84974,7 +84974,7 @@
         }
       }
     },
-    "La réponse du modèle n’est pas un brouillon valide.": {
+    "The model’s response is not a valid draft.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -85279,7 +85279,7 @@
         }
       }
     },
-    "La session Gmail a expiré. Reconnectez le compte.": {
+    "Your Gmail session has expired. Reconnect the account.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -85584,7 +85584,7 @@
         }
       }
     },
-    "La suppression Drive a échoué.": {
+    "Drive deletion failed.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -85889,7 +85889,7 @@
         }
       }
     },
-    "La vérification du nonce OAuth a échoué.": {
+    "OAuth nonce verification failed.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -86194,7 +86194,7 @@
         }
       }
     },
-    "Le compte Gmail doit être reconnecté.": {
+    "Reconnect this Gmail account.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -86499,7 +86499,7 @@
         }
       }
     },
-    "Le compte Google ne fournit pas d’identité exploitable.": {
+    "The Google account did not provide a usable identity.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -86804,7 +86804,7 @@
         }
       }
     },
-    "Le contenu sélectionné dépasse la fenêtre du modèle.": {
+    "The selected content exceeds the model’s context window.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -87109,7 +87109,7 @@
         }
       }
     },
-    "Le contrôle d’intégrité IPC a échoué.": {
+    "The IPC integrity check failed.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -87414,7 +87414,7 @@
         }
       }
     },
-    "Le dossier dépasse les limites d’analyse.": {
+    "The folder exceeds the analysis limits.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -87719,7 +87719,7 @@
         }
       }
     },
-    "Le fichier ou le dossier FileMailer n’existe plus dans Google Drive.": {
+    "The FileMailer file or folder no longer exists in Google Drive.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -88024,7 +88024,7 @@
         }
       }
     },
-    "Le fichier à envoyer n’est plus accessible.": {
+    "The file to be sent is no longer accessible.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -88329,7 +88329,7 @@
         }
       }
     },
-    "Le jeton d’identité Google est invalide.": {
+    "The Google identity token is invalid.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -88634,7 +88634,7 @@
         }
       }
     },
-    "Le jeton d’identité a expiré.": {
+    "The identity token has expired.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -88939,7 +88939,7 @@
         }
       }
     },
-    "Le jeton d’identité ne cible pas cette application.": {
+    "The identity token does not target this application.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -89244,7 +89244,7 @@
         }
       }
     },
-    "Le message IPC contient trop de fragments.": {
+    "The IPC message contains too many fragments.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -89549,7 +89549,7 @@
         }
       }
     },
-    "Le message IPC dépasse la taille autorisée.": {
+    "The IPC message exceeds the allowed size.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -89854,7 +89854,7 @@
         }
       }
     },
-    "Le message IPC est incomplet.": {
+    "The IPC message is incomplete.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -90159,7 +90159,7 @@
         }
       }
     },
-    "Le message dépasse la taille autorisée par Gmail.": {
+    "The message exceeds the size allowed by Gmail.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -90464,7 +90464,7 @@
         }
       }
     },
-    "Le modèle Apple Intelligence n’est pas encore prêt.": {
+    "The Apple Intelligence model is not ready yet.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -90769,7 +90769,7 @@
         }
       }
     },
-    "Le modèle a refusé ce contenu. Le brouillon déterministe reste disponible.": {
+    "The model refused this content. The deterministic draft remains available.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -91074,7 +91074,7 @@
         }
       }
     },
-    "Le modèle est temporairement indisponible.": {
+    "The model is temporarily unavailable.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -91379,7 +91379,7 @@
         }
       }
     },
-    "Le nettoyage de %@ a échoué : %@": {
+    "Cleanup of %@ failed: %@": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -91684,7 +91684,7 @@
         }
       }
     },
-    "Le quota Gmail est temporairement dépassé.": {
+    "The Gmail quota has temporarily been exceeded.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -91989,7 +91989,7 @@
         }
       }
     },
-    "Le quota Google Drive est temporairement dépassé.": {
+    "The Google Drive quota has temporarily been exceeded.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -92294,7 +92294,7 @@
         }
       }
     },
-    "Le retrait local est terminé, mais la révocation Google a échoué.": {
+    "The account was removed locally, but Google access could not be revoked.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -92599,7 +92599,7 @@
         }
       }
     },
-    "Le réseau est indisponible.": {
+    "The network is unavailable.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -92904,7 +92904,7 @@
         }
       }
     },
-    "Le schéma de redirection Google OAuth est invalide.": {
+    "The Google OAuth redirect scheme is invalid.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -93209,7 +93209,7 @@
         }
       }
     },
-    "Le serveur Gmail a répondu avec l’erreur %@.": {
+    "The Gmail server returned error %@.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -93514,7 +93514,7 @@
         }
       }
     },
-    "Le stockage local des transferts Google Drive n’a pas pu être ouvert.": {
+    "Local storage for Google Drive transfers could not be opened.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -93819,7 +93819,7 @@
         }
       }
     },
-    "Les destinataires, objets et corps de ces brouillons seront supprimés de ce Mac.": {
+    "The recipients, subjects, and bodies of these drafts will be deleted from this Mac.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -94124,7 +94124,7 @@
         }
       }
     },
-    "Les jetons OAuth sont stockés dans le Trousseau macOS. FileMailer n’exploite aucun serveur, service d’analyse ou rapporteur de crash tiers.": {
+    "OAuth tokens are stored in the macOS Keychain. FileMailer operates no server, analytics service, or third-party crash reporter.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -94429,7 +94429,7 @@
         }
       }
     },
-    "Lien Google Drive": {
+    "Google Drive link": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -94734,7 +94734,7 @@
         }
       }
     },
-    "Lien privé prêt pour les destinataires de ce message.": {
+    "Private link ready for recipients of this message.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -95039,7 +95039,7 @@
         }
       }
     },
-    "Lien symbolique, non suivi automatiquement.": {
+    "Symbolic link, not followed automatically.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -95344,7 +95344,7 @@
         }
       }
     },
-    "Lire la politique de confidentialité": {
+    "Read the privacy policy": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -95649,7 +95649,7 @@
         }
       }
     },
-    "L’accès Gmail a été révoqué.": {
+    "Gmail access has been revoked.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -95954,7 +95954,7 @@
         }
       }
     },
-    "L’administrateur Google Workspace bloque cette application.": {
+    "Your Google Workspace administrator blocks this application.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -96259,7 +96259,7 @@
         }
       }
     },
-    "L’adresse Gmail n’est pas vérifiée.": {
+    "The Gmail address is not verified.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -96564,7 +96564,7 @@
         }
       }
     },
-    "L’adresse contient un caractère interdit.": {
+    "The address contains a prohibited character.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -96869,7 +96869,7 @@
         }
       }
     },
-    "L’adresse e-mail est trop longue.": {
+    "The email address is too long.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -97174,7 +97174,7 @@
         }
       }
     },
-    "L’adresse e-mail est vide.": {
+    "The email address is empty.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -97479,7 +97479,7 @@
         }
       }
     },
-    "L’adresse e-mail n’est pas valide.": {
+    "The email address is invalid.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -97784,7 +97784,7 @@
         }
       }
     },
-    "L’analyse a été annulée.": {
+    "The analysis was canceled.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -98089,7 +98089,7 @@
         }
       }
     },
-    "L’archive ne peut pas être lue.": {
+    "The archive cannot be read.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -98394,7 +98394,7 @@
         }
       }
     },
-    "L’archive présente un risque de sécurité.": {
+    "The archive poses a security risk.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -98699,7 +98699,7 @@
         }
       }
     },
-    "L’envoi a été annulé.": {
+    "Sending was canceled.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -99004,7 +99004,7 @@
         }
       }
     },
-    "L’objet et le message sont vides.": {
+    "The subject and message are empty.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -99309,7 +99309,7 @@
         }
       }
     },
-    "L’émetteur OpenID ne correspond pas à Google.": {
+    "The OpenID issuer does not match Google.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -99614,7 +99614,7 @@
         }
       }
     },
-    "L’état OAuth ne peut pas être lu.": {
+    "The OAuth state could not be read.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -99919,7 +99919,7 @@
         }
       }
     },
-    "Mettre à la corbeille": {
+    "Move to Trash": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -100224,7 +100224,7 @@
         }
       }
     },
-    "Mode de livraison": {
+    "Delivery method": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -100529,7 +100529,7 @@
         }
       }
     },
-    "Modifier": {
+    "Edit": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -100834,7 +100834,7 @@
         }
       }
     },
-    "Nom": {
+    "Name": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -101749,7 +101749,7 @@
         }
       }
     },
-    "Ouvrir FileMailer à la connexion": {
+    "Open FileMailer at login": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -102054,7 +102054,7 @@
         }
       }
     },
-    "Ouvrir les réglages d’extensions…": {
+    "Open extension settings…": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -102359,7 +102359,7 @@
         }
       }
     },
-    "PDF chiffré, %@ pages.": {
+    "PDF encrypted, %@ pages.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -102664,7 +102664,7 @@
         }
       }
     },
-    "PDF illisible.": {
+    "PDF unreadable.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -102969,7 +102969,7 @@
         }
       }
     },
-    "PDF, %@ pages, texte extrait de %@ pages.": {
+    "PDF, %@ pages, text extracted from %@ pages.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -103274,7 +103274,7 @@
         }
       }
     },
-    "Pièce jointe Gmail": {
+    "Gmail attachment": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -103579,7 +103579,7 @@
         }
       }
     },
-    "Politique de confidentialité": {
+    "Privacy Policy": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -103884,7 +103884,7 @@
         }
       }
     },
-    "Préférence de rédaction": {
+    "Writing preference": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -104189,7 +104189,7 @@
         }
       }
     },
-    "Préférences…": {
+    "Preferences…": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -104494,7 +104494,7 @@
         }
       }
     },
-    "Préparation avec Apple Intelligence…": {
+    "Preparation with Apple Intelligence…": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -104799,7 +104799,7 @@
         }
       }
     },
-    "Préparation des liens Google Drive…": {
+    "Preparing Google Drive links…": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -105104,7 +105104,7 @@
         }
       }
     },
-    "Préparation du message": {
+    "Preparing the message": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -105409,7 +105409,7 @@
         }
       }
     },
-    "Préparation du message…": {
+    "Preparing the message…": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -105714,7 +105714,7 @@
         }
       }
     },
-    "Prêt à importer dans votre dossier FileMailer": {
+    "Ready to upload to your FileMailer folder": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -106019,7 +106019,7 @@
         }
       }
     },
-    "Relancer le brouillon local": {
+    "Restart local draft": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -106324,7 +106324,7 @@
         }
       }
     },
-    "Retirer %@": {
+    "Remove %@": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -106629,7 +106629,7 @@
         }
       }
     },
-    "Revoir l’onboarding": {
+    "Review onboarding": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -107239,7 +107239,7 @@
         }
       }
     },
-    "Seuls les destinataires de ce message pourront télécharger.": {
+    "Only recipients of this message will be able to download.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -107544,7 +107544,7 @@
         }
       }
     },
-    "Snapshot trop volumineux.": {
+    "Snapshot too large.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -107849,7 +107849,7 @@
         }
       }
     },
-    "Supprimer": {
+    "Delete": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -108154,7 +108154,7 @@
         }
       }
     },
-    "Supprimer %@": {
+    "Delete %@": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -108459,7 +108459,7 @@
         }
       }
     },
-    "Supprimer après 1 jour": {
+    "Delete after 1 day": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -108764,7 +108764,7 @@
         }
       }
     },
-    "Supprimer après 30 jours": {
+    "Delete after 30 days": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -109069,7 +109069,7 @@
         }
       }
     },
-    "Supprimer après 7 jours": {
+    "Delete after 7 days": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -109374,7 +109374,7 @@
         }
       }
     },
-    "Supprimer après 90 jours": {
+    "Delete after 90 days": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -109679,7 +109679,7 @@
         }
       }
     },
-    "Supprimer définitivement": {
+    "Permanently delete": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -109984,7 +109984,7 @@
         }
       }
     },
-    "Sur macOS 26, FileMailer propose un brouillon déterministe et la rédaction manuelle. Apple Intelligence est réservé à macOS 27 ou ultérieur.": {
+    "On macOS 26, FileMailer offers deterministic drafting and manual drafting. Apple Intelligence is reserved for macOS 27 or later.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -110289,7 +110289,7 @@
         }
       }
     },
-    "Ton": {
+    "Tone": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -110594,7 +110594,7 @@
         }
       }
     },
-    "Transmission de mon CV": {
+    "My résumé": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -110899,7 +110899,7 @@
         }
       }
     },
-    "Transmission du CV joint": {
+    "Attached résumé": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -111204,7 +111204,7 @@
         }
       }
     },
-    "Trop de demandes Finder rapprochées.": {
+    "Too many Finder requests close together.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -111509,7 +111509,7 @@
         }
       }
     },
-    "Trop de fichiers ont été sélectionnés.": {
+    "Too many files have been selected.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -111814,7 +111814,7 @@
         }
       }
     },
-    "Un chemin Finder est invalide.": {
+    "A Finder path is invalid.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -112119,7 +112119,7 @@
         }
       }
     },
-    "Un en-tête MIME est invalide.": {
+    "A MIME header is invalid.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -112424,7 +112424,7 @@
         }
       }
     },
-    "Un en-tête contient un caractère interdit.": {
+    "A header contains a prohibited character.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -112729,7 +112729,7 @@
         }
       }
     },
-    "Une pièce jointe n’est plus accessible.": {
+    "An attachment is no longer accessible.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -113034,7 +113034,7 @@
         }
       }
     },
-    "Utilisez Google Drive pour les fichiers de plus de 18 Mo.": {
+    "Use Google Drive for files larger than 18 MB.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -113339,7 +113339,7 @@
         }
       }
     },
-    "Version IPC non prise en charge.": {
+    "IPC version not supported.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -113644,7 +113644,7 @@
         }
       }
     },
-    "Veuillez trouver les documents suivants en pièces jointes :": {
+    "Please find the following documents attached:": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -113949,7 +113949,7 @@
         }
       }
     },
-    "Visible dans le classement": {
+    "Visible in the ranking": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -114254,7 +114254,7 @@
         }
       }
     },
-    "À": {
+    "To": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -114559,7 +114559,7 @@
         }
       }
     },
-    "À propos de FileMailer": {
+    "About FileMailer": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -114864,7 +114864,7 @@
         }
       }
     },
-    "Écrire manuellement": {
+    "Write manually": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -115169,7 +115169,7 @@
         }
       }
     },
-    "Épinglé": {
+    "Pinned": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -115474,7 +115474,7 @@
         }
       }
     },
-    "État d’envoi incertain. Vérifiez le dossier Envoyés dans Gmail avant de réessayer.": {
+    "Sending status is uncertain. Check the Sent folder in Gmail before trying again.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -116084,7 +116084,7 @@
         }
       }
     },
-    "1 j": {
+    "1 day": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -116389,7 +116389,7 @@
         }
       }
     },
-    "30 j": {
+    "30 days": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -116694,7 +116694,7 @@
         }
       }
     },
-    "7 j": {
+    "7 days": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -116999,7 +116999,7 @@
         }
       }
     },
-    "90 j": {
+    "90 days": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -117304,7 +117304,7 @@
         }
       }
     },
-    "Bonjour,": {
+    "Hello,": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -117609,7 +117609,7 @@
         }
       }
     },
-    "FileMailer demandera l’accès uniquement aux fichiers qu’il crée ou que vous sélectionnez avec FileMailer. Lorsque vous choisissez un lien Drive, le fichier sélectionné est importé dans votre Google Drive et accessible seulement aux destinataires À, Cc et Cci du message. FileMailer ne crée pas de lien public et ne demande pas l’accès à l’ensemble de votre Drive.": {
+    "FileMailer will request access only to the files it creates or that you select with FileMailer. When you choose a Drive link, the selected file is imported into your Google Drive and accessible only to the To, Cc, and Bcc recipients of the message. FileMailer does not create a public link or request access to your entire Drive.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -117914,7 +117914,7 @@
         }
       }
     },
-    "L’administrateur Google Workspace bloque l’utilisation de Google Drive par FileMailer.": {
+    "Your Google Workspace administrator blocks FileMailer from using Google Drive.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -118219,7 +118219,7 @@
         }
       }
     },
-    "Brouillons": {
+    "Drafts": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -118524,7 +118524,7 @@
         }
       }
     },
-    "Expiration": {
+    "Expiry": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -118829,7 +118829,7 @@
         }
       }
     },
-    "Traitement": {
+    "Processing": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -119134,7 +119134,7 @@
         }
       }
     },
-    "Dossier à compresser en ZIP, %@ entrées.": {
+    "Folder to compress as ZIP, %@ entries.": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -119744,7 +119744,7 @@
         }
       }
     },
-    "Limites : Finder 50, destinataires %@, texte 1 Mio": {
+    "Limits: Finder 50, recipients %@, text 1 MiB": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -120049,7 +120049,7 @@
         }
       }
     },
-    "Comptes": {
+    "Accounts": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -120354,7 +120354,7 @@
         }
       }
     },
-    "Erreurs nettoyées": {
+    "Sanitized errors": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -120659,7 +120659,7 @@
         }
       }
     },
-    "Compte": {
+    "Account": {
       "extractionState": "manual",
       "localizations": {
         "fr": {
@@ -120964,7 +120964,7 @@
         }
       }
     },
-    "Édition": {
+    "Edit menu": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -121269,7 +121269,7 @@
         }
       }
     },
-    "Présentation": {
+    "View": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -121574,7 +121574,7 @@
         }
       }
     },
-    "Fenêtre": {
+    "Window": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -121879,7 +121879,7 @@
         }
       }
     },
-    "Aide": {
+    "Help": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -122489,7 +122489,7 @@
         }
       }
     },
-    "Masquer FileMailer": {
+    "Hide FileMailer": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -122794,7 +122794,7 @@
         }
       }
     },
-    "Masquer les autres": {
+    "Hide Others": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -123099,7 +123099,7 @@
         }
       }
     },
-    "Tout afficher": {
+    "Show All": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -123404,7 +123404,7 @@
         }
       }
     },
-    "Rétablir": {
+    "Redo": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -123709,7 +123709,7 @@
         }
       }
     },
-    "Couper": {
+    "Cut": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -124014,7 +124014,7 @@
         }
       }
     },
-    "Copier": {
+    "Copy": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -124319,7 +124319,7 @@
         }
       }
     },
-    "Coller": {
+    "Paste": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -124624,7 +124624,7 @@
         }
       }
     },
-    "Tout sélectionner": {
+    "Select All": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -124929,7 +124929,7 @@
         }
       }
     },
-    "Remplissage automatique": {
+    "AutoFill": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -125539,7 +125539,7 @@
         }
       }
     },
-    "Mots de passe…": {
+    "Passwords…": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -125844,7 +125844,7 @@
         }
       }
     },
-    "Carte bancaire…": {
+    "Credit Card…": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -126149,7 +126149,7 @@
         }
       }
     },
-    "Démarrer la dictée": {
+    "Start Dictation": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -126454,7 +126454,7 @@
         }
       }
     },
-    "Emoji et symboles": {
+    "Emoji & Symbols": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -126759,7 +126759,7 @@
         }
       }
     },
-    "Activer le plein écran": {
+    "Enter Full Screen": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -127064,7 +127064,7 @@
         }
       }
     },
-    "Quitter le plein écran": {
+    "Exit Full Screen": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -127369,7 +127369,7 @@
         }
       }
     },
-    "Fermer": {
+    "Close": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -127674,7 +127674,7 @@
         }
       }
     },
-    "Tout fermer": {
+    "Close All": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -127979,7 +127979,7 @@
         }
       }
     },
-    "Réduire": {
+    "Minimize": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -128284,7 +128284,7 @@
         }
       }
     },
-    "Tout réduire": {
+    "Minimize All": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -128894,7 +128894,7 @@
         }
       }
     },
-    "Tout agrandir": {
+    "Zoom All": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -129199,7 +129199,7 @@
         }
       }
     },
-    "Remplir": {
+    "Fill": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -129504,7 +129504,7 @@
         }
       }
     },
-    "Centrer": {
+    "Center": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -129809,7 +129809,7 @@
         }
       }
     },
-    "Déplacer et redimensionner": {
+    "Move & Resize": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -130114,7 +130114,7 @@
         }
       }
     },
-    "Moitiés": {
+    "Halves": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -130419,7 +130419,7 @@
         }
       }
     },
-    "Gauche": {
+    "Left": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -130724,7 +130724,7 @@
         }
       }
     },
-    "Droite": {
+    "Right": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -131029,7 +131029,7 @@
         }
       }
     },
-    "Haut": {
+    "Top": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -131334,7 +131334,7 @@
         }
       }
     },
-    "Bas": {
+    "Bottom": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -131639,7 +131639,7 @@
         }
       }
     },
-    "Quarts": {
+    "Quarters": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -131944,7 +131944,7 @@
         }
       }
     },
-    "En haut à gauche": {
+    "Top Left": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -132249,7 +132249,7 @@
         }
       }
     },
-    "En haut à droite": {
+    "Top Right": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -132554,7 +132554,7 @@
         }
       }
     },
-    "En bas à gauche": {
+    "Bottom Left": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -132859,7 +132859,7 @@
         }
       }
     },
-    "En bas à droite": {
+    "Bottom Right": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -133164,7 +133164,7 @@
         }
       }
     },
-    "Disposer": {
+    "Arrange": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -133469,7 +133469,7 @@
         }
       }
     },
-    "Gauche et droite": {
+    "Left & Right": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -133774,7 +133774,7 @@
         }
       }
     },
-    "Gauche et quarts": {
+    "Left & Quarters": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -134079,7 +134079,7 @@
         }
       }
     },
-    "Droite et gauche": {
+    "Right & Left": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -134384,7 +134384,7 @@
         }
       }
     },
-    "Droite et quarts": {
+    "Right & Quarters": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -134689,7 +134689,7 @@
         }
       }
     },
-    "Haut et bas": {
+    "Top & Bottom": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -134994,7 +134994,7 @@
         }
       }
     },
-    "Haut et quarts": {
+    "Top & Quarters": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -135299,7 +135299,7 @@
         }
       }
     },
-    "Bas et haut": {
+    "Bottom & Top": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -135604,7 +135604,7 @@
         }
       }
     },
-    "Bas et quarts": {
+    "Bottom & Quarters": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -135909,7 +135909,7 @@
         }
       }
     },
-    "Rétablir la taille précédente": {
+    "Return to Previous Size": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -136214,7 +136214,7 @@
         }
       }
     },
-    "Mosaïque plein écran": {
+    "Full Screen Tile": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -136519,7 +136519,7 @@
         }
       }
     },
-    "Tout ramener au premier plan": {
+    "Bring All to Front": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -136824,7 +136824,7 @@
         }
       }
     },
-    "Disposer au premier plan": {
+    "Arrange in Front": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -137129,7 +137129,7 @@
         }
       }
     },
-    "Retirer la fenêtre du groupe": {
+    "Remove Window from Set": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -137434,7 +137434,7 @@
         }
       }
     },
-    "Envoyer des commentaires sur FileMailer à Apple": {
+    "Send FileMailer Feedback to Apple": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -137739,7 +137739,7 @@
         }
       }
     },
-    "Aide FileMailer": {
+    "FileMailer Help": {
       "extractionState": "manual",
       "localizations": {
         "en": {
@@ -138044,7 +138044,7 @@
         }
       }
     },
-    "Annuler la dernière action": {
+    "Undo": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -138349,7 +138349,7 @@
         }
       }
     },
-    "Afficher la barre d’onglets": {
+    "Show Tab Bar": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -138654,7 +138654,7 @@
         }
       }
     },
-    "Masquer la barre d’onglets": {
+    "Hide Tab Bar": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -138959,7 +138959,7 @@
         }
       }
     },
-    "Afficher tous les onglets": {
+    "Show All Tabs": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -139264,7 +139264,7 @@
         }
       }
     },
-    "Quitter l’aperçu des onglets": {
+    "Exit Tab Overview": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -139569,7 +139569,7 @@
         }
       }
     },
-    "Afficher l’onglet précédent": {
+    "Show Previous Tab": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -139874,7 +139874,7 @@
         }
       }
     },
-    "Afficher l’onglet suivant": {
+    "Show Next Tab": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -140179,7 +140179,7 @@
         }
       }
     },
-    "Déplacer l’onglet vers une nouvelle fenêtre": {
+    "Move Tab to New Window": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -140484,7 +140484,7 @@
         }
       }
     },
-    "Fusionner toutes les fenêtres": {
+    "Merge All Windows": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -140789,7 +140789,7 @@
         }
       }
     },
-    "À gauche de l’écran": {
+    "Left of Screen": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
@@ -141094,7 +141094,7 @@
         }
       }
     },
-    "À droite de l’écran": {
+    "Right of Screen": {
       "extractionState": "manual",
       "localizations": {
         "ar": {

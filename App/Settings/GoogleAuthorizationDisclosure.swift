@@ -7,17 +7,17 @@ enum GoogleAuthorizationPurpose: String, Identifiable {
 
     var title: LocalizedStringKey {
         switch self {
-        case .gmail: "Avant de connecter Google"
-        case .drive: "Avant d’autoriser Google Drive"
+        case .gmail: "Before connecting Google"
+        case .drive: "Before authorizing Google Drive"
         }
     }
 
     var disclosure: LocalizedStringKey {
         switch self {
         case .gmail:
-            "FileMailer demandera votre nom et votre adresse e-mail Google, ainsi que l’autorisation d’envoyer les messages que vous avez relus et choisi d’envoyer. FileMailer ne lit pas votre boîte de réception, vos messages existants ni vos brouillons Gmail. Le contenu du message et ses pièces jointes ne sont transmis à Gmail qu’après votre action explicite sur Envoyer."
+            "FileMailer will request your Google name and email address, plus permission to send only the messages you review and choose to send. FileMailer does not read your inbox, existing Gmail messages, or Gmail drafts. Message content and attachments are sent to Gmail only after you explicitly select Send."
         case .drive:
-            "FileMailer demandera l’accès uniquement aux fichiers qu’il crée ou que vous sélectionnez avec FileMailer. Lorsque vous choisissez un lien Drive, le fichier sélectionné est importé dans votre Google Drive et accessible seulement aux destinataires À, Cc et Cci du message. FileMailer ne crée pas de lien public et ne demande pas l’accès à l’ensemble de votre Drive."
+            "FileMailer will request access only to the files it creates or that you select with FileMailer. When you choose a Drive link, the selected file is imported into your Google Drive and accessible only to the To, Cc, and Bcc recipients of the message. FileMailer does not create a public link or request access to your entire Drive."
         }
     }
 }
@@ -34,17 +34,17 @@ struct GoogleAuthorizationDisclosure: View {
                 .font(.title2.weight(.semibold))
             Text(purpose.disclosure)
                 .fixedSize(horizontal: false, vertical: true)
-            Text("Les jetons OAuth sont stockés dans le Trousseau macOS. FileMailer n’exploite aucun serveur, service d’analyse ou rapporteur de crash tiers.")
+            Text("OAuth tokens are stored in the macOS Keychain. FileMailer operates no server, analytics service, or third-party crash reporter.")
                 .font(.callout)
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
-            Link("Lire la politique de confidentialité", destination: AppConfiguration.privacyPolicyURL)
-            Toggle("J’ai lu ces informations et je souhaite continuer avec Google.", isOn: $hasAcknowledged)
+            Link("Read the privacy policy", destination: AppConfiguration.privacyPolicyURL)
+            Toggle("I have read this information and want to continue with Google.", isOn: $hasAcknowledged)
                 .toggleStyle(.checkbox)
             HStack {
-                Button("Annuler", role: .cancel) { dismiss() }
+                Button("Cancel", role: .cancel) { dismiss() }
                 Spacer()
-                Button("Continuer avec Google") {
+                Button("Continue with Google") {
                     dismiss()
                     Task { @MainActor in
                         await Task.yield()

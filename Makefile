@@ -1,5 +1,5 @@
 SHELL := /bin/zsh
-XCODE_DEVELOPER_DIR ?= /Applications/Xcode-beta.app/Contents/Developer
+XCODE_DEVELOPER_DIR ?= /Applications/Xcode.app/Contents/Developer
 SCHEME ?= FileMailer
 CONFIGURATION ?= Debug
 DERIVED_DATA ?= build/DerivedData
@@ -9,7 +9,7 @@ RELEASE_CODE_SIGN_IDENTITY ?= Developer ID Application
 RELEASE_CODE_SIGN_STYLE ?= Manual
 RELEASE_DEVELOPMENT_TEAM ?= $(shell sed -nE 's/^[[:space:]]*DEVELOPMENT_TEAM[[:space:]]*=[[:space:]]*([^[:space:]]+).*$$/\1/p' Config/Local.xcconfig 2>/dev/null | head -1)
 
-.PHONY: bootstrap audit-public generate fixtures test build run archive package notarize verify-release clean clean-space
+.PHONY: bootstrap audit-public check-app-store generate fixtures test build run archive archive-app-store export-app-store package notarize verify-release clean clean-space
 
 bootstrap:
 	@command -v xcodegen >/dev/null
@@ -18,6 +18,9 @@ bootstrap:
 
 audit-public:
 	zsh Scripts/audit_public_source.sh
+
+check-app-store:
+	python3 Scripts/check_app_store.py
 
 generate:
 	xcodegen generate
@@ -59,6 +62,20 @@ archive:
 		CODE_SIGN_IDENTITY="$(RELEASE_CODE_SIGN_IDENTITY)" \
 		DEVELOPMENT_TEAM="$(RELEASE_DEVELOPMENT_TEAM)" \
 		archive
+
+archive-app-store: check-app-store
+	@test "$(CODE_SIGNING_ALLOWED)" = "YES"
+	@test -n "$(RELEASE_DEVELOPMENT_TEAM)"
+	DEVELOPER_DIR="$(XCODE_DEVELOPER_DIR)" xcodebuild \
+		-project FileMailer.xcodeproj -scheme "$(SCHEME)" \
+		-configuration AppStore -destination "generic/platform=macOS" \
+		-archivePath build/FileMailer-AppStore.xcarchive \
+		-derivedDataPath "$(DERIVED_DATA)" \
+		-clonedSourcePackagesDirPath "$(SOURCE_PACKAGES)" \
+		DEVELOPMENT_TEAM="$(RELEASE_DEVELOPMENT_TEAM)" archive
+
+export-app-store: archive-app-store
+	XCODE_DEVELOPER_DIR="$(XCODE_DEVELOPER_DIR)" zsh Scripts/export_app_store.sh
 
 package: archive
 	ditto -c -k --keepParent build/FileMailer.xcarchive/Products/Applications/FileMailer.app build/FileMailer.zip

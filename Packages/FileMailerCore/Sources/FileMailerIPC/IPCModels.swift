@@ -41,16 +41,16 @@ public enum IPCError: Error, LocalizedError, Equatable, Sendable {
 
     public var errorDescription: String? {
         switch self {
-        case .unsupportedSchema: FileMailerLocalization.current.string("Version IPC non prise en charge.")
-        case .invalidChunk: FileMailerLocalization.current.string("Fragment IPC invalide.")
-        case .tooManyChunks: FileMailerLocalization.current.string("Le message IPC contient trop de fragments.")
-        case .payloadTooLarge: FileMailerLocalization.current.string("Le message IPC dépasse la taille autorisée.")
-        case .checksumMismatch: FileMailerLocalization.current.string("Le contrôle d’intégrité IPC a échoué.")
-        case .incompleteMessage: FileMailerLocalization.current.string("Le message IPC est incomplet.")
-        case .expiredAction: FileMailerLocalization.current.string("La demande Finder a expiré.")
-        case .duplicateRequest: FileMailerLocalization.current.string("La demande Finder a déjà été traitée.")
-        case .invalidPath: FileMailerLocalization.current.string("Un chemin Finder est invalide.")
-        case .rateLimited: FileMailerLocalization.current.string("Trop de demandes Finder rapprochées.")
+        case .unsupportedSchema: FileMailerLocalization.current.string("IPC version not supported.")
+        case .invalidChunk: FileMailerLocalization.current.string("Invalid IPC fragment.")
+        case .tooManyChunks: FileMailerLocalization.current.string("The IPC message contains too many fragments.")
+        case .payloadTooLarge: FileMailerLocalization.current.string("The IPC message exceeds the allowed size.")
+        case .checksumMismatch: FileMailerLocalization.current.string("The IPC integrity check failed.")
+        case .incompleteMessage: FileMailerLocalization.current.string("The IPC message is incomplete.")
+        case .expiredAction: FileMailerLocalization.current.string("The Finder request has expired.")
+        case .duplicateRequest: FileMailerLocalization.current.string("The Finder request has already been processed.")
+        case .invalidPath: FileMailerLocalization.current.string("A Finder path is invalid.")
+        case .rateLimited: FileMailerLocalization.current.string("Too many Finder requests close together.")
         }
     }
 }
@@ -146,6 +146,7 @@ public struct IPCNotificationNames: Sendable {
     public let appHeartbeat: Notification.Name
     public let extensionHeartbeat: Notification.Name
     public let snapshotRequest: Notification.Name
+    public let snapshotChanged: Notification.Name
     public let snapshotChunk: Notification.Name
     public let actionChunk: Notification.Name
     public let actionAcknowledgement: Notification.Name
@@ -154,6 +155,7 @@ public struct IPCNotificationNames: Sendable {
         appHeartbeat = Notification.Name("\(baseBundleID).ipc.app-heartbeat")
         extensionHeartbeat = Notification.Name("\(baseBundleID).ipc.extension-heartbeat")
         snapshotRequest = Notification.Name("\(baseBundleID).ipc.snapshot-request")
+        snapshotChanged = Notification.Name("\(baseBundleID).ipc.snapshot-changed")
         snapshotChunk = Notification.Name("\(baseBundleID).ipc.snapshot-chunk")
         actionChunk = Notification.Name("\(baseBundleID).ipc.action-chunk")
         actionAcknowledgement = Notification.Name("\(baseBundleID).ipc.action-acknowledgement")

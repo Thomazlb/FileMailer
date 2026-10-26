@@ -105,8 +105,7 @@ Finder resources. `python3 Scripts/check_localizations.py` rejects missing
 translations, English copied into other languages, mismatched format arguments
 and generated resources that are out of date. Runtime localization is offline.
 
-Additional translations were initially machine assisted; fluent-speaker review
-of every supported language is still recommended before a public release.
+Fluent-speaker review of every supported language is recommended before a public release.
 
 ## First use
 
@@ -166,9 +165,10 @@ The logo above is a static PNG exported directly from that document. A
 layers. See [icon sources and exports](Design/IconComposer/FileMailer/README.md)
 to edit the icon or update its previews.
 
-The current release configuration targets Developer ID distribution by DMG.
-Mac App Store distribution still requires a sandbox-compatible configuration
-and file-access flow; see [distribution status](docs/RELEASE.md#mac-app-store-status).
+Both the app and Finder extension use the sandbox. Separate `Release` and
+`AppStore` configurations support Developer ID and Mac App Store signing.
+See [distribution requirements](docs/RELEASE.md#mac-app-store-preparation) for the
+remaining review and submission checks.
 
 ## Official releases and community builds
 

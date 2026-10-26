@@ -25,6 +25,23 @@ public struct IPCActionURLCodec: Sendable {
         decoder.dateDecodingStrategy = .millisecondsSince1970
     }
 
+    /// References keep private file paths out of Launch Services URLs.
+    public func referenceURL(requestID: UUID) -> URL {
+        var components = URLComponents()
+        components.scheme = Self.scheme
+        components.host = Self.host
+        components.queryItems = [URLQueryItem(name: "request", value: requestID.uuidString)]
+        return components.url!
+    }
+
+    public func referenceID(from url: URL) -> UUID? {
+        guard url.scheme?.lowercased() == Self.scheme, url.host?.lowercased() == Self.host,
+              let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let items = components.queryItems, items.count == 1,
+              items[0].name == "request", let value = items[0].value else { return nil }
+        return UUID(uuidString: value)
+    }
+
     public func encode(
         request: ComposeActionRequest,
         command: String?

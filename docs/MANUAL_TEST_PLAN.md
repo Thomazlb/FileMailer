@@ -83,7 +83,7 @@ result for every manual run.
    submenu; quit the app and verify the cached language on the fallback menu.
 8. Select the system language option and verify regional and Norwegian/Chinese
    resolution on a fresh launch.
-9. Have fluent speakers review machine-assisted translations outside French and
+9. Have fluent speakers review translations outside French and
    English before release. Resource completeness does not establish linguistic
    quality in every language.
 
@@ -97,3 +97,27 @@ explicit English override. UI tests isolate storage using `--ui-testing-*`.
 Verify signatures, entitlements, notarization acceptance, stapling and
 Gatekeeper assessment. Install on a clean user account and repeat onboarding,
 Finder activation and one reviewed Gmail send.
+
+## Sandboxed file access and Finder transport
+
+- Use a signed archive with matching profiles, not only an unsigned debug build.
+- Select an external test file using Add Attachment. Confirm analysis and preview
+  work while the compose window remains open. Cancel the picker and confirm no
+  attachment or permission is added.
+- Quit and relaunch. Request the same path from Finder; confirm the remembered
+  read-only bookmark allows analysis. Test a folder grant with a child file,
+  multiple selected files, a moved file and a revoked or unavailable bookmark.
+- Deny access to a new path. Confirm the app asks for read-only access and keeps
+  the request visible rather than silently losing an attachment.
+- Save a pending draft, relaunch, reopen it and verify every attachment is still
+  accessible. Test a missing file and confirm an actionable error.
+- Enable the Finder extension in System Settings. Test the right-click action
+  while the app is running and while it is closed. Verify pinned recipients,
+  the Other Recipient action and cancellation of the access picker.
+- Change the app language with Finder open. Confirm refreshed menu labels and
+  the language of a new draft. Check recipient and attachment remove buttons
+  with VoiceOver in French and English.
+- Confirm shared request files expire and are consumed once; notifications must
+  have no userInfo and launch URLs must contain only a request UUID.
+- Check a fresh installation and migration from an older direct-download build
+  separately. Never infer account, credential or database migration from a build.

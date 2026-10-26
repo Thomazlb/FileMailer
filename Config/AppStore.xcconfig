@@ -1,0 +1,5 @@
+FILEMAILER_APP_STORE_PROFILE = FileMailer Mac App Store
+FILEMAILER_FINDER_APP_STORE_PROFILE = FileMailer Finder Extension Mac App Store
+#include "Release.xcconfig"
+
+CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO

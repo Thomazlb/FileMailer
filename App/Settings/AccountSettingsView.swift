@@ -24,7 +24,7 @@ struct AccountSettingsView: View {
                         }
                         Spacer()
                         Toggle(
-                            "Par défaut",
+                            "Default",
                             isOn: Binding(
                                 get: { account.isDefault },
                                 set: { enabled in
@@ -33,10 +33,10 @@ struct AccountSettingsView: View {
                             )
                         )
                         .toggleStyle(.checkbox)
-                        Button("Reconnecter") {
+                        Button("Reconnect") {
                             authorizationDisclosure = .gmail
                         }
-                        Button("Supprimer", role: .destructive) {
+                        Button("Delete", role: .destructive) {
                             accountToRemove = account
                         }
                     }
@@ -48,9 +48,9 @@ struct AccountSettingsView: View {
             .overlay {
                 if model.accounts.isEmpty {
                     ContentUnavailableView(
-                        "Aucun compte Gmail",
+                        "No Gmail account",
                         systemImage: "envelope.badge",
-                        description: Text("Un compte est requis uniquement au moment d’envoyer.")
+                        description: Text("An account is only required when sending.")
                     )
                 }
             }
@@ -59,35 +59,35 @@ struct AccountSettingsView: View {
                 Button {
                     authorizationDisclosure = .gmail
                 } label: {
-                    Label("Ajouter un compte", systemImage: "plus")
+                    Label("Add an account", systemImage: "plus")
                 }
                 Spacer()
-                Text("OAuth système · PKCE · Trousseau macOS")
+                Text("System OAuth · PKCE · macOS Keychain")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
             .padding(10)
         }
         .background(Color.black)
-        .navigationTitle(model.localizedString("Comptes Gmail"))
+        .navigationTitle(model.localizedString("Gmail accounts"))
         .confirmationDialog(
-            "Retirer ce compte ?",
+            "Remove This Account?",
             isPresented: Binding(
                 get: { accountToRemove != nil },
                 set: { if !$0 { accountToRemove = nil } }
             )
         ) {
-            Button("Révoquer et supprimer", role: .destructive) {
+            Button("Revoke and Remove", role: .destructive) {
                 if let accountToRemove {
                     Task { await model.removeAccount(accountToRemove, revoke: true) }
                 }
             }
-            Button("Supprimer localement", role: .destructive) {
+            Button("Remove Locally", role: .destructive) {
                 if let accountToRemove {
                     Task { await model.removeAccount(accountToRemove, revoke: false) }
                 }
             }
-            Button("Annuler", role: .cancel) {}
+            Button("Cancel", role: .cancel) {}
         }
         .sheet(item: $authorizationDisclosure) { purpose in
             GoogleAuthorizationDisclosure(purpose: purpose) {
@@ -103,7 +103,7 @@ struct AccountSettingsView: View {
             "https://www.googleapis.com/auth/gmail.send"
         )
         return hasSend
-            ? model.localizedString("Autorisation d’envoi accordée")
-            : model.localizedString("Autorisation d’envoi manquante")
+            ? model.localizedString("Send Permission Granted")
+            : model.localizedString("Send Permission Missing")
     }
 }

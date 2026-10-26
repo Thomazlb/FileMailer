@@ -67,8 +67,8 @@ struct ArchiveManifestAnalyzer: Sendable {
                 creationDate: base.creationDate,
                 modificationDate: base.modificationDate,
                 extractedText: nil,
-                deterministicSummary: "Archive, \(inspection.entryNames.count) entrées. \(sample)",
-                summaryLocalizationKey: "Archive, %@ entrées. %@",
+                deterministicSummary: "Archive, \(inspection.entryNames.count) entries. \(sample)",
+                summaryLocalizationKey: "Archive, %@ entries. %@",
                 summaryLocalizationArguments: [String(inspection.entryNames.count), String(sample)],
                 warnings: inspection.isSuspicious ? [.suspiciousArchive] : []
             )
@@ -77,7 +77,7 @@ struct ArchiveManifestAnalyzer: Sendable {
                 displayName: base.name,
                 contentType: base.contentType,
                 size: base.size,
-                deterministicSummary: "Archive illisible.",
+                deterministicSummary: "Unreadable archive.",
                 warnings: [.inaccessible]
             )
         }
@@ -139,8 +139,8 @@ struct OfficeOpenXMLAnalyzer: Sendable {
                 creationDate: base.creationDate,
                 modificationDate: base.modificationDate,
                 extractedText: text,
-                deterministicSummary: "\(extensionName.uppercased()) analysé sans exécuter Office, \(inspection.entryNames.count) entrées.",
-                summaryLocalizationKey: "%@ analysé sans exécuter Office, %@ entrées.",
+                deterministicSummary: "\(extensionName.uppercased()) analyzed without running Office, \(inspection.entryNames.count) entries.",
+                summaryLocalizationKey: "%1$@ analyzed without running Office, %2$@ entries.",
                 summaryLocalizationArguments: [String(extensionName.uppercased()), String(inspection.entryNames.count)],
                 warnings: combined.count >= remainingTextBytes ? [.truncated] : [],
                 includedInModel: !text.isEmpty
@@ -150,7 +150,7 @@ struct OfficeOpenXMLAnalyzer: Sendable {
                 displayName: base.name,
                 contentType: base.contentType,
                 size: base.size,
-                deterministicSummary: "Document Office Open XML illisible.",
+                deterministicSummary: "The Office Open XML document could not be read.",
                 warnings: [.inaccessible]
             )
         }
@@ -161,7 +161,7 @@ struct OfficeOpenXMLAnalyzer: Sendable {
             displayName: base.name,
             contentType: base.contentType,
             size: base.size,
-            deterministicSummary: "Document Office présentant une structure ZIP suspecte.",
+            deterministicSummary: "The Office document has a suspicious ZIP structure.",
             warnings: [.suspiciousArchive]
         )
     }

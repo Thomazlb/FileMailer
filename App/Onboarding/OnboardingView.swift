@@ -17,41 +17,41 @@ struct OnboardingView: View {
                 case 0:
                     page(
                         symbol: "paperplane.circle",
-                        title: "Bienvenue dans FileMailer",
-                        text: "Une application macOS open source pour préparer et relire chaque envoi depuis le Finder."
+                        title: "Welcome to FileMailer",
+                        text: "An open source macOS app for preparing and reviewing every message sent from Finder."
                     )
                 case 1:
                     page(
                         symbol: "hand.raised",
-                        title: "Local par défaut",
-                        text: "L’analyse et la génération Apple Intelligence restent sur votre Mac. Le message et ses pièces jointes vont uniquement chez Google au moment où vous appuyez sur Envoyer."
+                        title: "Local by Default",
+                        text: "Analysis and Apple Intelligence generation stay on your Mac. The message and its attachments go to Google only when you press Send."
                     )
                 case 2:
                     actionPage(
                         symbol: "puzzlepiece.extension",
-                        title: "Activez l’extension Finder",
-                        text: "macOS exige une activation manuelle. FileMailer n’injecte aucun code dans le Finder.",
-                        actionTitle: "Ouvrir les réglages d’extensions"
+                        title: "Enable the Finder Extension",
+                        text: "macOS requires manual activation. FileMailer does not inject code into Finder.",
+                        actionTitle: "Open extension settings"
                     ) {
                         model.windows?.showExtensionManagement()
                     }
                 case 3:
                     actionPage(
                         symbol: "envelope.badge",
-                        title: "Ajoutez un compte Gmail",
+                        title: "Add a Gmail Account",
                         text: model.accounts.isEmpty
-                            ? "Le navigateur système s’ouvrira avec les seules autorisations nécessaires à l’envoi."
-                            : model.localization.format("%@ compte(s) connecté(s).", String(model.accounts.count)),
-                        actionTitle: "Ajouter un compte"
+                            ? "The system browser will open with only the permissions required to send."
+                            : model.localization.format("%@ connected account(s).", String(model.accounts.count)),
+                        actionTitle: "Add an account"
                     ) {
                         authorizationDisclosure = .gmail
                     }
                 case 4:
                     actionPage(
                         symbol: "person.2",
-                        title: "Ajoutez vos destinataires",
-                        text: "Épinglez vos contacts principaux et choisissez leur ordre dans le menu Finder.",
-                        actionTitle: "Gérer les destinataires"
+                        title: "Add Your Recipients",
+                        text: "Pin your main contacts and choose their order in the Finder menu.",
+                        actionTitle: "Manage Recipients"
                     ) {
                         model.windows?.showSettings(section: .recipients)
                     }
@@ -64,20 +64,20 @@ struct OnboardingView: View {
                 case 6:
                     actionPage(
                         symbol: "power",
-                        title: "Lancement à la connexion",
+                        title: "Open at Login",
                         text: model.launchAtLogin
-                            ? "FileMailer est configuré pour démarrer à la connexion."
-                            : "Ce choix reste facultatif et modifiable dans les réglages.",
-                        actionTitle: model.launchAtLogin ? "Désactiver" : "Activer"
+                            ? "FileMailer is configured to open at login."
+                            : "This option is optional and can be changed in Settings.",
+                        actionTitle: model.launchAtLogin ? "Disable" : "Enable"
                     ) {
                         Task { await model.setLaunchAtLogin(!model.launchAtLogin) }
                     }
                 default:
                     actionPage(
                         symbol: "doc.badge.plus",
-                        title: "Essayez avec un fichier non sensible",
-                        text: "Choisissez un fichier de test. Une fenêtre de composition s’ouvrira, sans jamais envoyer automatiquement.",
-                        actionTitle: "Choisir un fichier…"
+                        title: "Try a Non-Sensitive File",
+                        text: "Choose a test file. A compose window will open without ever sending automatically.",
+                        actionTitle: "Choose a file…"
                     ) {
                         model.openFilesCompose()
                     }
@@ -86,10 +86,10 @@ struct OnboardingView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             HStack {
-                Button("Précédent") { step = max(0, step - 1) }
+                Button("Previous") { step = max(0, step - 1) }
                     .disabled(step == 0)
                 Spacer()
-                Button(LocalizedStringKey(step == stepCount - 1 ? "Terminer" : "Continuer")) {
+                Button(LocalizedStringKey(step == stepCount - 1 ? "Finish" : "Continue")) {
                     if step == stepCount - 1 {
                         onFinish()
                     } else {
@@ -144,15 +144,15 @@ struct OnboardingView: View {
     private var aiExplanation: String {
         switch FoundationModelAvailability.current {
         case .available:
-            "Le modèle Foundation Models est disponible sur cet appareil."
+            "The Foundation Models model is available on this device."
         case .unsupportedSystemVersion:
-            "Sur macOS 26, FileMailer propose un brouillon déterministe et la rédaction manuelle. Apple Intelligence est réservé à macOS 27 ou ultérieur."
+            "On macOS 26, FileMailer offers deterministic drafting and manual drafting. Apple Intelligence is reserved for macOS 27 or later."
         case .deviceNotEligible:
-            "Cet appareil n’est pas éligible. Le brouillon déterministe et la rédaction manuelle restent disponibles."
+            "This device is not eligible. The deterministic draft and manual writing remain available."
         case .appleIntelligenceDisabled:
-            "Apple Intelligence est désactivé. Vous pourrez l’activer plus tard dans Réglages Système."
+            "Apple Intelligence is disabled. You can enable it later in System Settings."
         case .modelNotReady:
-            "Le modèle est en préparation. FileMailer utilisera le fallback déterministe entre-temps."
+            "The model is preparing. FileMailer will use its deterministic fallback in the meantime."
         }
     }
 
@@ -165,6 +165,6 @@ struct OnboardingView: View {
     private var aiTitle: String {
         FoundationModelAvailability.current == .available
             ? "Apple Intelligence"
-            : "Brouillon local"
+            : "Local draft"
     }
 }

@@ -30,14 +30,14 @@ struct QuickPanelView: View {
                     Image(systemName: "gearshape")
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("Réglages")
+                .accessibilityLabel("Settings")
             }
 
             HStack(alignment: .top, spacing: 10) {
                 Image(systemName: "cursorarrow.click.2")
                     .font(.title3)
                     .foregroundStyle(.tint)
-                Text("Dans le Finder, faites un clic droit sur un fichier, choisissez Envoyer par e-mail, puis un destinataire.")
+                Text("In Finder, right-click a file, choose Send by Email, then choose a recipient.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
@@ -45,11 +45,11 @@ struct QuickPanelView: View {
             .padding(10)
 
             VStack(alignment: .leading, spacing: 6) {
-                Text("Destinataires du menu Finder")
+                Text("Finder Menu Recipients")
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.secondary)
                 if topRecipients.isEmpty {
-                    Text("Aucun destinataire enregistré")
+                    Text("No registered recipient")
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
@@ -84,16 +84,16 @@ struct QuickPanelView: View {
 
     private var defaultAccountText: String {
         let account = model.accounts.first(where: \.isDefault) ?? model.accounts.first
-        return account?.email ?? model.localizedString("Aucun compte Gmail")
+        return account?.email ?? model.localizedString("No Gmail account")
     }
 
     private var modelStatus: String {
         switch FoundationModelAvailability.current {
-        case .available: model.localizedString("Apple Intelligence disponible")
-        case .unsupportedSystemVersion: model.localizedString("Brouillon déterministe sur macOS 26")
-        case .deviceNotEligible: model.localizedString("Brouillon déterministe")
-        case .appleIntelligenceDisabled: model.localizedString("Apple Intelligence désactivé")
-        case .modelNotReady: model.localizedString("Modèle en préparation")
+        case .available: model.localizedString("Apple Intelligence available")
+        case .unsupportedSystemVersion: model.localizedString("Deterministic draft on macOS 26")
+        case .deviceNotEligible: model.localizedString("Deterministic draft")
+        case .appleIntelligenceDisabled: model.localizedString("Apple Intelligence disabled")
+        case .modelNotReady: model.localizedString("Model Preparing")
         }
     }
 

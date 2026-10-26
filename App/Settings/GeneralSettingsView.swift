@@ -8,9 +8,9 @@ struct GeneralSettingsView: View {
 
     var body: some View {
         Form {
-            Section("Langue") {
+            Section("Language") {
                 Picker(
-                    "Langue de l’application",
+                    "Application language",
                     selection: Binding(
                         get: { model.appLanguage },
                         set: model.saveAppLanguage
@@ -18,7 +18,7 @@ struct GeneralSettingsView: View {
                 ) {
                     ForEach(AppLanguage.allCases) { language in
                         if language == .system {
-                            Text("Langue du système").tag(language)
+                            Text("System language").tag(language)
                         } else {
                             Text(language.displayName).tag(language)
                         }
@@ -26,7 +26,7 @@ struct GeneralSettingsView: View {
                 }
                 .pickerStyle(.menu)
                 .accessibilityIdentifier("app-language-picker")
-                Text("Par défaut, FileMailer suit la langue de macOS.")
+                Text("By default, FileMailer follows the macOS language.")
                     .font(.caption)
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
@@ -35,9 +35,9 @@ struct GeneralSettingsView: View {
             }
 
             Section("Finder") {
-                LabeledContent("Destinataires visibles") {
+                LabeledContent("Visible recipients") {
                     Picker(
-                        "Destinataires visibles",
+                        "Visible recipients",
                         selection: Binding(
                             get: { model.visibleRecipientCount },
                             set: model.saveVisibleCount
@@ -51,20 +51,20 @@ struct GeneralSettingsView: View {
                     .pickerStyle(.menu)
                     .frame(width: 72)
                 }
-                Text("Les destinataires épinglés comptent dans cette limite.")
+                Text("Pinned recipients count toward this limit.")
                     .font(.caption)
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(.secondary)
-                Button("Gérer l’extension Finder…") {
+                Button("Manage the Finder extension…") {
                     model.windows?.showExtensionManagement()
                 }
             }
 
-            Section("Démarrage") {
+            Section("Startup") {
                 Toggle(
-                    "Ouvrir FileMailer à la connexion",
+                    "Open FileMailer at login",
                     isOn: Binding(
                         get: { model.launchAtLogin },
                         set: { value in
@@ -72,7 +72,7 @@ struct GeneralSettingsView: View {
                         }
                     )
                 )
-                Text("État système: \(loginStatus)")
+                Text(model.localization.format("System Status: %@", loginStatus))
                     .font(.caption)
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
@@ -80,37 +80,32 @@ struct GeneralSettingsView: View {
                     .foregroundStyle(.secondary)
             }
 
-            Section("Brouillons") {
+            Section("Drafts") {
                 Toggle(
-                    "Enregistrer les brouillons localement",
+                    "Save drafts locally",
                     isOn: Binding(
                         get: { model.autosaveDrafts },
                         set: model.saveAutosaveDrafts
                     )
                 )
-                Text("Désactivé par défaut. Les fichiers joints ne sont jamais copiés dans un brouillon.")
+                Text("Disabled by default. Attached files are never copied to a draft.")
                     .font(.caption)
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(.secondary)
                 if !model.pendingDrafts.isEmpty {
-                    Button("Effacer les brouillons enregistrés", role: .destructive) {
+                    Button("Clear saved drafts", role: .destructive) {
                         isDraftDeletionConfirmationPresented = true
                     }
                 }
             }
 
-            Section(LocalizedStringKey(usesAppleIntelligence ? "Apple Intelligence" : "Brouillon local")) {
-                LabeledContent("Traitement") {
+            Section(LocalizedStringKey(usesAppleIntelligence ? "Apple Intelligence" : "Local draft")) {
+                LabeledContent("Processing") {
                     Text(aiStatus)
                 }
-                if usesAppleIntelligence {
-                    LabeledContent("Extension Golden Gate") {
-                        Text("Compilée")
-                    }
-                }
-                Text("Le brouillon déterministe et la rédaction manuelle restent disponibles.")
+                Text("Deterministic drafting and manual writing remain available.")
                     .font(.caption)
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
@@ -122,38 +117,38 @@ struct GeneralSettingsView: View {
         .scrollContentBackground(.hidden)
         .padding()
         .background(Color.black)
-        .navigationTitle(model.localizedString("Général"))
+        .navigationTitle(model.localizedString("General"))
         .confirmationDialog(
-            "Effacer tous les brouillons enregistrés ?",
+            "Clear all saved drafts?",
             isPresented: $isDraftDeletionConfirmationPresented,
             titleVisibility: .visible
         ) {
-            Button("Effacer les brouillons", role: .destructive) {
+            Button("Clear drafts", role: .destructive) {
                 model.clearPendingDrafts()
             }
-            Button("Annuler", role: .cancel) {}
+            Button("Cancel", role: .cancel) {}
         } message: {
-            Text("Les destinataires, objets et corps de ces brouillons seront supprimés de ce Mac.")
+            Text("The recipients, subjects, and bodies of these drafts will be deleted from this Mac.")
         }
     }
 
     private var loginStatus: String {
         switch SMAppService.mainApp.status {
-        case .enabled: model.localizedString("activé")
-        case .requiresApproval: model.localizedString("autorisation requise")
-        case .notFound: model.localizedString("indisponible")
-        case .notRegistered: model.localizedString("désactivé")
-        @unknown default: model.localizedString("inconnu")
+        case .enabled: model.localizedString("enabled")
+        case .requiresApproval: model.localizedString("approval required")
+        case .notFound: model.localizedString("unavailable")
+        case .notRegistered: model.localizedString("disabled")
+        @unknown default: model.localizedString("unknown")
         }
     }
 
     private var aiStatus: String {
         switch FoundationModelAvailability.current {
-        case .available: model.localizedString("Sur l’appareil")
-        case .unsupportedSystemVersion: model.localizedString("Brouillon déterministe sur macOS 26")
-        case .deviceNotEligible: model.localizedString("Appareil non éligible")
-        case .appleIntelligenceDisabled: model.localizedString("Désactivé")
-        case .modelNotReady: model.localizedString("Modèle pas encore prêt")
+        case .available: model.localizedString("On Device")
+        case .unsupportedSystemVersion: model.localizedString("Deterministic draft on macOS 26")
+        case .deviceNotEligible: model.localizedString("Device Not Eligible")
+        case .appleIntelligenceDisabled: model.localizedString("Disabled")
+        case .modelNotReady: model.localizedString("Model Not Ready")
         }
     }
 

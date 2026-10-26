@@ -18,11 +18,10 @@ final class FinderSync: FIFinderSync, @unchecked Sendable {
 
     private let controller = FIFinderSyncController.default()
     private let notifications = DistributedNotificationCenter.default()
-    private let codec = IPCCodec()
+    private let store = SharedFinderStateStore.configured()
     private let actionURLCodec = IPCActionURLCodec()
     private let baseBundleID: String
     private let names: IPCNotificationNames
-    private let reassembler = IPCChunkReassembler()
     private var snapshot = FinderMenuSnapshot(
         recipients: [], visibleRecipientCount: 5,
         languageIdentifier: UserDefaults.standard.string(forKey: "appLanguage")
@@ -44,6 +43,7 @@ final class FinderSync: FIFinderSync, @unchecked Sendable {
         updateDirectoryURLs()
         observeVolumes()
         observeIPC()
+        loadSnapshot()
         postExtensionHeartbeat()
         notifications.post(name: names.snapshotRequest, object: nil)
         heartbeatTimer = Timer.scheduledTimer(
@@ -73,7 +73,7 @@ final class FinderSync: FIFinderSync, @unchecked Sendable {
         nextTag = 1
         let root = NSMenu()
         let menuTitle = menuKind == .contextualMenuForContainer
-            ? localizedString("Envoyer ce dossier par e-mail")
+            ? localizedString("Send this folder by email")
             : localizedString("Send by Email")
         let parent = NSMenuItem(
             title: menuTitle,
@@ -83,13 +83,13 @@ final class FinderSync: FIFinderSync, @unchecked Sendable {
         let submenu = NSMenu(title: menuTitle)
         if let pendingFeedback, Date().timeIntervalSince(pendingFeedback.startedAt) <= 20 {
             let status = NSMenuItem(
-                title: localizedString("Préparation avec Apple Intelligence…"),
+                title: localizedString("Preparation with Apple Intelligence…"),
                 action: nil,
                 keyEquivalent: ""
             )
             status.image = NSImage(
                 systemSymbolName: "apple.intelligence",
-                accessibilityDescription: localizedString("Préparation du message")
+                accessibilityDescription: localizedString("Preparing the message")
             )
             status.isEnabled = false
             submenu.addItem(status)
@@ -126,10 +126,10 @@ final class FinderSync: FIFinderSync, @unchecked Sendable {
 
     @objc private func performMenuAction(_ sender: NSMenuItem) {
         guard let action = actions[sender.tag] else { return }
-        sender.title = localizedString("Préparation du message…")
+        sender.title = localizedString("Preparing the message…")
         sender.image = NSImage(
             systemSymbolName: "apple.intelligence",
-            accessibilityDescription: localizedString("Préparation du message")
+            accessibilityDescription: localizedString("Preparing the message")
         )
         sender.isEnabled = false
         switch action {
@@ -151,42 +151,25 @@ final class FinderSync: FIFinderSync, @unchecked Sendable {
             context: selection.context,
             paths: selection.paths
         )
-        guard let actionURL = try? actionURLCodec.encode(
-            request: request,
-            command: auxiliaryCommand
-        ) else {
-            return
-        }
-        pendingFeedback = PendingFeedback(
-            requestID: request.requestID,
-            startedAt: Date()
-        )
-
-        if NSWorkspace.shared.open(actionURL) {
-            return
-        }
-
-        guard let chunks = try? codec.encode(request, limit: .action) else {
+        do {
+            guard let store else { return }
+            try store.saveAction(IPCActionEnvelope(request: request, command: auxiliaryCommand))
+        } catch {
             pendingFeedback = nil
             return
         }
-        activateContainerApp { [weak self] in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                self?.postAction(chunks, auxiliaryCommand: auxiliaryCommand)
+        pendingFeedback = PendingFeedback(requestID: request.requestID, startedAt: Date())
+        let appURL = Bundle.main.bundleURL
+            .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        let configuration = NSWorkspace.OpenConfiguration()
+        configuration.activates = true
+        NSWorkspace.shared.open(
+            [actionURLCodec.referenceURL(requestID: request.requestID)],
+            withApplicationAt: appURL, configuration: configuration
+        ) { [weak self] _, error in
+            if error != nil {
+                DispatchQueue.main.async { self?.pendingFeedback = nil }
             }
-        }
-    }
-
-    private func postAction(_ chunks: [IPCChunk], auxiliaryCommand: String?) {
-        for chunk in chunks {
-            var info = chunk.notificationUserInfo()
-            if let auxiliaryCommand { info["command"] = auxiliaryCommand }
-            notifications.postNotificationName(
-                names.actionChunk,
-                object: nil,
-                userInfo: info,
-                deliverImmediately: true
-            )
         }
     }
 
@@ -266,35 +249,8 @@ final class FinderSync: FIFinderSync, @unchecked Sendable {
             ) { [weak self] _ in self?.lastAppHeartbeat = Date() }
         )
         observers.append(
-            notifications.addObserver(
-                forName: names.snapshotChunk,
-                object: nil,
-                queue: .main
-            ) { [weak self] notification in
-                guard let self,
-                      let chunk = IPCChunk(notificationUserInfo: notification.userInfo)
-                else {
-                    return
-                }
-                Task {
-                    guard let chunks = try? await self.reassembler.ingest(chunk),
-                          let value = try? self.codec.decode(
-                            FinderMenuSnapshot.self,
-                            from: chunks,
-                            limit: .snapshot
-                          )
-                    else {
-                        return
-                    }
-                    await MainActor.run {
-                        self.snapshot = value
-                        if let language = value.languageIdentifier {
-                            UserDefaults.standard.set(language, forKey: "appLanguage")
-                        } else {
-                            UserDefaults.standard.removeObject(forKey: "appLanguage")
-                        }
-                    }
-                }
+            notifications.addObserver(forName: names.snapshotChanged, object: nil, queue: .main) {
+                [weak self] _ in self?.loadSnapshot()
             }
         )
         observers.append(
@@ -304,7 +260,7 @@ final class FinderSync: FIFinderSync, @unchecked Sendable {
                 queue: .main
             ) { [weak self] notification in
                 guard let self,
-                      let value = notification.userInfo?["requestID"] as? String,
+                      let value = notification.object as? String,
                       let requestID = UUID(uuidString: value),
                       self.pendingFeedback?.requestID == requestID
                 else {
@@ -324,27 +280,13 @@ final class FinderSync: FIFinderSync, @unchecked Sendable {
         )
     }
 
-    private func activateContainerApp(completion: (@Sendable () -> Void)? = nil) {
-        if let application = NSRunningApplication
-            .runningApplications(withBundleIdentifier: baseBundleID)
-            .first
-        {
-            application.activate(options: [.activateAllWindows])
-            completion?()
-            return
-        }
-
-        let appURL = Bundle.main.bundleURL
-            .deletingLastPathComponent()
-            .deletingLastPathComponent()
-            .deletingLastPathComponent()
-        let configuration = NSWorkspace.OpenConfiguration()
-        configuration.activates = true
-        NSWorkspace.shared.openApplication(
-            at: appURL,
-            configuration: configuration
-        ) { _, _ in
-            completion?()
+    private func loadSnapshot() {
+        guard let value = try? store?.loadSnapshot() else { return }
+        snapshot = value
+        if let language = value.languageIdentifier {
+            UserDefaults.standard.set(language, forKey: "appLanguage")
+        } else {
+            UserDefaults.standard.removeObject(forKey: "appLanguage")
         }
     }
 }

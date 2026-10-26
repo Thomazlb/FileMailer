@@ -50,11 +50,11 @@ struct SettingsRootView: View {
 private extension WindowCoordinator.SettingsSection {
     var title: LocalizedStringKey {
         switch self {
-        case .general: "Général"
-        case .recipients: "Destinataires"
-        case .accounts: "Comptes Gmail"
-        case .diagnostics: "Diagnostic"
-        case .about: "À propos"
+        case .general: "General"
+        case .recipients: "Recipients"
+        case .accounts: "Gmail accounts"
+        case .diagnostics: "Diagnostics"
+        case .about: "About"
         }
     }
 

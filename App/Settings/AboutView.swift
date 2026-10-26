@@ -13,23 +13,23 @@ struct AboutView: View {
                 .font(.largeTitle.weight(.semibold))
             Text("Version \(version)")
                 .foregroundStyle(.secondary)
-            Text("Envoyez des fichiers depuis le Finder avec une vérification complète avant chaque envoi.")
+            Text("Send files from Finder with full verification before each send.")
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: 420)
-            Text("Projet open source sous licence MIT. Aucun analytics, tracking ou serveur intermédiaire.")
+            Text("Open source project under MIT license. No analytics, tracking or intermediate server.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
-            Link("Politique de confidentialité", destination: AppConfiguration.privacyPolicyURL)
+            Link("Privacy Policy", destination: AppConfiguration.privacyPolicyURL)
                 .font(.caption)
-            Button("Revoir l’onboarding") {
+            Button("Review onboarding") {
                 model.windows?.showOnboarding()
             }
         }
         .padding(40)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black)
-        .navigationTitle(model.localizedString("À propos"))
+        .navigationTitle(model.localizedString("About"))
     }
 
     private var version: String {

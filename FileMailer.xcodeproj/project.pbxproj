@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		0C2A09B3B3DF60CB3692D0AB /* AppIPCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6A5D5C6CD3C07A338EB3DC /* AppIPCService.swift */; };
 		0DDD884A7E9BDE7A0E62BADE /* QuickLookPreviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A20707098343EFCB51552F /* QuickLookPreviewCoordinator.swift */; };
+		1883169002E73960AD006AEA /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AC8837E8F2D286D179099C3C /* PrivacyInfo.xcprivacy */; };
 		237258A1799ECEBCBBF5B002 /* FileMailerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AB5057E54CED1CAE0C044F /* FileMailerApp.swift */; };
+		24AC69251006ACB72C9C7196 /* FileAccessController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F69CEE3D4A90BF710E540C7C /* FileAccessController.swift */; };
 		262A04211084DDA879A7A499 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EBCB46A0E2FB1B96148BF /* AppModel.swift */; };
 		26BCAA56D50DF62DE12D854D /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E1EA4E171C4181CDDCBC592A /* PrivacyInfo.xcprivacy */; };
 		33FEB01ABC5E5A69161F8C45 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 71C0A39010461FD865609ED5 /* Localizable.strings */; };
@@ -104,6 +106,7 @@
 		4EFE106E066CF25169C20B7D /* FileMailerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMailerUITests.swift; sourceTree = "<group>"; };
 		4F41ED9B241BE37529D7743B /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5F23680CFD8CB39091D80E09 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
+		62561A7C9A1A2DF0D903C8D6 /* AppStore.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppStore.xcconfig; sourceTree = "<group>"; };
 		62BB41D9B6324DB1CE8A3879 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		67B512CD278D29074D73BA21 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		68AB5057E54CED1CAE0C044F /* FileMailerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMailerApp.swift; sourceTree = "<group>"; };
@@ -136,6 +139,7 @@
 		A94BCCC6B41F320683FFAA64 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A99891FA1938101805726B6B /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA239E8323CC37585A60219E /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AC8837E8F2D286D179099C3C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		B1A3FE3E70574AB9F478B30B /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B23A40185BF05185DD1EAA28 /* or */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = or; path = or.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B2C54A6AB3C8853B8B9F5B72 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -161,6 +165,7 @@
 		EE34BFC47B8D96D4B2630AA5 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EFBFF6613FFA698366B44234 /* ur */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ur; path = ur.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4E4C3078393623F8AF338FE /* bn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bn; path = bn.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F69CEE3D4A90BF710E540C7C /* FileAccessController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileAccessController.swift; sourceTree = "<group>"; };
 		F6E31E1EA954563FAF6B5480 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F70388D7CB2042B1FF82964F /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FE6BF6D67C6C8653B13EF2F9 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -244,6 +249,7 @@
 		2E5D158FFBB04C17C8FA205B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AC8837E8F2D286D179099C3C /* PrivacyInfo.xcprivacy */,
 				71C0A39010461FD865609ED5 /* Localizable.strings */,
 			);
 			path = Resources;
@@ -258,6 +264,7 @@
 				DC33DDD74257D735583F1177 /* AppLogger.swift */,
 				1F0EBCB46A0E2FB1B96148BF /* AppModel.swift */,
 				056DCF069B20312CA5BA1429 /* DriveCleanupScheduler.swift */,
+				F69CEE3D4A90BF710E540C7C /* FileAccessController.swift */,
 				68AB5057E54CED1CAE0C044F /* FileMailerApp.swift */,
 				9F04DDB4BF559BAAC624DD46 /* NativeMenuLocalizer.swift */,
 				E4FE0163FBC2B2B4808D48B0 /* WindowCoordinator.swift */,
@@ -332,6 +339,7 @@
 		D8C917BDBEFCA18BB2667BA4 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				62561A7C9A1A2DF0D903C8D6 /* AppStore.xcconfig */,
 				A166F57BC520D6E089C03328 /* Debug.xcconfig */,
 				17080ABD7ED08637E93B66A0 /* Release.xcconfig */,
 			);
@@ -430,7 +438,6 @@
 				TargetAttributes = {
 					4140F3D44687006C9D3041A6 = {
 						DevelopmentTeam = "";
-						ProvisioningStyle = Automatic;
 					};
 					5581A12D3505BFF898EC91D2 = {
 						DevelopmentTeam = "";
@@ -439,12 +446,11 @@
 					};
 					67585238B72BC8AAB2520F6C = {
 						DevelopmentTeam = "";
-						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = ACD1BCF39AFD18CA7D97A5D7 /* Build configuration list for PBXProject "FileMailer" */;
-			developmentRegion = fr;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
@@ -522,6 +528,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				33FEB01ABC5E5A69161F8C45 /* Localizable.strings in Resources */,
+				1883169002E73960AD006AEA /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,6 +563,7 @@
 				3D21E5D8E3C43A213454C3A4 /* DiagnosticsView.swift in Sources */,
 				881C973E1BBBA2ECADEC9FA0 /* DriveCleanupScheduler.swift in Sources */,
 				B175C004A902283DECA1F52C /* EmailTokenField.swift in Sources */,
+				24AC69251006ACB72C9C7196 /* FileAccessController.swift in Sources */,
 				237258A1799ECEBCBBF5B002 /* FileMailerApp.swift in Sources */,
 				78BE57DBDF4A68F67F02CF37 /* GeneralSettingsView.swift in Sources */,
 				CF6BBEBA1DB539A70E01E0E2 /* GoogleAuthorizationDisclosure.swift in Sources */,
@@ -668,6 +676,8 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = FinderExtension/FinderExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_APP_SANDBOX = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -679,10 +689,35 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_BUNDLE_ID).FinderExtension";
 				PRODUCT_NAME = "$(APP_NAME) Finder Extension";
+				PROVISIONING_PROFILE_SPECIFIER = "$(FILEMAILER_FINDER_DIRECT_PROFILE)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
+		};
+		2C71B608A3DB8AD9876FBC7C /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = FinderExtension/FinderExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FinderExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_BUNDLE_ID).FinderExtension";
+				PRODUCT_NAME = "$(APP_NAME) Finder Extension";
+				PROVISIONING_PROFILE_SPECIFIER = "$(FILEMAILER_FINDER_APP_STORE_PROFILE)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = AppStore;
 		};
 		2F5363B2D8F6F65355962268 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -691,7 +726,7 @@
 				CODE_SIGNING_ALLOWED = YES;
 				CODE_SIGN_ENTITLEMENTS = App/Resources/FileMailer.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				ENABLE_APP_SANDBOX = NO;
+				ENABLE_APP_SANDBOX = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = App/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -726,8 +761,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = FileMail;
 				CODE_SIGN_ENTITLEMENTS = App/Resources/FileMailer.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				ENABLE_APP_SANDBOX = NO;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = App/Resources/Info.plist;
@@ -737,9 +774,33 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_BUNDLE_ID)";
 				PRODUCT_NAME = "$(APP_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "$(FILEMAILER_DIRECT_PROFILE)";
 				SDKROOT = macosx;
 			};
 			name = Release;
+		};
+		501F8DB523281B2E238F2E42 /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = FileMail;
+				CODE_SIGN_ENTITLEMENTS = App/Resources/FileMailer.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = App/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_BUNDLE_ID)";
+				PRODUCT_NAME = "$(APP_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "$(FILEMAILER_APP_STORE_PROFILE)";
+				SDKROOT = macosx;
+			};
+			name = AppStore;
 		};
 		6637D5D7ED0A057A62CE94D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -800,6 +861,59 @@
 			};
 			name = Debug;
 		};
+		81F89D05EB872ADF97FC3504 /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 62561A7C9A1A2DF0D903C8D6 /* AppStore.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = AppStore;
+		};
 		85DC7041B1528961FE2501F6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17080ABD7ED08637E93B66A0 /* Release.xcconfig */;
@@ -853,6 +967,23 @@
 			};
 			name = Release;
 		};
+		D816C14522D5699BA7FF1A41 /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_BUNDLE_ID).UITests";
+				SDKROOT = macosx;
+				TEST_TARGET_NAME = FileMailer;
+			};
+			name = AppStore;
+		};
 		FBE0FA3953C26524557A1018 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -897,38 +1028,42 @@
 		7ED136010F20FCECA917AC2C /* Build configuration list for PBXNativeTarget "FileMailerUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
+				D816C14522D5699BA7FF1A41 /* AppStore */,
 				499FE542C49FAB46FF500493 /* Debug */,
 				FD7AF99286E20DCC28D14964 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = AppStore;
 		};
 		817BBD7DB8CBD988A3229578 /* Build configuration list for PBXNativeTarget "FinderExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
+				2C71B608A3DB8AD9876FBC7C /* AppStore */,
 				FBE0FA3953C26524557A1018 /* Debug */,
 				20D6626B7D8492265407503E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = AppStore;
 		};
 		ACD1BCF39AFD18CA7D97A5D7 /* Build configuration list for PBXProject "FileMailer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
+				81F89D05EB872ADF97FC3504 /* AppStore */,
 				6637D5D7ED0A057A62CE94D9 /* Debug */,
 				85DC7041B1528961FE2501F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = AppStore;
 		};
 		AD7DE55E65C3B929EAE500CF /* Build configuration list for PBXNativeTarget "FileMailer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
+				501F8DB523281B2E238F2E42 /* AppStore */,
 				2F5363B2D8F6F65355962268 /* Debug */,
 				4C62AE6084A6F1037DE8E7DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = AppStore;
 		};
 /* End XCConfigurationList section */
 

@@ -20,6 +20,7 @@ final class AppModel: ObservableObject {
     @Published var onboardingPresented = false
 
     let persistence: PersistenceController?
+    let fileAccess: FileAccessController
     let oauthStore: KeychainOAuthStateStore
     let tokenProvider: AppAuthTokenProvider
     let mailSender: GmailMailSender
@@ -38,15 +39,27 @@ final class AppModel: ObservableObject {
     private var driveCleanupScheduler: DriveCleanupScheduler?
 
     init() {
-        let isUITesting = ProcessInfo.processInfo.arguments.contains { $0.hasPrefix("--ui-testing-") }
         #if DEBUG
+        let isUITesting = ProcessInfo.processInfo.arguments.contains { $0.hasPrefix("--ui-testing-") }
         if isUITesting, let language = ProcessInfo.processInfo.environment["FILEMAILER_TEST_LANGUAGE"] {
             UserDefaults.standard.set(language, forKey: "appLanguage")
         }
+        #else
+        let isUITesting = false
         #endif
         appLanguage = AppLanguage(
             rawValue: UserDefaults.standard.string(forKey: "appLanguage") ?? ""
         ) ?? .system
+        #if DEBUG
+        let persistReviewGrants = isUITesting
+            && ProcessInfo.processInfo.environment["FILEMAILER_TEST_PERSIST_FILE_ACCESS"] == "1"
+        fileAccess = FileAccessController(
+            inMemory: isUITesting && !persistReviewGrants,
+            storeName: isUITesting ? "ReviewFileAccess" : "FileAccess"
+        )
+        #else
+        fileAccess = FileAccessController(inMemory: false)
+        #endif
         persistence = try? PersistenceController(inMemory: isUITesting)
         oauthStore = KeychainOAuthStateStore(baseBundleID: AppConfiguration.baseBundleID)
         tokenProvider = AppAuthTokenProvider(store: oauthStore)
@@ -70,7 +83,7 @@ final class AppModel: ObservableObject {
         if persistence == nil {
             addDiagnostic(
                 category: "persistence",
-                message: localizedString("La base locale n’a pas pu être ouverte.")
+                message: localizedString("The local database could not be opened.")
             )
         }
         snapshotObservers = [
@@ -91,7 +104,7 @@ final class AppModel: ObservableObject {
         } else if !isUITesting {
             addDiagnostic(
                 category: "drive",
-                message: localizedString("Le stockage local des transferts Google Drive n’a pas pu être ouvert.")
+                message: localizedString("Local storage for Google Drive transfers could not be opened.")
             )
         }
     }
@@ -229,7 +242,7 @@ final class AppModel: ObservableObject {
             if case let .failed(record, description) = outcome {
                 addDiagnostic(
                     category: "drive-cleanup",
-                    message: "Le nettoyage de \(record.displayName) a échoué : \(description)"
+                    message: "Cleanup of \(record.displayName) failed : \(description)"
                 )
             }
         }
@@ -279,13 +292,29 @@ final class AppModel: ObservableObject {
         }
     }
 
-    func openCompose(paths: [String], recipientID: RecipientID?) {
+    func openFinderCompose(paths: [String], recipientID: RecipientID?) throws {
+        guard let selection = try fileAccess.finderSelection(
+            paths: paths, localization: FileMailerLocalization(languageIdentifier: appLanguage.resolvedIdentifier)
+        ) else { return }
+        showCompose(selection: selection, recipientID: recipientID)
+    }
+
+    func openUserSelectedFiles(_ urls: [URL]) {
+        do {
+            let selection = try fileAccess.userSelected(urls)
+            showCompose(selection: selection, recipientID: nil)
+        } catch {
+            windows?.presentError(error)
+        }
+    }
+
+    private func showCompose(selection: FileAccessController.Selection, recipientID: RecipientID?) {
         let recipient = recipientID.flatMap { id in recipients.first { $0.id == id } }
-        windows?.showCompose(paths: paths, recipient: recipient)
+        windows?.showCompose(urls: selection.urls, recipient: recipient, leases: selection.leases)
     }
 
     func openManualCompose() {
-        windows?.showCompose(paths: [], recipient: nil)
+        windows?.showCompose(urls: [], recipient: nil)
     }
 
     func resumeDraft(_ draft: ComposeDraft) {
@@ -297,9 +326,9 @@ final class AppModel: ObservableObject {
         panel.allowsMultipleSelection = true
         panel.canChooseFiles = true
         panel.canChooseDirectories = true
-        panel.prompt = localizedString("Ajouter")
+        panel.prompt = localizedString("Add")
         guard panel.runModal() == .OK else { return }
-        openCompose(paths: panel.urls.map(\.path), recipientID: nil)
+        openUserSelectedFiles(panel.urls)
     }
 
     func finderSnapshot(now: Date = Date()) -> FinderMenuSnapshot {
@@ -334,31 +363,31 @@ final class AppModel: ObservableObject {
             value?.formatted(.dateTime.locale(self.interfaceLocale)) ?? self.localizedString("Absent")
         }
         let accountLines = accounts.map {
-            "\($0.displayName ?? localizedString("Compte")) •••@\(Self.maskedDomain($0.email))"
+            "\($0.displayName ?? localizedString("Account")) •••@\(Self.maskedDomain($0.email))"
                 + " [\($0.authStatus.rawValue)]"
         }
         let errorLines = diagnostics.suffix(30).map {
             "\($0.date.formatted(.dateTime.locale(interfaceLocale))) [\($0.category)] \($0.message)"
         }
         let status: String = switch FoundationModelAvailability.current {
-        case .available: "Sur l’appareil"
-        case .unsupportedSystemVersion: "Brouillon déterministe sur macOS 26"
-        case .deviceNotEligible: "Appareil non éligible"
-        case .appleIntelligenceDisabled: "Désactivé"
-        case .modelNotReady: "Modèle pas encore prêt"
+        case .available: "On Device"
+        case .unsupportedSystemVersion: "Deterministic draft on macOS 26"
+        case .deviceNotEligible: "Device Not Eligible"
+        case .appleIntelligenceDisabled: "Disabled"
+        case .modelNotReady: "Model Not Ready"
         }
         return [
             "\(AppConfiguration.appName) \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "?")",
             "macOS \(process.operatingSystemVersionString)",
             "\(localizedString("Architecture")): \(Self.architecture)",
-            "\(localizedString("Heartbeat")): \(date(lastExtensionHeartbeat))",
-            "\(localizedString("Dernier snapshot")): \(date(lastSnapshotDate))",
-            "\(localizedString("Schéma IPC")): \(IPCCodec.schemaVersion)",
+            "\(localizedString("Presence signal")): \(date(lastExtensionHeartbeat))",
+            "\(localizedString("Latest Snapshot")): \(date(lastSnapshotDate))",
+            "\(localizedString("IPC Schema")): \(IPCCodec.schemaVersion)",
             "Apple Intelligence: \(localizedString(status))",
-            "Golden Gate: \(localizedString("Compilée"))",
-            localization.format("Limites : Finder 50, destinataires %@, texte 1 Mio", String(visibleRecipientCount)),
-            "", localizedString("Comptes"), accountLines.joined(separator: "\n"),
-            "", localizedString("Erreurs nettoyées"), errorLines.joined(separator: "\n")
+            "Golden Gate: \(localizedString("Compiled"))",
+            localization.format("Limits: Finder 50, recipients %@, text 1 MiB", String(visibleRecipientCount)),
+            "", localizedString("Accounts"), accountLines.joined(separator: "\n"),
+            "", localizedString("Sanitized errors"), errorLines.joined(separator: "\n")
         ].joined(separator: "\n")
     }
 
@@ -381,18 +410,18 @@ final class AppModel: ObservableObject {
             )
             .replacingOccurrences(
                 of: #"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"#,
-                with: "[adresse masquée]",
+                with: "[redacted address]",
                 options: .regularExpression
             )
             .replacingOccurrences(
                 of: #"/Users/[^\s]+"#,
-                with: "[chemin masqué]",
+                with: "[redacted path]",
                 options: .regularExpression
             )
     }
 
     private static func maskedDomain(_ email: String) -> String {
-        email.split(separator: "@").last.map(String.init) ?? "masqué"
+        email.split(separator: "@").last.map(String.init) ?? "redacted"
     }
 
     private static var architecture: String {

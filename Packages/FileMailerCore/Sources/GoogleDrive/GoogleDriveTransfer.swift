@@ -17,27 +17,27 @@ public enum GoogleDriveError: Error, LocalizedError, Sendable {
     public var errorDescription: String? {
         switch self {
         case .authorizationRequired:
-            FileMailerLocalization.current.string("Autorisez Google Drive pour ce compte avant d’envoyer ce lien.")
+            FileMailerLocalization.current.string("Authorize Google Drive for this account before sending this link.")
         case .missingRecipients:
-            FileMailerLocalization.current.string("Ajoutez au moins un destinataire avant de créer un lien Google Drive.")
+            FileMailerLocalization.current.string("Add at least one recipient before creating a Google Drive link.")
         case .fileAccessLost:
-            FileMailerLocalization.current.string("Le fichier à envoyer n’est plus accessible.")
+            FileMailerLocalization.current.string("The file to be sent is no longer accessible.")
         case .invalidExpiry:
-            FileMailerLocalization.current.string("La date d’expiration Drive doit être comprise entre maintenant et un an.")
+            FileMailerLocalization.current.string("The Drive expiration date must be between now and one year.")
         case .fileNotFound:
-            FileMailerLocalization.current.string("Le fichier ou le dossier FileMailer n’existe plus dans Google Drive.")
+            FileMailerLocalization.current.string("The FileMailer file or folder no longer exists in Google Drive.")
         case .sharingNotAllowed:
-            FileMailerLocalization.current.string("Google Drive ne permet pas de rendre ce fichier accessible par lien.")
+            FileMailerLocalization.current.string("Google Drive does not allow this file to be made accessible by link.")
         case .administratorPolicy:
-            FileMailerLocalization.current.string("L’administrateur Google Workspace bloque l’utilisation de Google Drive par FileMailer.")
+            FileMailerLocalization.current.string("Your Google Workspace administrator blocks FileMailer from using Google Drive.")
         case .quota:
-            FileMailerLocalization.current.string("Le quota Google Drive est temporairement dépassé.")
+            FileMailerLocalization.current.string("The Google Drive quota has temporarily been exceeded.")
         case .networkUnavailable:
-            FileMailerLocalization.current.string("Le réseau est indisponible.")
+            FileMailerLocalization.current.string("The network is unavailable.")
         case .malformedResponse:
-            FileMailerLocalization.current.string("La réponse Google Drive est illisible.")
+            FileMailerLocalization.current.string("The Google Drive response could not be read.")
         case let .server(status):
-            FileMailerLocalization.current.format("Google Drive a répondu avec l’erreur %@.", String(status))
+            FileMailerLocalization.current.format("Google Drive responded with error %@.", String(status))
         }
     }
 }
@@ -594,7 +594,7 @@ public actor GoogleDriveTransferCoordinator {
                 outcomes.append(.removed(record))
             } catch {
                 let description = (error as? LocalizedError)?.errorDescription
-                    ?? "La suppression Drive a échoué."
+                    ?? "Drive deletion failed."
                 try? await store.markFailure(recordID: record.id, description: description)
                 outcomes.append(.failed(record, description))
             }

@@ -9,9 +9,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / 'App/Resources/Localizable.xcstrings'
-FINDER_KEYS = ['Send by Email', 'Envoyer ce dossier par e-mail', 'Other Recipient…',
-               'Edit Recipients…', 'Open FileMailer…', 'Préparation avec Apple Intelligence…',
-               'Préparation du message', 'Préparation du message…']
+FINDER_KEYS = ['Send by Email', 'Send this folder by email', 'Other Recipient…',
+               'Edit Recipients…', 'Open FileMailer…', 'Preparation with Apple Intelligence…',
+               'Preparing the message', 'Preparing the message…']
 
 def render(values):
     quote = lambda value: json.dumps(value, ensure_ascii=False)

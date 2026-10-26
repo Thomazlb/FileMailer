@@ -19,7 +19,7 @@ public struct ComposeActionValidator: Sendable {
             throw IPCError.invalidPath
         }
         for path in request.paths {
-            guard !path.isEmpty,
+            guard path.hasPrefix("/"),
                   path.utf8.count <= Self.maximumPathBytes,
                   !path.unicodeScalars.contains(where: {
                       $0.value == 0 || ($0.value < 32 && $0.value != 9)
