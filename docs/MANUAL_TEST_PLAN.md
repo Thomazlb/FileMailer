@@ -73,7 +73,7 @@ result for every manual run.
    picker value and right-to-left layout, including recipient editor sheets.
 4. For each of the 50 app languages, generate a draft with “Application language”
    selected. Check subject, greeting, body and closing in the selected language.
-5. With the app in French, request “Rédige en anglais”, then use a saved recipient
+5. With the app in French, request “Write in English”, then use a saved recipient
    preference and an explicit draft-language choice. The current writing request
    takes priority, then the recipient preference, then the draft-language picker,
    then the app language. File content must not override the language.
