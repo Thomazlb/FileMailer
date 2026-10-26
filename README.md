@@ -172,8 +172,10 @@ remaining review and submission checks.
 
 ## Official releases and community builds
 
-An official GitHub release is signed and notarized by the maintainer and uses
-the verified production OAuth client injected during the private release
+An official GitHub release is signed by the maintainer. Its release notes state
+whether the attached direct-download artifact has been notarized. The Mac App
+Store build is distributed separately through App Store Connect. Each release
+uses the verified production OAuth client injected during the private release
 build. Its users only authorize their own Google account.
 
 A source checkout never receives maintainer credentials. Contributors copy
