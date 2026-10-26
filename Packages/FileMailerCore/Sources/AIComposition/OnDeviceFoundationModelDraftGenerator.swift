@@ -46,14 +46,14 @@ public enum DraftGenerationError: Error, LocalizedError, Sendable {
     public var errorDescription: String? {
         switch self {
         case .unavailable(.unsupportedSystemVersion):
-            "Apple Intelligence est disponible dans FileMailer à partir de macOS 27. Le brouillon déterministe reste disponible sur macOS 26."
-        case .unavailable(.deviceNotEligible): "Cet appareil n’est pas compatible avec Apple Intelligence."
-        case .unavailable(.appleIntelligenceDisabled): "Activez Apple Intelligence dans Réglages Système."
-        case .unavailable(.modelNotReady): "Le modèle Apple Intelligence n’est pas encore prêt."
-        case .unavailable(.available): "Le modèle est temporairement indisponible."
-        case .unsafeOutput: "Le modèle a refusé ce contenu. Le brouillon déterministe reste disponible."
-        case .invalidOutput: "La réponse du modèle n’est pas un brouillon valide."
-        case .contextTooLarge: "Le contenu sélectionné dépasse la fenêtre du modèle."
+            FileMailerLocalization.current.string("Apple Intelligence est disponible dans FileMailer à partir de macOS 27. Le brouillon déterministe reste disponible sur macOS 26.")
+        case .unavailable(.deviceNotEligible): FileMailerLocalization.current.string("Cet appareil n’est pas compatible avec Apple Intelligence.")
+        case .unavailable(.appleIntelligenceDisabled): FileMailerLocalization.current.string("Activez Apple Intelligence dans Réglages Système.")
+        case .unavailable(.modelNotReady): FileMailerLocalization.current.string("Le modèle Apple Intelligence n’est pas encore prêt.")
+        case .unavailable(.available): FileMailerLocalization.current.string("Le modèle est temporairement indisponible.")
+        case .unsafeOutput: FileMailerLocalization.current.string("Le modèle a refusé ce contenu. Le brouillon déterministe reste disponible.")
+        case .invalidOutput: FileMailerLocalization.current.string("La réponse du modèle n’est pas un brouillon valide.")
+        case .contextTooLarge: FileMailerLocalization.current.string("Le contenu sélectionné dépasse la fenêtre du modèle.")
         }
     }
 }
@@ -95,6 +95,12 @@ public struct OnDeviceFoundationModelDraftGenerator: EmailDraftGenerating {
                 }
                 do {
                     let model = SystemLanguageModel.default
+                    let locale = Locale(identifier: DraftLanguageResolver.resolve(request))
+                    guard model.supportsLocale(locale) else {
+                        continuation.yield(DeterministicDraftGenerator().generate(request))
+                        continuation.finish()
+                        return
+                    }
                     let session = LanguageModelSession(
                         model: model,
                         tools: [],

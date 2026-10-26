@@ -25,8 +25,12 @@ struct GeneralSettingsView: View {
                     }
                 }
                 .pickerStyle(.menu)
+                .accessibilityIdentifier("app-language-picker")
                 Text("Par défaut, FileMailer suit la langue de macOS.")
                     .font(.caption)
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(.secondary)
             }
 
@@ -40,7 +44,7 @@ struct GeneralSettingsView: View {
                         )
                     ) {
                         ForEach(1...10, id: \.self) { count in
-                            Text("\(count)").tag(count)
+                            Text(count, format: .number).tag(count)
                         }
                     }
                     .labelsHidden()
@@ -49,6 +53,9 @@ struct GeneralSettingsView: View {
                 }
                 Text("Les destinataires épinglés comptent dans cette limite.")
                     .font(.caption)
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(.secondary)
                 Button("Gérer l’extension Finder…") {
                     model.windows?.showExtensionManagement()
@@ -67,6 +74,9 @@ struct GeneralSettingsView: View {
                 )
                 Text("État système: \(loginStatus)")
                     .font(.caption)
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(.secondary)
             }
 
@@ -80,6 +90,9 @@ struct GeneralSettingsView: View {
                 )
                 Text("Désactivé par défaut. Les fichiers joints ne sont jamais copiés dans un brouillon.")
                     .font(.caption)
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(.secondary)
                 if !model.pendingDrafts.isEmpty {
                     Button("Effacer les brouillons enregistrés", role: .destructive) {
@@ -88,7 +101,7 @@ struct GeneralSettingsView: View {
                 }
             }
 
-            Section(usesAppleIntelligence ? "Intelligence Apple" : "Brouillon local") {
+            Section(LocalizedStringKey(usesAppleIntelligence ? "Apple Intelligence" : "Brouillon local")) {
                 LabeledContent("Traitement") {
                     Text(aiStatus)
                 }
@@ -99,6 +112,9 @@ struct GeneralSettingsView: View {
                 }
                 Text("Le brouillon déterministe et la rédaction manuelle restent disponibles.")
                     .font(.caption)
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(.secondary)
             }
         }
@@ -106,7 +122,7 @@ struct GeneralSettingsView: View {
         .scrollContentBackground(.hidden)
         .padding()
         .background(Color.black)
-        .navigationTitle("Général")
+        .navigationTitle(model.localizedString("Général"))
         .confirmationDialog(
             "Effacer tous les brouillons enregistrés ?",
             isPresented: $isDraftDeletionConfirmationPresented,

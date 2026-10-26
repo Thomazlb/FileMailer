@@ -13,6 +13,7 @@ struct SettingsRootView: View {
         HStack(spacing: 0) {
             List(WindowCoordinator.SettingsSection.allCases, selection: $selection) { section in
                 Label(section.title, systemImage: section.symbol)
+                    .accessibilityIdentifier("settings-" + section.rawValue)
                     .tag(section)
             }
             .listStyle(.sidebar)
@@ -42,6 +43,7 @@ struct SettingsRootView: View {
         .frame(minWidth: 760, minHeight: 560)
         .background(Color.black)
         .environment(\.locale, model.interfaceLocale)
+        .environment(\.layoutDirection, model.interfaceLocale.language.characterDirection == .rightToLeft ? .rightToLeft : .leftToRight)
     }
 }
 

@@ -135,6 +135,13 @@ final class WindowCoordinator: NSObject {
         FIFinderSyncController.showExtensionManagementInterface()
     }
 
+    func refreshLocalizedTitles() {
+        onboardingWindow?.window?.title = model.localizedString("Bienvenue dans FileMailer")
+        for controller in composeWindows.values {
+            controller.window?.title = model.localizedString("Nouveau message")
+        }
+    }
+
     func presentError(_ error: Error) {
         let alert = NSAlert(error: error)
         if let window = NSApp.keyWindow {

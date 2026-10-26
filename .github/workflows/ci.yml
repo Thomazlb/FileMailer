@@ -13,9 +13,12 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install audit dependency
+        run: brew install ripgrep
       - name: Validate repository policy
         run: |
           make audit-public
+          python3 Scripts/check_localizations.py
           plutil -lint App/Resources/Info.plist
           plutil -lint FinderExtension/Info.plist
           plutil -lint FinderExtension/FinderExtension.entitlements

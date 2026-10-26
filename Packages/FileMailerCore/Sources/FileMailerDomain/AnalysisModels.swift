@@ -22,6 +22,8 @@ public struct AttachmentAnalysis: Identifiable, Codable, Sendable, Hashable {
     public var pixelHeight: Int?
     public var extractedText: String?
     public var deterministicSummary: String
+    public var summaryLocalizationKey: String?
+    public var summaryLocalizationArguments: [String]?
     public var warnings: Set<AnalysisWarning>
     public var includedInModel: Bool
 
@@ -37,6 +39,8 @@ public struct AttachmentAnalysis: Identifiable, Codable, Sendable, Hashable {
         pixelHeight: Int? = nil,
         extractedText: String? = nil,
         deterministicSummary: String,
+        summaryLocalizationKey: String? = nil,
+        summaryLocalizationArguments: [String]? = nil,
         warnings: Set<AnalysisWarning> = [],
         includedInModel: Bool = false
     ) {
@@ -51,8 +55,16 @@ public struct AttachmentAnalysis: Identifiable, Codable, Sendable, Hashable {
         self.pixelHeight = pixelHeight
         self.extractedText = extractedText
         self.deterministicSummary = deterministicSummary
+        self.summaryLocalizationKey = summaryLocalizationKey
+        self.summaryLocalizationArguments = summaryLocalizationArguments
         self.warnings = warnings
         self.includedInModel = includedInModel
+    }
+
+    public func localizedSummary(using localization: FileMailerLocalization) -> String {
+        guard let key = summaryLocalizationKey else { return localization.string(deterministicSummary) }
+        return String(format: localization.string(key), locale: localization.locale,
+                      arguments: (summaryLocalizationArguments ?? []).map { localization.string($0) })
     }
 }
 
@@ -89,6 +101,7 @@ public struct AnalysisPolicy: Codable, Sendable {
 
 public struct DraftGenerationRequest: Sendable {
     public var language: DraftLanguage
+    public var appLanguageIdentifier: String
     public var tone: DraftTone
     public var recipientName: String?
     public var senderName: String?
@@ -105,9 +118,11 @@ public struct DraftGenerationRequest: Sendable {
         userPurpose: String? = nil,
         customInstruction: String? = nil,
         analyses: [AttachmentAnalysis],
-        signature: String? = nil
+        signature: String? = nil,
+        appLanguageIdentifier: String = FileMailerLocalization.current.languageIdentifier
     ) {
         self.language = language
+        self.appLanguageIdentifier = appLanguageIdentifier
         self.tone = tone
         self.recipientName = recipientName
         self.senderName = senderName

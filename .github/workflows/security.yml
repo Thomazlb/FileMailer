@@ -30,6 +30,8 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install audit dependency
+        run: brew install ripgrep
       - name: Check declared package versions and notices
         run: |
           rg -n 'exact: "2.1.0"' Packages/FileMailerCore/Package.swift

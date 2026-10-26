@@ -4,187 +4,69 @@ import Foundation
 public struct DeterministicDraftGenerator: EmailDraftGenerating {
     public init() {}
 
-    public func streamDraft(
-        request: DraftGenerationRequest
-    ) -> AsyncThrowingStream<GeneratedDraftSnapshot, Error> {
+    public func streamDraft(request: DraftGenerationRequest) -> AsyncThrowingStream<GeneratedDraftSnapshot, Error> {
         AsyncThrowingStream { continuation in
-            let draft = generate(request)
-            continuation.yield(draft)
+            continuation.yield(generate(request))
             continuation.finish()
         }
     }
 
     public func generate(_ request: DraftGenerationRequest) -> GeneratedDraftSnapshot {
-        let names = request.analyses.map(\.displayName)
-        let french = request.language != .english
+        let localizer = FileMailerLocalization(languageIdentifier: DraftLanguageResolver.resolve(request))
         let recipient = request.recipientName?.trimmingCharacters(in: .whitespacesAndNewlines)
-        let salutation: String
-        if french {
-            salutation = recipient.map { "Bonjour \($0)," } ?? "Bonjour,"
-        } else {
-            salutation = recipient.map { "Hello \($0)," } ?? "Hello,"
-        }
-
+        let salutation = recipient.flatMap { $0.isEmpty ? nil : $0 }
+            .map { localizer.format("Bonjour %@,", $0) } ?? localizer.string("Bonjour,")
         let subject: String
-        let message: String
-        let isOwnDocument = DraftIdentityResolver.documentsBelongToSender(request)
-        let isResume = DraftIdentityResolver.isResume(request)
-        if isOwnDocument && isResume {
-            if french {
-                subject = request.tone == .professional
-                    ? "Transmission de mon CV"
-                    : "Mon CV en pièce jointe"
-                message = professionalized(
-                    "Je me permets de vous transmettre mon CV en pièce jointe.",
-                    request: request,
-                    french: true
-                )
-            } else {
-                subject = "My résumé"
-                message = professionalized(
-                    "Please find my résumé attached.",
-                    request: request,
-                    french: false
-                )
-            }
-        } else if isResume {
-            if french {
-                subject = "Transmission du CV joint"
-                message = professionalized(
-                    "Je me permets de vous transmettre le CV en pièce jointe.",
-                    request: request,
-                    french: true
-                )
-            } else {
-                subject = "Attached résumé"
-                message = professionalized(
-                    "Please find the résumé attached.",
-                    request: request,
-                    french: false
-                )
-            }
-        } else if names.count == 1, let name = names.first {
-            let nature = attachmentNature(request.analyses[0], french: french)
-            if french {
-                subject = "Transmission \(attachmentSubjectNature(request.analyses[0])) « \(name) »"
-                message = professionalized(
-                    "Je me permets de vous transmettre \(nature) « \(name) » en pièce jointe.",
-                    request: request,
-                    french: true
-                )
-            } else {
-                subject = "Sending “\(name)”"
-                message = professionalized(
-                    "Please find \(nature) “\(name)” attached.",
-                    request: request,
-                    french: false
-                )
-            }
-        } else if names.isEmpty {
-            subject = french ? "Nouveau message" : "New message"
-            message = french ? "Je vous écris au sujet de notre échange." : "I am writing regarding our conversation."
+        var message: String
+        if DraftIdentityResolver.isResume(request) {
+            let own = DraftIdentityResolver.documentsBelongToSender(request)
+            subject = localizer.string(own ? "Transmission de mon CV" : "Transmission du CV joint")
+            message = localizer.string(own
+                ? "Je me permets de vous transmettre mon CV en pièce jointe."
+                : "Je me permets de vous transmettre le CV en pièce jointe.")
+        } else if request.analyses.count == 1, let analysis = request.analyses.first {
+            subject = localizer.format("Envoi de « %@ »", analysis.displayName)
+            message = localizer.format(attachmentMessage(analysis), analysis.displayName)
+        } else if request.analyses.isEmpty {
+            subject = localizer.string("Nouveau message")
+            message = localizer.string("Je vous écris au sujet de notre échange.")
         } else {
-            subject = french ? "Envoi des documents sélectionnés" : "Sending the selected documents"
-            let list = names.map { "- \($0)" }.joined(separator: "\n")
-            message = professionalized(
-                french
-                    ? "Je me permets de vous transmettre les documents suivants en pièces jointes :\n\(list)"
-                    : "Please find the following documents attached:\n\(list)",
-                request: request,
-                french: french
-            )
+            subject = localizer.string("Envoi des documents sélectionnés")
+            message = localizer.string("Veuillez trouver les documents suivants en pièces jointes :")
+                + "\n" + request.analyses.map { "- \($0.displayName)" }.joined(separator: "\n")
         }
-
-        let closing = french ? "Bien cordialement," : "Kind regards,"
-        let savedSignature = request.signature?
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-        let senderName = request.senderName?
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-        let signature = savedSignature?.isEmpty == false ? savedSignature : senderName
-        let body = [salutation, "", message, "", closing, signature]
-            .compactMap { $0 }
-            .joined(separator: "\n")
-        return GeneratedDraftSnapshot(
-            subject: String(subject.prefix(120)),
-            body: body,
-            isFinal: true
-        )
+        if request.tone == .professional {
+            message += "\n\n" + localizer.string("Je reste à votre disposition pour toute information complémentaire.")
+        }
+        let savedSignature = request.signature?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let signature = savedSignature?.isEmpty == false ? savedSignature
+            : request.senderName?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let body = [salutation, "", message, "", localizer.string("Bien cordialement,"), signature]
+            .compactMap { $0 }.joined(separator: "\n")
+        return GeneratedDraftSnapshot(subject: String(subject.prefix(120)), body: body, isFinal: true)
     }
 
-    private func professionalized(
-        _ message: String,
-        request: DraftGenerationRequest,
-        french: Bool
-    ) -> String {
-        guard request.tone == .professional else { return message }
-        let availability = french
-            ? "Je reste à votre disposition pour toute information complémentaire."
-            : "Please let me know if you need any further information."
-        return "\(message)\n\n\(availability)"
-    }
-
-    private func attachmentNature(
-        _ analysis: AttachmentAnalysis,
-        french: Bool
-    ) -> String {
-        let summary = analysis.deterministicSummary.lowercased()
+    private func attachmentMessage(_ analysis: AttachmentAnalysis) -> String {
         let type = analysis.contentType.lowercased()
         let name = analysis.displayName.lowercased()
-        if summary.contains("dossier") {
-            return french ? "le dossier" : "the folder"
+        if type == "inode/directory" || analysis.deterministicSummary.hasPrefix("Dossier") {
+            return "Je vous transmets le dossier « %@ » en pièce jointe."
         }
         if type.contains("zip") || type.contains("archive") {
-            return french ? "l’archive" : "the archive"
+            return "Je vous transmets l’archive « %@ » en pièce jointe."
         }
         if name.hasSuffix(".ppt") || name.hasSuffix(".pptx") {
-            return french ? "la présentation" : "the presentation"
+            return "Je vous transmets la présentation « %@ » en pièce jointe."
         }
-        if name.hasSuffix(".xls") || name.hasSuffix(".xlsx") || name.hasSuffix(".csv") {
-            return french ? "le tableau" : "the spreadsheet"
+        if [".xls", ".xlsx", ".csv"].contains(where: name.hasSuffix) {
+            return "Je vous transmets le tableau « %@ » en pièce jointe."
         }
-        if type.hasPrefix("image/") {
-            return french ? "l’image" : "the image"
-        }
-        if type == "application/pdf" {
-            return french ? "le document PDF" : "the PDF document"
-        }
+        if type.hasPrefix("image/") { return "Je vous transmets l’image « %@ » en pièce jointe." }
+        if type == "application/pdf" { return "Je vous transmets le document PDF « %@ » en pièce jointe." }
         if name.hasSuffix(".doc") || name.hasSuffix(".docx") {
-            return french ? "le document Word" : "the Word document"
+            return "Je vous transmets le document Word « %@ » en pièce jointe."
         }
-        if type.hasPrefix("text/") {
-            return french ? "le document texte" : "the text document"
-        }
-        return french ? "le fichier" : "the file"
-    }
-
-    private func attachmentSubjectNature(_ analysis: AttachmentAnalysis) -> String {
-        let summary = analysis.deterministicSummary.lowercased()
-        let type = analysis.contentType.lowercased()
-        let name = analysis.displayName.lowercased()
-        if summary.contains("dossier") {
-            return "du dossier"
-        }
-        if type.contains("zip") || type.contains("archive") {
-            return "de l’archive"
-        }
-        if name.hasSuffix(".ppt") || name.hasSuffix(".pptx") {
-            return "de la présentation"
-        }
-        if name.hasSuffix(".xls") || name.hasSuffix(".xlsx") || name.hasSuffix(".csv") {
-            return "du tableau"
-        }
-        if type.hasPrefix("image/") {
-            return "de l’image"
-        }
-        if type == "application/pdf" {
-            return "du document PDF"
-        }
-        if name.hasSuffix(".doc") || name.hasSuffix(".docx") {
-            return "du document Word"
-        }
-        if type.hasPrefix("text/") {
-            return "du document texte"
-        }
-        return "du fichier"
+        if type.hasPrefix("text/") { return "Je vous transmets le document texte « %@ » en pièce jointe." }
+        return "Je vous transmets le fichier « %@ » en pièce jointe."
     }
 }

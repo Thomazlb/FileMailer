@@ -41,7 +41,7 @@ struct OnboardingView: View {
                         title: "Ajoutez un compte Gmail",
                         text: model.accounts.isEmpty
                             ? "Le navigateur système s’ouvrira avec les seules autorisations nécessaires à l’envoi."
-                            : "\(model.accounts.count) compte(s) connecté(s).",
+                            : model.localization.format("%@ compte(s) connecté(s).", String(model.accounts.count)),
                         actionTitle: "Ajouter un compte"
                     ) {
                         authorizationDisclosure = .gmail
@@ -89,7 +89,7 @@ struct OnboardingView: View {
                 Button("Précédent") { step = max(0, step - 1) }
                     .disabled(step == 0)
                 Spacer()
-                Button(step == stepCount - 1 ? "Terminer" : "Continuer") {
+                Button(LocalizedStringKey(step == stepCount - 1 ? "Terminer" : "Continuer")) {
                     if step == stepCount - 1 {
                         onFinish()
                     } else {
@@ -102,6 +102,7 @@ struct OnboardingView: View {
         .frame(width: 700, height: 520)
         .background(Color.black)
         .environment(\.locale, model.interfaceLocale)
+        .environment(\.layoutDirection, model.interfaceLocale.language.characterDirection == .rightToLeft ? .rightToLeft : .leftToRight)
         .sheet(item: $authorizationDisclosure) { purpose in
             GoogleAuthorizationDisclosure(purpose: purpose) {
                 if purpose == .gmail {
@@ -118,7 +119,7 @@ struct OnboardingView: View {
                 .foregroundStyle(.tint)
             Text(LocalizedStringKey(title))
                 .font(.largeTitle.weight(.semibold))
-            Text(LocalizedStringKey(text))
+            Text(model.localizedString(text))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
                 .frame(maxWidth: 500)

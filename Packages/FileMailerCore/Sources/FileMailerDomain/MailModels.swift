@@ -8,10 +8,10 @@ public enum EmailAddressError: Error, LocalizedError, Equatable, Sendable {
 
     public var errorDescription: String? {
         switch self {
-        case .empty: "L’adresse e-mail est vide."
-        case .invalid: "L’adresse e-mail n’est pas valide."
-        case .headerInjection: "L’adresse contient un caractère interdit."
-        case .tooLong: "L’adresse e-mail est trop longue."
+        case .empty: FileMailerLocalization.current.string("L’adresse e-mail est vide.")
+        case .invalid: FileMailerLocalization.current.string("L’adresse e-mail n’est pas valide.")
+        case .headerInjection: FileMailerLocalization.current.string("L’adresse contient un caractère interdit.")
+        case .tooLong: FileMailerLocalization.current.string("L’adresse e-mail est trop longue.")
         }
     }
 }
@@ -237,8 +237,37 @@ public enum DraftLanguage: String, Codable, Sendable, CaseIterable, Identifiable
     case automatic
     case french
     case english
+    case arabic = "ar", bangla = "bn", catalan = "ca"
+    case chineseSimplified = "zh-Hans", chineseTraditional = "zh-Hant"
+    case croatian = "hr", czech = "cs", danish = "da", dutch = "nl"
+    case englishAustralia = "en-AU", englishCanada = "en-CA", englishUnitedKingdom = "en-GB"
+    case finnish = "fi", frenchCanada = "fr-CA", german = "de", greek = "el"
+    case gujarati = "gu", hebrew = "he", hindi = "hi", hungarian = "hu"
+    case indonesian = "id", italian = "it", japanese = "ja", kannada = "kn", korean = "ko"
+    case malay = "ms", malayalam = "ml", marathi = "mr", norwegian = "no", odia = "or"
+    case polish = "pl", portugueseBrazil = "pt-BR", portuguesePortugal = "pt-PT", punjabi = "pa"
+    case romanian = "ro", russian = "ru", slovak = "sk", slovenian = "sl"
+    case spanishMexico = "es-MX", spanishSpain = "es", swedish = "sv"
+    case tamil = "ta", telugu = "te", thai = "th", turkish = "tr", ukrainian = "uk"
+    case urdu = "ur", vietnamese = "vi"
 
     public var id: String { rawValue }
+
+    public var localeIdentifier: String? {
+        switch self {
+        case .automatic: nil
+        case .french: "fr"
+        case .english: "en"
+        default: rawValue
+        }
+    }
+
+    public var nativeDisplayName: String {
+        guard let localeIdentifier else { return "" }
+        let locale = Locale(identifier: localeIdentifier)
+        return locale.localizedString(forIdentifier: localeIdentifier)?.capitalized(with: locale)
+            ?? localeIdentifier
+    }
 }
 
 public struct ComposeDraft: Identifiable, Codable, Sendable {
@@ -306,10 +335,10 @@ public enum OutboundMessageError: Error, LocalizedError, Equatable, Sendable {
 
     public var errorDescription: String? {
         switch self {
-        case .invalidRecipients: "Ajoutez au moins un destinataire valide."
-        case .headerInjection: "Un en-tête contient un caractère interdit."
-        case .emptySubjectAndBody: "L’objet et le message sont vides."
-        case let .attachmentChanged(name): "La pièce jointe « \(name) » a changé."
+        case .invalidRecipients: FileMailerLocalization.current.string("Ajoutez au moins un destinataire valide.")
+        case .headerInjection: FileMailerLocalization.current.string("Un en-tête contient un caractère interdit.")
+        case .emptySubjectAndBody: FileMailerLocalization.current.string("L’objet et le message sont vides.")
+        case let .attachmentChanged(name): FileMailerLocalization.current.format("La pièce jointe « %@ » a changé.", String(name))
         }
     }
 }

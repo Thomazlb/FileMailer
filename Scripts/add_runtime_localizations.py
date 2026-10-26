@@ -115,7 +115,9 @@ def main() -> None:
     for source, english in ENGLISH.items():
         item = catalog["strings"].setdefault(source, {})
         localizations = item.setdefault("localizations", {})
-        for locale in locales:
+        # English is an English translation, never a translated placeholder
+        # for Arabic, French, German, etc. Missing translations must fail audit.
+        for locale in ("en", "en-AU", "en-CA", "en-GB"):
             localizations.setdefault(
                 locale,
                 {

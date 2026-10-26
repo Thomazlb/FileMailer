@@ -26,6 +26,7 @@ fixtures:
 	python3 Scripts/generate_test_fixtures.py
 
 test:
+	python3 Scripts/check_localizations.py
 	cd Packages/FileMailerCore && \
 		DEVELOPER_DIR="$(XCODE_DEVELOPER_DIR)" \
 		CLANG_MODULE_CACHE_PATH=/private/tmp/FileMailerModuleCache \

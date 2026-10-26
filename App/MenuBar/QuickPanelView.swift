@@ -79,6 +79,7 @@ struct QuickPanelView: View {
         .frame(width: 320, alignment: .topLeading)
         .fixedSize(horizontal: false, vertical: true)
         .environment(\.locale, model.interfaceLocale)
+        .environment(\.layoutDirection, model.interfaceLocale.language.characterDirection == .rightToLeft ? .rightToLeft : .leftToRight)
     }
 
     private var defaultAccountText: String {

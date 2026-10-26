@@ -23,7 +23,10 @@ final class FinderSync: FIFinderSync, @unchecked Sendable {
     private let baseBundleID: String
     private let names: IPCNotificationNames
     private let reassembler = IPCChunkReassembler()
-    private var snapshot = FinderMenuSnapshot(recipients: [], visibleRecipientCount: 5)
+    private var snapshot = FinderMenuSnapshot(
+        recipients: [], visibleRecipientCount: 5,
+        languageIdentifier: UserDefaults.standard.string(forKey: "appLanguage")
+    )
     private var lastAppHeartbeat = Date.distantPast
     private var actions: [Int: PendingAction] = [:]
     private var nextTag = 1
@@ -57,6 +60,11 @@ final class FinderSync: FIFinderSync, @unchecked Sendable {
         observers.forEach(NotificationCenter.default.removeObserver)
     }
 
+    private func localizedString(_ key: String) -> String {
+        FileMailerLocalization(languageIdentifier: snapshot.languageIdentifier
+            ?? FileMailerLocalization.resolve(preferences: Locale.preferredLanguages)).string(key)
+    }
+
     override func menu(for menuKind: FIMenuKind) -> NSMenu? {
         guard menuKind == .contextualMenuForItems || menuKind == .contextualMenuForContainer else {
             return nil
@@ -65,8 +73,8 @@ final class FinderSync: FIFinderSync, @unchecked Sendable {
         nextTag = 1
         let root = NSMenu()
         let menuTitle = menuKind == .contextualMenuForContainer
-            ? String(localized: "Envoyer ce dossier par e-mail")
-            : String(localized: "Send by Email")
+            ? localizedString("Envoyer ce dossier par e-mail")
+            : localizedString("Send by Email")
         let parent = NSMenuItem(
             title: menuTitle,
             action: nil,
@@ -75,13 +83,13 @@ final class FinderSync: FIFinderSync, @unchecked Sendable {
         let submenu = NSMenu(title: menuTitle)
         if let pendingFeedback, Date().timeIntervalSince(pendingFeedback.startedAt) <= 20 {
             let status = NSMenuItem(
-                title: String(localized: "Préparation avec Apple Intelligence…"),
+                title: localizedString("Préparation avec Apple Intelligence…"),
                 action: nil,
                 keyEquivalent: ""
             )
             status.image = NSImage(
                 systemSymbolName: "apple.intelligence",
-                accessibilityDescription: String(localized: "Préparation du message")
+                accessibilityDescription: localizedString("Préparation du message")
             )
             status.isEnabled = false
             submenu.addItem(status)
@@ -97,17 +105,17 @@ final class FinderSync: FIFinderSync, @unchecked Sendable {
             )
         }
         add(
-            title: String(localized: "Other Recipient…"),
+            title: localizedString("Other Recipient…"),
             action: .otherRecipient,
             to: submenu
         )
         add(
-            title: String(localized: "Edit Recipients…"),
+            title: localizedString("Edit Recipients…"),
             action: .editRecipients,
             to: submenu
         )
         add(
-            title: String(localized: "Open FileMailer…"),
+            title: localizedString("Open FileMailer…"),
             action: .openApp,
             to: submenu
         )
@@ -118,10 +126,10 @@ final class FinderSync: FIFinderSync, @unchecked Sendable {
 
     @objc private func performMenuAction(_ sender: NSMenuItem) {
         guard let action = actions[sender.tag] else { return }
-        sender.title = String(localized: "Préparation du message…")
+        sender.title = localizedString("Préparation du message…")
         sender.image = NSImage(
             systemSymbolName: "apple.intelligence",
-            accessibilityDescription: String(localized: "Préparation du message")
+            accessibilityDescription: localizedString("Préparation du message")
         )
         sender.isEnabled = false
         switch action {
@@ -278,7 +286,14 @@ final class FinderSync: FIFinderSync, @unchecked Sendable {
                     else {
                         return
                     }
-                    await MainActor.run { self.snapshot = value }
+                    await MainActor.run {
+                        self.snapshot = value
+                        if let language = value.languageIdentifier {
+                            UserDefaults.standard.set(language, forKey: "appLanguage")
+                        } else {
+                            UserDefaults.standard.removeObject(forKey: "appLanguage")
+                        }
+                    }
                 }
             }
         )

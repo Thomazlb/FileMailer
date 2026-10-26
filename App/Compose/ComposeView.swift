@@ -27,6 +27,7 @@ struct ComposeView: View {
         .frame(minWidth: 760, minHeight: 620)
         .background(Color.black)
         .environment(\.locale, viewModel.interfaceLocale)
+        .environment(\.layoutDirection, viewModel.interfaceLocale.language.characterDirection == .rightToLeft ? .rightToLeft : .leftToRight)
         .dropDestination(for: URL.self) { urls, _ in
             viewModel.addAttachments(urls)
             return !urls.isEmpty
@@ -155,9 +156,8 @@ struct ComposeView: View {
                         .contentTransition(.symbolEffect(.replace))
                     } else {
                         Label(
-                            viewModel.isGenerating || viewModel.isAnalyzing
-                                ? "Arrêter"
-                                : "Régénérer",
+                            LocalizedStringKey(viewModel.isGenerating || viewModel.isAnalyzing
+                                ? "Arrêter" : "Régénérer"),
                             systemImage: viewModel.isGenerating || viewModel.isAnalyzing
                                 ? "stop.fill"
                                 : (viewModel.usesAppleIntelligence
@@ -168,11 +168,11 @@ struct ComposeView: View {
                     }
                 }
                 .help(
-                    viewModel.isGenerating || viewModel.isAnalyzing
+                    LocalizedStringKey(viewModel.isGenerating || viewModel.isAnalyzing
                         ? "Arrêter la rédaction"
                         : (viewModel.usesAppleIntelligence
                             ? "Donner une instruction à Apple Intelligence"
-                            : "Relancer le brouillon local")
+                            : "Relancer le brouillon local"))
                 )
             }
 
@@ -187,7 +187,7 @@ struct ComposeView: View {
                     )
                 } else {
                     Label(
-                        viewModel.isSending ? "Envoi…" : "Envoyer",
+                        LocalizedStringKey(viewModel.isSending ? "Envoi…" : "Envoyer"),
                         systemImage: viewModel.isSending
                             ? "hourglass"
                             : "paperplane"
@@ -196,8 +196,8 @@ struct ComposeView: View {
             }
             .disabled(!viewModel.canSend)
             .keyboardShortcut(.return, modifiers: .command)
-            .help(viewModel.isSending ? "Envoi en cours" : "Envoyer le message")
-            .accessibilityLabel(viewModel.isSending ? "Envoi en cours" : "Envoyer")
+            .help(LocalizedStringKey(viewModel.isSending ? "Envoi en cours" : "Envoyer le message"))
+            .accessibilityLabel(LocalizedStringKey(viewModel.isSending ? "Envoi en cours" : "Envoyer"))
             .accessibilityHint("Envoie le message visible après validation")
         }
         .frame(maxWidth: .infinity)
@@ -238,18 +238,18 @@ struct ComposeView: View {
                         get: { viewModel.recipientInput(for: .to) },
                         set: { viewModel.setRecipientInput($0, field: .to) }
                     ),
-                    placeholder: "nom@exemple.fr"
+                    placeholder: "Adresse e-mail"
                 )
                 .frame(height: 26)
 
-                Button(viewModel.showCc ? "Masquer Cc" : "Cc") {
+                Button(LocalizedStringKey(viewModel.showCc ? "Masquer Cc" : "Cc")) {
                     withAnimation(.snappy(duration: 0.18)) {
                         viewModel.showCc.toggle()
                     }
                 }
                 .buttonStyle(.link)
 
-                Button(viewModel.showBcc ? "Masquer Cci" : "Cci") {
+                Button(LocalizedStringKey(viewModel.showBcc ? "Masquer Cci" : "Cci")) {
                     withAnimation(.snappy(duration: 0.18)) {
                         viewModel.showBcc.toggle()
                     }
@@ -307,6 +307,7 @@ struct ComposeView: View {
                 )
                 .textFieldStyle(.plain)
                 .font(.body.weight(.medium))
+                .accessibilityIdentifier("compose-subject")
             }
         }
         .padding(.horizontal, 16)
@@ -325,7 +326,7 @@ struct ComposeView: View {
         HStack(spacing: 12) {
             Text(LocalizedStringKey(title))
                 .foregroundStyle(.secondary)
-                .frame(width: 42, alignment: .trailing)
+                .frame(width: 76, alignment: .trailing)
             content()
         }
         .frame(minHeight: 36)
@@ -350,17 +351,10 @@ struct ComposeView: View {
             HStack(spacing: 8) {
                 Image(systemName: "paperclip")
                     .foregroundStyle(.secondary)
-                Text(
-                    viewModel.draft.attachments.isEmpty
-                        ? "Aucune pièce jointe"
-                        : "\(viewModel.draft.attachments.count) pièce(s) jointe(s)"
-                )
+                Text(viewModel.attachmentCountText)
                 .font(.caption.weight(.medium))
                 Spacer()
-                Text(ByteCountFormatter.string(
-                    fromByteCount: viewModel.totalAttachmentSize,
-                    countStyle: .file
-                ))
+                Text(viewModel.totalAttachmentSize.formatted(.byteCount(style: .file).locale(viewModel.interfaceLocale)))
                 .font(.caption)
                 .foregroundStyle(
                     viewModel.directAttachmentSize > AttachmentDeliveryPolicy.directAttachmentLimit
@@ -370,9 +364,8 @@ struct ComposeView: View {
                 if viewModel.hasGoogleDriveAttachments
                     && !viewModel.selectedAccountHasGoogleDriveAccess {
                     Button(
-                        viewModel.isAuthorizingDrive
-                            ? "Autorisation…"
-                            : "Autoriser Google Drive"
+                        LocalizedStringKey(viewModel.isAuthorizingDrive
+                            ? "Autorisation…" : "Autoriser Google Drive")
                     ) {
                         authorizationDisclosure = .drive
                     }
@@ -448,12 +441,14 @@ struct ComposeView: View {
     private var generationBar: some View {
         HStack(spacing: 10) {
             Picker("Langue", selection: $viewModel.language) {
-                Text("Auto").tag(DraftLanguage.automatic)
-                Text("Français").tag(DraftLanguage.french)
-                Text("English").tag(DraftLanguage.english)
+                Text("Langue de l’application").tag(DraftLanguage.automatic)
+                ForEach(DraftLanguage.allCases.filter { $0 != .automatic }) { language in
+                    Text(verbatim: language.nativeDisplayName).tag(language)
+                }
             }
+            .accessibilityIdentifier("draft-language-picker")
             .labelsHidden()
-            .frame(width: 100)
+            .frame(minWidth: 180, idealWidth: 220, maxWidth: 260)
 
             Picker("Ton", selection: $viewModel.tone) {
                 Text("Concis").tag(DraftTone.concise)
@@ -564,9 +559,8 @@ private struct AIActivityPill: View {
                         .font(.subheadline.weight(.medium))
                         .contentTransition(.interpolate)
                     Text(
-                        usesAppleIntelligence
-                            ? "Apple Intelligence sur ce Mac"
-                            : "Traitement local"
+                        LocalizedStringKey(usesAppleIntelligence
+                            ? "Apple Intelligence sur ce Mac" : "Traitement local")
                     )
                     .font(.caption2)
                     .foregroundStyle(.secondary)

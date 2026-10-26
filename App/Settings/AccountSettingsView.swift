@@ -69,7 +69,7 @@ struct AccountSettingsView: View {
             .padding(10)
         }
         .background(Color.black)
-        .navigationTitle("Comptes Gmail")
+        .navigationTitle(model.localizedString("Comptes Gmail"))
         .confirmationDialog(
             "Retirer ce compte ?",
             isPresented: Binding(

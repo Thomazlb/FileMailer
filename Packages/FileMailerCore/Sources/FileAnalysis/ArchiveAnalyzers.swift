@@ -68,6 +68,8 @@ struct ArchiveManifestAnalyzer: Sendable {
                 modificationDate: base.modificationDate,
                 extractedText: nil,
                 deterministicSummary: "Archive, \(inspection.entryNames.count) entrées. \(sample)",
+                summaryLocalizationKey: "Archive, %@ entrées. %@",
+                summaryLocalizationArguments: [String(inspection.entryNames.count), String(sample)],
                 warnings: inspection.isSuspicious ? [.suspiciousArchive] : []
             )
         } catch {
@@ -138,6 +140,8 @@ struct OfficeOpenXMLAnalyzer: Sendable {
                 modificationDate: base.modificationDate,
                 extractedText: text,
                 deterministicSummary: "\(extensionName.uppercased()) analysé sans exécuter Office, \(inspection.entryNames.count) entrées.",
+                summaryLocalizationKey: "%@ analysé sans exécuter Office, %@ entrées.",
+                summaryLocalizationArguments: [String(extensionName.uppercased()), String(inspection.entryNames.count)],
                 warnings: combined.count >= remainingTextBytes ? [.truncated] : [],
                 includedInModel: !text.isEmpty
             )

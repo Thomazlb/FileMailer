@@ -41,16 +41,16 @@ public enum IPCError: Error, LocalizedError, Equatable, Sendable {
 
     public var errorDescription: String? {
         switch self {
-        case .unsupportedSchema: "Version IPC non prise en charge."
-        case .invalidChunk: "Fragment IPC invalide."
-        case .tooManyChunks: "Le message IPC contient trop de fragments."
-        case .payloadTooLarge: "Le message IPC dépasse la taille autorisée."
-        case .checksumMismatch: "Le contrôle d’intégrité IPC a échoué."
-        case .incompleteMessage: "Le message IPC est incomplet."
-        case .expiredAction: "La demande Finder a expiré."
-        case .duplicateRequest: "La demande Finder a déjà été traitée."
-        case .invalidPath: "Un chemin Finder est invalide."
-        case .rateLimited: "Trop de demandes Finder rapprochées."
+        case .unsupportedSchema: FileMailerLocalization.current.string("Version IPC non prise en charge.")
+        case .invalidChunk: FileMailerLocalization.current.string("Fragment IPC invalide.")
+        case .tooManyChunks: FileMailerLocalization.current.string("Le message IPC contient trop de fragments.")
+        case .payloadTooLarge: FileMailerLocalization.current.string("Le message IPC dépasse la taille autorisée.")
+        case .checksumMismatch: FileMailerLocalization.current.string("Le contrôle d’intégrité IPC a échoué.")
+        case .incompleteMessage: FileMailerLocalization.current.string("Le message IPC est incomplet.")
+        case .expiredAction: FileMailerLocalization.current.string("La demande Finder a expiré.")
+        case .duplicateRequest: FileMailerLocalization.current.string("La demande Finder a déjà été traitée.")
+        case .invalidPath: FileMailerLocalization.current.string("Un chemin Finder est invalide.")
+        case .rateLimited: FileMailerLocalization.current.string("Trop de demandes Finder rapprochées.")
         }
     }
 }

@@ -75,6 +75,8 @@ struct FolderInspector: Sendable {
             creationDate: base.creationDate,
             modificationDate: base.modificationDate,
             deterministicSummary: "Dossier à compresser en ZIP, \(entries.count) entrées.\(exclusionSummary)",
+            summaryLocalizationKey: "Dossier à compresser en ZIP, %@ entrées.",
+            summaryLocalizationArguments: [String(entries.count)],
             warnings: warnings
         )
     }

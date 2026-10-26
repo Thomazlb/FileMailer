@@ -23,24 +23,24 @@ public enum OAuthError: Error, LocalizedError, Sendable {
 
     public var errorDescription: String? {
         switch self {
-        case .missingClientID: "Ajoutez GOOGLE_CLIENT_ID dans Config/Local.xcconfig."
+        case .missingClientID: FileMailerLocalization.current.string("Ajoutez GOOGLE_CLIENT_ID dans Config/Local.xcconfig.")
         case .missingRedirectScheme:
-            "Ajoutez GOOGLE_REDIRECT_SCHEME dans Config/Local.xcconfig."
+            FileMailerLocalization.current.string("Ajoutez GOOGLE_REDIRECT_SCHEME dans Config/Local.xcconfig.")
         case .invalidRedirectScheme:
-            "Le schéma de redirection Google OAuth est invalide."
-        case .discoveryFailed: "Impossible de charger la configuration OpenID de Google."
-        case .cancelled: "La connexion Google a été annulée."
-        case .missingToken: "Google n’a pas renvoyé les jetons attendus."
-        case .invalidIDToken: "Le jeton d’identité Google est invalide."
-        case .invalidIssuer: "L’émetteur OpenID ne correspond pas à Google."
-        case .invalidAudience: "Le jeton d’identité ne cible pas cette application."
-        case .expiredIDToken: "Le jeton d’identité a expiré."
-        case .nonceMismatch: "La vérification du nonce OAuth a échoué."
-        case .unverifiedEmail: "L’adresse Gmail n’est pas vérifiée."
-        case .missingIdentity: "Le compte Google ne fournit pas d’identité exploitable."
-        case .insufficientScopes: "Google n’a pas accordé toutes les autorisations nécessaires."
-        case .refreshFailed: "Le compte Gmail doit être reconnecté."
-        case .revocationFailed: "Le retrait local est terminé, mais la révocation Google a échoué."
+            FileMailerLocalization.current.string("Le schéma de redirection Google OAuth est invalide.")
+        case .discoveryFailed: FileMailerLocalization.current.string("Impossible de charger la configuration OpenID de Google.")
+        case .cancelled: FileMailerLocalization.current.string("La connexion Google a été annulée.")
+        case .missingToken: FileMailerLocalization.current.string("Google n’a pas renvoyé les jetons attendus.")
+        case .invalidIDToken: FileMailerLocalization.current.string("Le jeton d’identité Google est invalide.")
+        case .invalidIssuer: FileMailerLocalization.current.string("L’émetteur OpenID ne correspond pas à Google.")
+        case .invalidAudience: FileMailerLocalization.current.string("Le jeton d’identité ne cible pas cette application.")
+        case .expiredIDToken: FileMailerLocalization.current.string("Le jeton d’identité a expiré.")
+        case .nonceMismatch: FileMailerLocalization.current.string("La vérification du nonce OAuth a échoué.")
+        case .unverifiedEmail: FileMailerLocalization.current.string("L’adresse Gmail n’est pas vérifiée.")
+        case .missingIdentity: FileMailerLocalization.current.string("Le compte Google ne fournit pas d’identité exploitable.")
+        case .insufficientScopes: FileMailerLocalization.current.string("Google n’a pas accordé toutes les autorisations nécessaires.")
+        case .refreshFailed: FileMailerLocalization.current.string("Le compte Gmail doit être reconnecté.")
+        case .revocationFailed: FileMailerLocalization.current.string("Le retrait local est terminé, mais la révocation Google a échoué.")
         }
     }
 }

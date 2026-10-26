@@ -29,7 +29,7 @@ struct AboutView: View {
         .padding(40)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black)
-        .navigationTitle("À propos")
+        .navigationTitle(model.localizedString("À propos"))
     }
 
     private var version: String {

@@ -13,6 +13,9 @@ struct AttachmentCard: View {
         static let driveCardWithCustomDateHeight: CGFloat = 174
     }
 
+    @Environment(\.locale) private var locale
+    private var localization: FileMailerLocalization { FileMailerLocalization(languageIdentifier: locale.identifier) }
+
     let attachment: ComposeAttachment
     let analysis: AttachmentAnalysis?
     let driveUploadState: ComposeViewModel.DriveUploadState
@@ -35,15 +38,14 @@ struct AttachmentCard: View {
                     Text(attachment.displayName)
                         .font(.subheadline.weight(.medium))
                         .lineLimit(1)
-                    Text(analysis?.deterministicSummary ?? "Analyse en cours…")
+                    Text(analysis?.localizedSummary(using: localization) ?? localization.string("Analyse en cours…"))
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
                     HStack(spacing: 8) {
                         Button(
-                            attachment.contentType == "inode/directory"
-                                ? "Compresser"
-                                : "Aperçu",
+                            LocalizedStringKey(attachment.contentType == "inode/directory"
+                                ? "Compresser" : "Aperçu"),
                             action: attachment.contentType == "inode/directory"
                                 ? onCompress
                                 : onPreview
@@ -162,7 +164,7 @@ struct AttachmentCard: View {
             }
         } label: {
             Label(
-                attachment.usesGoogleDrive ? "Lien Google Drive" : "Pièce jointe Gmail",
+                LocalizedStringKey(attachment.usesGoogleDrive ? "Lien Google Drive" : "Pièce jointe Gmail"),
                 systemImage: attachment.usesGoogleDrive ? "link" : "paperclip"
             )
             .lineLimit(1)
@@ -287,16 +289,16 @@ struct AttachmentCard: View {
         case .never:
             "∞"
         case .oneDay:
-            "1 j"
+            localization.string("1 j")
         case .sevenDays:
-            "7 j"
+            localization.string("7 j")
         case .thirtyDays:
-            "30 j"
+            localization.string("30 j")
         case .ninetyDays:
-            "90 j"
+            localization.string("90 j")
         case .custom:
             attachment.customDriveAccessExpiry?
-                .formatted(.dateTime.day().month(.abbreviated))
+                .formatted(.dateTime.day().month(.abbreviated).locale(locale))
                 ?? "…"
         }
     }
@@ -323,13 +325,13 @@ struct AttachmentCard: View {
     private var driveStatusText: String {
         switch driveUploadState {
         case .notRequested:
-            "Prêt à importer dans votre dossier FileMailer"
+            localization.string("Prêt à importer dans votre dossier FileMailer")
         case .needsAuthorization:
-            "Autorisez Google Drive pour ce compte"
+            localization.string("Autorisez Google Drive pour ce compte")
         case .uploading:
-            "Importation vers Google Drive…"
+            localization.string("Importation vers Google Drive…")
         case .ready:
-            "Lien privé prêt pour les destinataires de ce message."
+            localization.string("Lien privé prêt pour les destinataires de ce message.")
         case let .failed(message):
             message
         }

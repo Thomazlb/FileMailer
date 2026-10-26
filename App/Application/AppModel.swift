@@ -38,38 +38,46 @@ final class AppModel: ObservableObject {
     private var driveCleanupScheduler: DriveCleanupScheduler?
 
     init() {
+        let isUITesting = ProcessInfo.processInfo.arguments.contains { $0.hasPrefix("--ui-testing-") }
+        #if DEBUG
+        if isUITesting, let language = ProcessInfo.processInfo.environment["FILEMAILER_TEST_LANGUAGE"] {
+            UserDefaults.standard.set(language, forKey: "appLanguage")
+        }
+        #endif
         appLanguage = AppLanguage(
             rawValue: UserDefaults.standard.string(forKey: "appLanguage") ?? ""
         ) ?? .system
-        persistence = try? PersistenceController()
+        persistence = try? PersistenceController(inMemory: isUITesting)
         oauthStore = KeychainOAuthStateStore(baseBundleID: AppConfiguration.baseBundleID)
         tokenProvider = AppAuthTokenProvider(store: oauthStore)
         mailSender = GmailMailSender()
         analyzer = DefaultFileAnalyzer()
         temporaryFiles = try? TemporaryFileManager()
-        do {
-            let store = try DriveTransferStore()
-            driveTransferStore = store
-            driveTransfers = GoogleDriveTransferCoordinator(
-                tokenProvider: tokenProvider,
-                store: store
-            )
-        } catch {
+        if isUITesting {
             driveTransferStore = nil
             driveTransfers = nil
+        } else {
+            do {
+                let store = try DriveTransferStore()
+                driveTransferStore = store
+                driveTransfers = GoogleDriveTransferCoordinator(tokenProvider: tokenProvider, store: store)
+            } catch {
+                driveTransferStore = nil
+                driveTransfers = nil
+            }
         }
         reload()
         if persistence == nil {
             addDiagnostic(
                 category: "persistence",
-                message: "La base locale n’a pas pu être ouverte."
+                message: localizedString("La base locale n’a pas pu être ouverte.")
             )
         }
         snapshotObservers = [
             $recipients.sink { [weak self] _ in self?.requestSnapshotRefresh() },
             $visibleRecipientCount.sink { [weak self] _ in self?.requestSnapshotRefresh() }
         ]
-        Task { await temporaryFiles?.cleanExpiredFiles(olderThan: 86_400) }
+        if !isUITesting { Task { await temporaryFiles?.cleanExpiredFiles(olderThan: 86_400) } }
         if driveTransfers != nil {
             driveCleanupScheduler = DriveCleanupScheduler(
                 identifier: "org.filemailer.FileMailer.drive-cleanup"
@@ -80,10 +88,10 @@ final class AppModel: ObservableObject {
             Task { [weak self] in
                 await self?.cleanExpiredDriveTransfers()
             }
-        } else {
+        } else if !isUITesting {
             addDiagnostic(
                 category: "drive",
-                message: "Le stockage local des transferts Google Drive n’a pas pu être ouvert."
+                message: localizedString("Le stockage local des transferts Google Drive n’a pas pu être ouvert.")
             )
         }
     }
@@ -165,6 +173,9 @@ final class AppModel: ObservableObject {
         } else {
             UserDefaults.standard.set(language.rawValue, forKey: "appLanguage")
         }
+        windows?.refreshLocalizedTitles()
+        NativeMenuLocalizer.shared.refresh()
+        requestSnapshotRefresh()
     }
 
     var interfaceLocale: Locale {
@@ -172,30 +183,11 @@ final class AppModel: ObservableObject {
     }
 
     func localizedString(_ key: String) -> String {
-        // The catalog's source language is French, so it does not generate a
-        // dedicated fr.lproj bundle. Resolve French directly instead of falling
-        // through to an arbitrary translated bundle such as English.
-        if appLanguage == .french || appLanguage == .frenchCanada {
-            return key
-        }
-        if appLanguage == .system,
-           Locale.autoupdatingCurrent.language.languageCode?.identifier == "fr" {
-            return key
-        }
-        guard appLanguage != .system,
-              let path = Bundle.main.path(
-                forResource: appLanguage.resourceIdentifier,
-                ofType: "lproj"
-              ),
-              let bundle = Bundle(path: path)
-        else {
-            return Bundle.main.localizedString(
-                forKey: key,
-                value: key,
-                table: nil
-            )
-        }
-        return bundle.localizedString(forKey: key, value: key, table: nil)
+        localization.string(key)
+    }
+
+    var localization: FileMailerLocalization {
+        FileMailerLocalization(languageIdentifier: appLanguage.resolvedIdentifier)
     }
 
     func addGoogleAccount() async {
@@ -305,18 +297,20 @@ final class AppModel: ObservableObject {
         panel.allowsMultipleSelection = true
         panel.canChooseFiles = true
         panel.canChooseDirectories = true
-        panel.prompt = String(localized: "Ajouter")
+        panel.prompt = localizedString("Ajouter")
         guard panel.runModal() == .OK else { return }
         openCompose(paths: panel.urls.map(\.path), recipientID: nil)
     }
 
     func finderSnapshot(now: Date = Date()) -> FinderMenuSnapshot {
-        return FinderSnapshotBuilder().makeSnapshot(
+        var snapshot = FinderSnapshotBuilder().makeSnapshot(
             recipients: recipients,
             ownAddresses: [],
             visibleCount: visibleRecipientCount,
             now: now
         )
+        snapshot.languageIdentifier = appLanguage == .system ? nil : appLanguage.resolvedIdentifier
+        return snapshot
     }
 
     func addDiagnostic(category: String, message: String) {
@@ -336,29 +330,36 @@ final class AppModel: ObservableObject {
 
     func diagnosticReport() -> String {
         let process = ProcessInfo.processInfo
+        let date = { (value: Date?) in
+            value?.formatted(.dateTime.locale(self.interfaceLocale)) ?? self.localizedString("Absent")
+        }
         let accountLines = accounts.map {
-            "\($0.displayName ?? "Compte") •••@\(Self.maskedDomain($0.email)) [\($0.authStatus.rawValue)]"
+            "\($0.displayName ?? localizedString("Compte")) •••@\(Self.maskedDomain($0.email))"
+                + " [\($0.authStatus.rawValue)]"
         }
         let errorLines = diagnostics.suffix(30).map {
-            "\($0.date.formatted()) [\($0.category)] \($0.message)"
+            "\($0.date.formatted(.dateTime.locale(interfaceLocale))) [\($0.category)] \($0.message)"
         }
-        return """
-        \(AppConfiguration.appName) \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "?")
-        macOS \(process.operatingSystemVersionString)
-        Architecture: \(Self.architecture)
-        Extension heartbeat: \(lastExtensionHeartbeat?.formatted() ?? "absent")
-        Snapshot: \(lastSnapshotDate?.formatted() ?? "absent")
-        IPC schema: \(IPCCodec.schemaVersion)
-        Apple Intelligence: \(FoundationModelAvailability.current)
-        Golden Gate: \(GoldenGateFeatureStatus.current)
-        Limites: Finder 50, destinataires \(visibleRecipientCount), texte 1 MiB
-
-        Comptes:
-        \(accountLines.joined(separator: "\n"))
-
-        Erreurs nettoyées:
-        \(errorLines.joined(separator: "\n"))
-        """
+        let status: String = switch FoundationModelAvailability.current {
+        case .available: "Sur l’appareil"
+        case .unsupportedSystemVersion: "Brouillon déterministe sur macOS 26"
+        case .deviceNotEligible: "Appareil non éligible"
+        case .appleIntelligenceDisabled: "Désactivé"
+        case .modelNotReady: "Modèle pas encore prêt"
+        }
+        return [
+            "\(AppConfiguration.appName) \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "?")",
+            "macOS \(process.operatingSystemVersionString)",
+            "\(localizedString("Architecture")): \(Self.architecture)",
+            "\(localizedString("Heartbeat")): \(date(lastExtensionHeartbeat))",
+            "\(localizedString("Dernier snapshot")): \(date(lastSnapshotDate))",
+            "\(localizedString("Schéma IPC")): \(IPCCodec.schemaVersion)",
+            "Apple Intelligence: \(localizedString(status))",
+            "Golden Gate: \(localizedString("Compilée"))",
+            localization.format("Limites : Finder 50, destinataires %@, texte 1 Mio", String(visibleRecipientCount)),
+            "", localizedString("Comptes"), accountLines.joined(separator: "\n"),
+            "", localizedString("Erreurs nettoyées"), errorLines.joined(separator: "\n")
+        ].joined(separator: "\n")
     }
 
     private func requestSnapshotRefresh() {

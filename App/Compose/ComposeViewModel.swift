@@ -48,7 +48,8 @@ final class ComposeViewModel: ObservableObject, Identifiable {
     @Published var isAnalyzing = false
     @Published var isGenerating = false
     @Published var isSending = false
-    @Published var progressText = ""
+    @Published private var progressKey = ""
+    var progressText: String { model.localizedString(progressKey) }
     @Published private(set) var processingPhase: ProcessingPhase = .idle
     @Published var errorMessage: String?
     @Published var suggestion: GeneratedDraftSnapshot?
@@ -72,6 +73,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
     private var sendTask: Task<Void, Never>?
     private var driveUploadTasks: [UUID: Task<Void, Never>] = [:]
     private var autosaveCancellable: AnyCancellable?
+    private var languageCancellable: AnyCancellable?
     private let recipientInstruction: String?
     private var hasHandledWindowClose = false
 
@@ -144,6 +146,17 @@ final class ComposeViewModel: ObservableObject, Identifiable {
         model.interfaceLocale
     }
 
+    private var lastGeneratedLanguageIdentifier: String?
+
+    var draftLanguageIdentifier: String {
+        lastGeneratedLanguageIdentifier ?? language.localeIdentifier ?? model.appLanguage.resolvedIdentifier
+    }
+
+    var attachmentCountText: String {
+        draft.attachments.isEmpty ? model.localizedString("Aucune pièce jointe")
+            : model.localization.format("%@ pièce(s) jointe(s)", String(draft.attachments.count))
+    }
+
     var activityTitle: String {
         if processingPhase == .idle {
             return model.localizedString("Prêt à rédiger")
@@ -186,9 +199,9 @@ final class ComposeViewModel: ObservableObject, Identifiable {
 
     var sendButtonTitle: String {
         guard let email = selectedAccount?.email else {
-            return String(localized: "Envoyer")
+            return model.localizedString("Envoyer")
         }
-        return String(localized: "Envoyer avec \(email)")
+        return model.localization.format("Envoyer avec %@", email)
     }
 
     var canSend: Bool {
@@ -513,7 +526,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
         guard attachment.contentType == "inode/directory" else { return }
         isAnalyzing = true
         processingPhase = .analyzing
-        progressText = String(localized: "Compression du dossier…")
+        progressKey = "Compression du dossier…"
         Task {
             do {
                 guard let destination = try await model.temporaryFiles?.makeTemporaryFile(
@@ -556,17 +569,17 @@ final class ComposeViewModel: ObservableObject, Identifiable {
                 errorMessage = error.localizedDescription
             }
             isAnalyzing = false
-            progressText = ""
+            progressKey = ""
         }
     }
 
     func analyzeAttachments(willGenerate: Bool = false) async {
         isAnalyzing = true
         processingPhase = .analyzing
-        progressText = model.localizedString("Lecture du nom et du contenu des fichiers…")
+        progressKey = "Lecture du nom et du contenu des fichiers…"
         defer {
             isAnalyzing = false
-            progressText = ""
+            progressKey = ""
             if processingPhase == .analyzing {
                 processingPhase = willGenerate ? .thinking : .ready
             }
@@ -615,14 +628,16 @@ final class ComposeViewModel: ObservableObject, Identifiable {
                 let signature = account?.signature?
                     .trimmingCharacters(in: .whitespacesAndNewlines)
                 return signature?.isEmpty == false ? signature : account?.displayName
-            }()
+            }(),
+            appLanguageIdentifier: model.appLanguage.resolvedIdentifier
         )
+        lastGeneratedLanguageIdentifier = DraftLanguageResolver.resolve(request)
         isGenerating = true
         processingPhase = .thinking
         draft.generationState = .generating
-        progressText = usesAppleIntelligence
-            ? model.localizedString("Apple Intelligence prépare le brouillon…")
-            : model.localizedString("Préparation locale du brouillon…")
+        progressKey = usesAppleIntelligence
+            ? "Apple Intelligence prépare le brouillon…"
+            : "Préparation locale du brouillon…"
         generationTask = Task { [weak self] in
             guard let self else { return }
             let generator: any EmailDraftGenerating
@@ -635,7 +650,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
                 for try await generated in generator.streamDraft(request: request) {
                     guard isCurrentGeneration(generationID), !Task.isCancelled else { return }
                     processingPhase = .writing
-                    progressText = model.localizedString("Rédaction de l’objet et du message…")
+                    progressKey = "Rédaction de l’objet et du message…"
                     var candidate = generated
                     if choice == .body { candidate.subject = originalSubject }
                     if choice == .subject { candidate.body = originalBody }
@@ -704,7 +719,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
         isAnalyzing = false
         draft.generationState = .manual
         processingPhase = .idle
-        progressText = ""
+        progressKey = ""
     }
 
     private func isCurrentGeneration(_ id: UUID) -> Bool {
@@ -716,7 +731,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
         generationTask?.cancel()
         generationTask = nil
         isGenerating = false
-        progressText = ""
+        progressKey = ""
         if processingPhase == .thinking || processingPhase == .writing {
             processingPhase = .idle
         }
@@ -727,7 +742,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
         activeGenerationID = nil
         generationTask = nil
         isGenerating = false
-        progressText = ""
+        progressKey = ""
         processingPhase = phase
     }
 
@@ -736,7 +751,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
         sendTask?.cancel()
         isSending = true
         errorMessage = nil
-        progressText = model.localizedString("Vérification des pièces jointes…")
+        progressKey = "Vérification des pièces jointes…"
         sendTask = Task { [weak self] in
             guard let self else { return }
             do {
@@ -751,7 +766,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
                 let driveRecipients = baseSnapshot.to + baseSnapshot.cc + baseSnapshot.bcc
                 let driveAttachments = draft.attachments.filter(\.usesGoogleDrive)
                 if !driveAttachments.isEmpty {
-                    progressText = model.localizedString("Préparation des liens Google Drive…")
+                    progressKey = "Préparation des liens Google Drive…"
                 }
                 for attachment in driveAttachments {
                     let current = draft.attachments.first(where: { $0.id == attachment.id }) ?? attachment
@@ -759,7 +774,7 @@ final class ComposeViewModel: ObservableObject, Identifiable {
                     guard let updated = draft.attachments.first(where: { $0.id == attachment.id }) else {
                         throw CancellationError()
                     }
-                    progressText = model.localizedString("Activation du lien Google Drive…")
+                    progressKey = "Activation du lien Google Drive…"
                     let accessExpiresAt = updated.resolvedDriveAccessExpiry()
                     try await model.driveTransfers?.grantRecipientReaderAccess(
                         to: file,
@@ -783,9 +798,8 @@ final class ComposeViewModel: ObservableObject, Identifiable {
                     body: Self.bodyWithDriveLinks(
                         baseSnapshot.body,
                         attachments: draft.attachments.filter(\.usesGoogleDrive),
-                        heading: language == .english
-                            ? "Files available via a Google Drive link:"
-                            : "Fichiers disponibles via un lien Google Drive :"
+                        heading: FileMailerLocalization(languageIdentifier: draftLanguageIdentifier)
+                            .string("Fichiers disponibles via un lien Google Drive :")
                     ),
                     attachments: draft.attachments.filter { $0.deliveryMode == .attachment },
                     capturedRevision: baseSnapshot.capturedRevision
@@ -800,11 +814,11 @@ final class ComposeViewModel: ObservableObject, Identifiable {
                 ) else {
                     throw MIMEError.writeFailure
                 }
-                progressText = model.localizedString("Construction du message…")
+                progressKey = "Construction du message…"
                 let build = try await Task.detached {
                     try MIMEWriter().write(snapshot, to: destination)
                 }.value
-                progressText = model.localizedString("Envoi avec Gmail…")
+                progressKey = "Envoi avec Gmail…"
                 let receipt = try await GmailUploadCoordinator(
                     sender: model.mailSender,
                     tokenProvider: model.tokenProvider
@@ -826,11 +840,11 @@ final class ComposeViewModel: ObservableObject, Identifiable {
                 }
                 model.reload()
                 sendSucceeded = true
-                progressText = model.localizedString("Message envoyé")
+                progressKey = "Message envoyé"
             } catch {
                 errorMessage = error.localizedDescription
                 model.addDiagnostic(category: "send", message: error.localizedDescription)
-                progressText = ""
+                progressKey = ""
             }
             isSending = false
         }
@@ -880,6 +894,9 @@ final class ComposeViewModel: ObservableObject, Identifiable {
     }
 
     private func configureAutosave() {
+        languageCancellable = model.$appLanguage.dropFirst().sink { [weak self] _ in
+            self?.objectWillChange.send()
+        }
         autosaveCancellable = $draft
             .dropFirst()
             .debounce(for: .milliseconds(700), scheduler: RunLoop.main)

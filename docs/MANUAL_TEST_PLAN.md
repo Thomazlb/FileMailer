@@ -62,6 +62,36 @@ result for every manual run.
 3. Use the prompt-injection fixture and confirm no extra recipient or send claim.
 4. Compare French, English and automatic language plus all tone choices.
 
+## App and drafting languages
+
+1. On an English-language Mac, select French in General. Keep Settings and a
+   compose window open: check their titles, sidebar, fields, menus, progress,
+   attachment summaries, accessibility labels and Google disclosures in French.
+2. Switch to English in the same window and repeat. Existing user text, names,
+   filenames and saved signatures must remain unchanged.
+3. Select Japanese and Arabic. Check line wrapping, the full draft-language
+   picker value and right-to-left layout, including recipient editor sheets.
+4. For each of the 50 app languages, generate a draft with “Application language”
+   selected. Check subject, greeting, body and closing in the selected language.
+5. With the app in French, request “Rédige en anglais”, then use a saved recipient
+   preference and an explicit draft-language choice. The current writing request
+   takes priority, then the recipient preference, then the draft-language picker,
+   then the app language. File content must not override the language.
+6. Repeat with Apple Intelligence unavailable or with an unsupported model
+   language. The local template must still use the selected drafting language.
+7. Re-enable the rebuilt Finder extension, switch app language and verify its
+   submenu; quit the app and verify the cached language on the fallback menu.
+8. Select the system language option and verify regional and Norwegian/Chinese
+   resolution on a fresh launch.
+9. Have fluent speakers review machine-assisted translations outside French and
+   English before release. Resource completeness does not establish linguistic
+   quality in every language.
+
+Run `python3 Scripts/check_localizations.py` and `make test` before review. On an
+eligible Mac, `FILEMAILER_TEST_ON_DEVICE_MODEL=1 swift test --package-path
+Packages/FileMailerCore` also exercises actual French/English model output and an
+explicit English override. UI tests isolate storage using `--ui-testing-*`.
+
 ## Release
 
 Verify signatures, entitlements, notarization acceptance, stapling and

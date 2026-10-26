@@ -23,11 +23,11 @@
 		64361A9D72682DECBCEB5B88 /* MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7816EF864F182FE574A1F0DB /* MenuBarController.swift */; };
 		789E11EAD1EDB9BFB5615AC5 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC33DDD74257D735583F1177 /* AppLogger.swift */; };
 		78BE57DBDF4A68F67F02CF37 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F23680CFD8CB39091D80E09 /* GeneralSettingsView.swift */; };
-		E4B7C8D9A1F203456789ABCD /* GoogleAuthorizationDisclosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A5E4B62D9C4A2B8D1E7F03 /* GoogleAuthorizationDisclosure.swift */; };
 		79B510C2821816ED09263E2E /* WindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FE0163FBC2B2B4808D48B0 /* WindowCoordinator.swift */; };
 		7C4DF035B622A65AEA006FC1 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B512CD278D29074D73BA21 /* OnboardingView.swift */; };
 		81BEA92C77B679DC54026A33 /* PlainTextBodyEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8C282A6231317C9E281D90 /* PlainTextBodyEditor.swift */; };
 		881C973E1BBBA2ECADEC9FA0 /* DriveCleanupScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056DCF069B20312CA5BA1429 /* DriveCleanupScheduler.swift */; };
+		94310B2BE25DD439E90655E8 /* NativeMenuLocalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F04DDB4BF559BAAC624DD46 /* NativeMenuLocalizer.swift */; };
 		9D58D717D92A9037CA09D14C /* RecipientSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38899D31B1D63E63786769BF /* RecipientSettingsView.swift */; };
 		A0AFFA2C352F6D2CE54F53FF /* SettingsRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30780AE177020003F069FFFC /* SettingsRootView.swift */; };
 		A771782DD50C672E34004F30 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FE6BF6D67C6C8653B13EF2F9 /* Localizable.xcstrings */; };
@@ -38,6 +38,7 @@
 		BFD74E903047A71BE8E53037 /* FileMailerDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 0F04B28B47F6ACEA60BA3CCA /* FileMailerDomain */; };
 		C8BE0B7489928C2D7A691B13 /* AccountSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6AFD64C4E7F86C1B299EA8 /* AccountSettingsView.swift */; };
 		CB337FDBC2849A3F2E3B8821 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C83EE2280274838142C9306 /* AboutView.swift */; };
+		CF6BBEBA1DB539A70E01E0E2 /* GoogleAuthorizationDisclosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CB4A57C9ED3AD33B9745AD /* GoogleAuthorizationDisclosure.swift */; };
 		DB3EF884D4ADB38D5B17A3D5 /* AppLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7BB54B2EDA9C4F38E07088 /* AppLanguage.swift */; };
 		EA77EB504C698E1D41643288 /* FileMailerCore in Frameworks */ = {isa = PBXBuildFile; productRef = E96D484294FC4355E7A38810 /* FileMailerCore */; };
 		EC43967ED44175DE24C8BFD7 /* ComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0EA84C6A2AC9B8BACF7A4 /* ComposeView.swift */; };
@@ -103,7 +104,6 @@
 		4EFE106E066CF25169C20B7D /* FileMailerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMailerUITests.swift; sourceTree = "<group>"; };
 		4F41ED9B241BE37529D7743B /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5F23680CFD8CB39091D80E09 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
-		F1A5E4B62D9C4A2B8D1E7F03 /* GoogleAuthorizationDisclosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthorizationDisclosure.swift; sourceTree = "<group>"; };
 		62BB41D9B6324DB1CE8A3879 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		67B512CD278D29074D73BA21 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		68AB5057E54CED1CAE0C044F /* FileMailerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMailerApp.swift; sourceTree = "<group>"; };
@@ -123,6 +123,7 @@
 		9C373D128368405BF6295E1D /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9CEB9C06ED461249EEECD239 /* FinderExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FinderExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E6DCED11B7523DD06B87A6F /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		9F04DDB4BF559BAAC624DD46 /* NativeMenuLocalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeMenuLocalizer.swift; sourceTree = "<group>"; };
 		A14058F0A9322B2D6522144F /* FileMail.icon */ = {isa = PBXFileReference; lastKnownFileType = wrapper.icon; path = FileMail.icon; sourceTree = "<group>"; };
 		A1452744BD5DB964FF4BAF11 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A166F57BC520D6E089C03328 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
@@ -147,6 +148,7 @@
 		DC92B1415FF6457C4B709CA2 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DD9B3D5081FB129824E1DA77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DE2F9802EAB4F517DDC63102 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E1CB4A57C9ED3AD33B9745AD /* GoogleAuthorizationDisclosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthorizationDisclosure.swift; sourceTree = "<group>"; };
 		E1E61AEA6CF3ED99AD7DA250 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E1EA4E171C4181CDDCBC592A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		E227C80233BD4B5BFF3B9A07 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -224,7 +226,7 @@
 				7C83EE2280274838142C9306 /* AboutView.swift */,
 				2D6AFD64C4E7F86C1B299EA8 /* AccountSettingsView.swift */,
 				5F23680CFD8CB39091D80E09 /* GeneralSettingsView.swift */,
-				F1A5E4B62D9C4A2B8D1E7F03 /* GoogleAuthorizationDisclosure.swift */,
+				E1CB4A57C9ED3AD33B9745AD /* GoogleAuthorizationDisclosure.swift */,
 				38899D31B1D63E63786769BF /* RecipientSettingsView.swift */,
 				30780AE177020003F069FFFC /* SettingsRootView.swift */,
 			);
@@ -257,6 +259,7 @@
 				1F0EBCB46A0E2FB1B96148BF /* AppModel.swift */,
 				056DCF069B20312CA5BA1429 /* DriveCleanupScheduler.swift */,
 				68AB5057E54CED1CAE0C044F /* FileMailerApp.swift */,
+				9F04DDB4BF559BAAC624DD46 /* NativeMenuLocalizer.swift */,
 				E4FE0163FBC2B2B4808D48B0 /* WindowCoordinator.swift */,
 			);
 			path = Application;
@@ -507,8 +510,8 @@
 			projectRoot = "";
 			targets = (
 				4140F3D44687006C9D3041A6 /* FileMailer */,
-				5581A12D3505BFF898EC91D2 /* FileMailerUITests */,
 				67585238B72BC8AAB2520F6C /* FinderExtension */,
+				5581A12D3505BFF898EC91D2 /* FileMailerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -555,8 +558,9 @@
 				B175C004A902283DECA1F52C /* EmailTokenField.swift in Sources */,
 				237258A1799ECEBCBBF5B002 /* FileMailerApp.swift in Sources */,
 				78BE57DBDF4A68F67F02CF37 /* GeneralSettingsView.swift in Sources */,
-				E4B7C8D9A1F203456789ABCD /* GoogleAuthorizationDisclosure.swift in Sources */,
+				CF6BBEBA1DB539A70E01E0E2 /* GoogleAuthorizationDisclosure.swift in Sources */,
 				64361A9D72682DECBCEB5B88 /* MenuBarController.swift in Sources */,
+				94310B2BE25DD439E90655E8 /* NativeMenuLocalizer.swift in Sources */,
 				7C4DF035B622A65AEA006FC1 /* OnboardingView.swift in Sources */,
 				81BEA92C77B679DC54026A33 /* PlainTextBodyEditor.swift in Sources */,
 				0DDD884A7E9BDE7A0E62BADE /* QuickLookPreviewCoordinator.swift in Sources */,
@@ -705,6 +709,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -874,6 +879,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

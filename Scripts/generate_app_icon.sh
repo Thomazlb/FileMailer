@@ -1,8 +1,16 @@
 #!/bin/zsh
 set -euo pipefail
 
-source_png="${1:-/private/tmp/FileMailerIcon.svg.png}"
+source_png="${1:-Design/FileMailerIcon.png}"
 destination="${2:-App/Resources/Assets.xcassets/AppIcon.appiconset}"
+
+if [[ ! -f "$source_png" ]]; then
+  print -u2 "Icon export not found: $source_png"
+  print -u2 "Export FileMail.icon from Icon Composer as a 1024pt default image first."
+  exit 66
+fi
+
+mkdir -p "$destination"
 
 for size in 16 32 64 128 256 512 1024; do
   case "$size" in

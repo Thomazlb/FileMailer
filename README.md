@@ -1,3 +1,7 @@
+<p align="center">
+  <a href="Design/FileMailerIcon.svg"><img src="Design/FileMailerIcon.png" width="160" height="160" alt="FileMailer — white and blue paper plane on a dark background"></a>
+</p>
+
 # FileMailer
 
 [Privacy](docs/PRIVACY.md) |
@@ -32,7 +36,7 @@ Keychain OAuth + streaming MIME + Gmail and Drive REST
 - Editable To, Cc, Bcc, subject, body and attachment list
 - Local TXT, PDF, image OCR, Office Open XML, ZIP and folder analysis
 - On-device Foundation Models guided generation on eligible macOS 27 systems
-- Deterministic French and English fallback
+- Complete interface resources and deterministic drafting in all 50 app languages
 - Streaming RFC 5322 MIME writer and direct or resumable Gmail uploads
 - Optional private Google Drive links for files or ZIP archives above 18 MiB
 - Per-recipient Drive access, optional expiry and best-effort local cleanup
@@ -80,6 +84,30 @@ email addresses, private macOS paths and local signing material.
 The working app is written to `build/DerivedData/Build/Products/Debug/FileMailer.app`.
 `make run` opens it, but build and test targets do not launch it.
 
+## Languages
+
+The language selected in General settings applies to the interface, native window
+titles, application menus, status menus, service errors and Finder menus without
+restarting the app.
+System language resolves the supported language from macOS preferences, including
+regional French/English, Chinese scripts and Norwegian Bokmål.
+
+New drafts and regeneration follow the app language by default. An explicit
+writing-language selection or a language requested in trusted writing instructions
+can override that default. Document contents never choose the writing language.
+Existing text, file names, contact names and saved signatures remain user content.
+If Apple Intelligence does not support the requested locale, drafting uses the
+local deterministic templates for that language.
+
+`App/Resources/Localizable.xcstrings` is the canonical catalog. After editing it,
+run `python3 Scripts/sync_localizations.py` to regenerate the shared SwiftPM and
+Finder resources. `python3 Scripts/check_localizations.py` rejects missing
+translations, English copied into other languages, mismatched format arguments
+and generated resources that are out of date. Runtime localization is offline.
+
+Additional translations were initially machine assisted; fluent-speaker review
+of every supported language is still recommended before a public release.
+
 ## First use
 
 1. Start FileMailer and complete or skip each onboarding step.
@@ -125,6 +153,22 @@ entitlement. See [Privacy](docs/PRIVACY.md) and
 Further design details are in [Architecture](docs/ARCHITECTURE.md), Google
 setup in [OAuth setup](docs/GOOGLE_OAUTH_SETUP.md), and release operations in
 [Release](docs/RELEASE.md).
+
+## App icon
+
+The app and the app inside the DMG use
+[`App/Resources/FileMail.icon`](App/Resources/FileMail.icon), the original
+Icon Composer document. Xcode selects it with
+`ASSETCATALOG_COMPILER_APPICON_NAME = FileMail`.
+
+The logo above is a static PNG exported directly from that document. A
+[vector version](Design/FileMailerIcon.svg) uses the same white and blue plane
+layers. See [icon sources and exports](Design/IconComposer/FileMailer/README.md)
+to edit the icon or update its previews.
+
+The current release configuration targets Developer ID distribution by DMG.
+Mac App Store distribution still requires a sandbox-compatible configuration
+and file-access flow; see [distribution status](docs/RELEASE.md#mac-app-store-status).
 
 ## Official releases and community builds
 

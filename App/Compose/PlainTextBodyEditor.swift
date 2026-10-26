@@ -1,9 +1,11 @@
 import AppKit
+import FileMailerCore
 import SwiftUI
 
 struct PlainTextBodyEditor: NSViewRepresentable {
     @Binding var text: String
     var isStreaming = false
+    @Environment(\.locale) private var locale
 
     func makeCoordinator() -> Coordinator {
         Coordinator(parent: self)
@@ -27,18 +29,16 @@ struct PlainTextBodyEditor: NSViewRepresentable {
         editor.font = .preferredFont(forTextStyle: .body)
         editor.textContainerInset = NSSize(width: 18, height: 16)
         editor.string = text
-        editor.setAccessibilityLabel(String(localized: "Corps du message"))
+        editor.setAccessibilityLabel(FileMailerLocalization(languageIdentifier: locale.identifier).string("Corps du message"))
         scroll.documentView = editor
         return scroll
     }
 
     func updateNSView(_ scroll: NSScrollView, context: Context) {
         context.coordinator.parent = self
-        guard let editor = scroll.documentView as? NSTextView,
-              editor.string != text
-        else {
-            return
-        }
+        guard let editor = scroll.documentView as? NSTextView else { return }
+        editor.setAccessibilityLabel(FileMailerLocalization(languageIdentifier: locale.identifier).string("Corps du message"))
+        guard editor.string != text else { return }
         let selection = editor.selectedRanges
         editor.string = text
         editor.selectedRanges = selection

@@ -1,4 +1,5 @@
 import Foundation
+import FileMailerCore
 
 enum AppLanguage: String, CaseIterable, Identifiable {
     case system
@@ -56,11 +57,17 @@ enum AppLanguage: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 
     var locale: Locale {
-        self == .system ? .autoupdatingCurrent : Locale(identifier: rawValue)
+        Locale(identifier: resolvedIdentifier)
     }
 
     var resourceIdentifier: String {
-        self == .norwegian ? "nb" : rawValue
+        resolvedIdentifier
+    }
+
+    var resolvedIdentifier: String {
+        self == .system
+            ? FileMailerLocalization.resolve(preferences: Locale.preferredLanguages)
+            : rawValue
     }
 
     var displayName: String {

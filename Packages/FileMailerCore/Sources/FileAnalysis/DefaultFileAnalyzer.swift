@@ -16,11 +16,11 @@ public enum FileAnalysisError: Error, LocalizedError, Sendable {
 
     public var errorDescription: String? {
         switch self {
-        case .tooManyPaths: "Trop de fichiers ont été sélectionnés."
-        case .archiveInvalid: "L’archive ne peut pas être lue."
-        case .archiveSuspicious: "L’archive présente un risque de sécurité."
-        case .folderTooLarge: "Le dossier dépasse les limites d’analyse."
-        case .cancelled: "L’analyse a été annulée."
+        case .tooManyPaths: FileMailerLocalization.current.string("Trop de fichiers ont été sélectionnés.")
+        case .archiveInvalid: FileMailerLocalization.current.string("L’archive ne peut pas être lue.")
+        case .archiveSuspicious: FileMailerLocalization.current.string("L’archive présente un risque de sécurité.")
+        case .folderTooLarge: FileMailerLocalization.current.string("Le dossier dépasse les limites d’analyse.")
+        case .cancelled: FileMailerLocalization.current.string("L’analyse a été annulée.")
         }
     }
 }
@@ -131,6 +131,8 @@ public actor DefaultFileAnalyzer: FileAnalyzing {
             creationDate: values.creationDate,
             modificationDate: values.contentModificationDate,
             deterministicSummary: "Fichier \(contentType), \(size) octets.",
+            summaryLocalizationKey: "Fichier %@, %@ octets.",
+            summaryLocalizationArguments: [String(contentType), String(size)],
             warnings: [.unsupported]
         )
     }
@@ -189,6 +191,8 @@ struct PlainTextAnalyzer: Sendable {
             modificationDate: base.modificationDate,
             extractedText: text,
             deterministicSummary: "Document texte, \(text.split(separator: "\n").count) lignes\(truncated ? ", extrait tronqué" : "").",
+            summaryLocalizationKey: "Document texte, %@ lignes%@.",
+            summaryLocalizationArguments: [String(text.split(separator: "\n").count), String(truncated ? ", extrait tronqué" : "")],
             warnings: truncated ? [.truncated] : [],
             includedInModel: !text.isEmpty
         )
@@ -237,6 +241,8 @@ struct PDFFileAnalyzer: Sendable {
                 size: base.size,
                 pageCount: document.pageCount,
                 deterministicSummary: "PDF chiffré, \(document.pageCount) pages.",
+                summaryLocalizationKey: "PDF chiffré, %@ pages.",
+                summaryLocalizationArguments: [String(document.pageCount)],
                 warnings: [.encrypted]
             )
         }
@@ -276,6 +282,8 @@ struct PDFFileAnalyzer: Sendable {
             pageCount: document.pageCount,
             extractedText: joined,
             deterministicSummary: "PDF, \(document.pageCount) pages, texte extrait de \(pageTexts.count) pages.",
+            summaryLocalizationKey: "PDF, %@ pages, texte extrait de %@ pages.",
+            summaryLocalizationArguments: [String(document.pageCount), String(pageTexts.count)],
             warnings: warnings,
             includedInModel: !joined.isEmpty
         )
@@ -314,6 +322,8 @@ struct ImageFileAnalyzer: Sendable {
             pixelHeight: height,
             extractedText: text.isEmpty ? nil : text,
             deterministicSummary: "Image \(width ?? 0) × \(height ?? 0) pixels\(text.isEmpty ? "" : ", texte OCR détecté").",
+            summaryLocalizationKey: "Image %@ × %@ pixels%@.",
+            summaryLocalizationArguments: [String(width ?? 0), String(height ?? 0), String(text.isEmpty ? "" : ", texte OCR détecté")],
             includedInModel: !text.isEmpty
         )
     }

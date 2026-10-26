@@ -155,6 +155,7 @@ public struct FinderMenuRecipient: Codable, Sendable, Equatable {
 }
 
 public struct FinderMenuSnapshot: Codable, Sendable, Equatable {
+    public var languageIdentifier: String?
     public let schemaVersion: Int
     public let generatedAt: Date
     public let menuTitle: String
@@ -166,12 +167,14 @@ public struct FinderMenuSnapshot: Codable, Sendable, Equatable {
         generatedAt: Date = Date(),
         menuTitle: String = "Envoyer par e-mail",
         recipients: [FinderMenuRecipient],
-        visibleRecipientCount: Int
+        visibleRecipientCount: Int,
+        languageIdentifier: String? = nil
     ) {
         self.schemaVersion = schemaVersion
         self.generatedAt = generatedAt
         self.menuTitle = menuTitle
         self.recipients = recipients
         self.visibleRecipientCount = visibleRecipientCount
+        self.languageIdentifier = languageIdentifier
     }
 }

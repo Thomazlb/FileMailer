@@ -165,7 +165,7 @@ final class MenuBarController: NSObject {
     }
 
     private func item(_ title: String, action: Selector) -> NSMenuItem {
-        let item = NSMenuItem(title: title, action: action, keyEquivalent: "")
+        let item = NSMenuItem(title: model.localizedString(title), action: action, keyEquivalent: "")
         item.target = self
         return item
     }

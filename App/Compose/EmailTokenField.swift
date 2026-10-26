@@ -4,7 +4,7 @@ import SwiftUI
 struct EmailTokenField: View {
     @Binding var addresses: [EmailAddress]
     @Binding var input: String
-    var placeholder: String
+    var placeholder: LocalizedStringKey
 
     @FocusState private var isInputFocused: Bool
 
@@ -36,7 +36,7 @@ struct EmailTokenField: View {
                 }
 
                 TextField(
-                    addresses.isEmpty ? placeholder : "",
+                    addresses.isEmpty ? placeholder : LocalizedStringKey(""),
                     text: $input
                 )
                 .textFieldStyle(.plain)

@@ -17,27 +17,27 @@ public enum GoogleDriveError: Error, LocalizedError, Sendable {
     public var errorDescription: String? {
         switch self {
         case .authorizationRequired:
-            "Autorisez Google Drive pour ce compte avant d’envoyer ce lien."
+            FileMailerLocalization.current.string("Autorisez Google Drive pour ce compte avant d’envoyer ce lien.")
         case .missingRecipients:
-            "Ajoutez au moins un destinataire avant de créer un lien Google Drive."
+            FileMailerLocalization.current.string("Ajoutez au moins un destinataire avant de créer un lien Google Drive.")
         case .fileAccessLost:
-            "Le fichier à envoyer n’est plus accessible."
+            FileMailerLocalization.current.string("Le fichier à envoyer n’est plus accessible.")
         case .invalidExpiry:
-            "La date d’expiration Drive doit être comprise entre maintenant et un an."
+            FileMailerLocalization.current.string("La date d’expiration Drive doit être comprise entre maintenant et un an.")
         case .fileNotFound:
-            "Le fichier ou le dossier FileMailer n’existe plus dans Google Drive."
+            FileMailerLocalization.current.string("Le fichier ou le dossier FileMailer n’existe plus dans Google Drive.")
         case .sharingNotAllowed:
-            "Google Drive ne permet pas de rendre ce fichier accessible par lien."
+            FileMailerLocalization.current.string("Google Drive ne permet pas de rendre ce fichier accessible par lien.")
         case .administratorPolicy:
-            "L’administrateur Google Workspace bloque l’utilisation de Google Drive par FileMailer."
+            FileMailerLocalization.current.string("L’administrateur Google Workspace bloque l’utilisation de Google Drive par FileMailer.")
         case .quota:
-            "Le quota Google Drive est temporairement dépassé."
+            FileMailerLocalization.current.string("Le quota Google Drive est temporairement dépassé.")
         case .networkUnavailable:
-            "Le réseau est indisponible."
+            FileMailerLocalization.current.string("Le réseau est indisponible.")
         case .malformedResponse:
-            "La réponse Google Drive est illisible."
+            FileMailerLocalization.current.string("La réponse Google Drive est illisible.")
         case let .server(status):
-            "Google Drive a répondu avec l’erreur \(status)."
+            FileMailerLocalization.current.format("Google Drive a répondu avec l’erreur %@.", String(status))
         }
     }
 }

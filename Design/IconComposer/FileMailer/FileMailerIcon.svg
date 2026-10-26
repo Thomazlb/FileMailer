@@ -1,30 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg"
-     width="1024"
-     height="1024"
-     viewBox="0 0 1024 1024"
-     fill="none">
-  <g id="background">
-    <rect width="1024" height="1024" fill="#000000"/>
-  </g>
-  <g id="paper-plane-white">
-    <path d="M255 418
-             C247 421 246 429 253 436
-             L363 539
-             L374 724
-             L419 576
-             L803 283
-             L255 418Z"
-          fill="#FFFFFF"/>
-  </g>
-  <g id="paper-plane-blue">
-    <path d="M803 283
-             L645 724
-             C641 734 632 737 623 731
-             L479 639
-             L374 724
-             L455 608
-             L786 299
-             L803 283Z"
-          fill="#0A84FF"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">FileMailer</title>
+  <desc id="desc">White and blue paper plane on a dark rounded square. Vector counterpart of the FileMail.icon source.</desc>
+  <rect width="1024" height="1024" rx="230" fill="#171717"/>
+  <g transform="translate(-13.659437189567257 3.4607383646631433)">
+    <path id="paper-plane-blue" d="M803 283 L645 724 C641 734 632 737 623 731 L479 639 L374 724 L455 608 L786 299 L803 283Z" fill="#0A84FF"/>
+    <path id="paper-plane-white" d="M255 418 C247 421 246 429 253 436 L363 539 L374 724 L419 576 L803 283 L255 418Z" fill="#FFFFFF"/>
   </g>
 </svg>

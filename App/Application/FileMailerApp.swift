@@ -11,12 +11,17 @@ struct FileMailerApp: App {
         }
         .commands {
             CommandGroup(replacing: .appSettings) {
-                Button("Réglages…") {
-                    appDelegate.windows?.showSettings()
-                }
-                .keyboardShortcut(",", modifiers: .command)
+                SettingsCommand(model: appDelegate.model)
             }
         }
+    }
+}
+
+private struct SettingsCommand: View {
+    @ObservedObject var model: AppModel
+    var body: some View {
+        Button(model.localizedString("Réglages…")) { model.windows?.showSettings() }
+            .keyboardShortcut(",", modifiers: .command)
     }
 }
 
@@ -29,6 +34,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var pendingActionURLs: [URL] = []
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        let arguments = ProcessInfo.processInfo.arguments
+        #if DEBUG
+        if arguments.contains(where: { $0.hasPrefix("--ui-testing-") }) {
+            NSApp.setActivationPolicy(.regular)
+        }
+        #endif
+        NativeMenuLocalizer.shared.start()
         let windows = WindowCoordinator(model: model)
         self.windows = windows
         model.windows = windows
@@ -37,8 +49,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let actionURLs = pendingActionURLs
         pendingActionURLs.removeAll()
         actionURLs.forEach { ipc?.handleActionURL($0) }
-        let arguments = ProcessInfo.processInfo.arguments
-        if arguments.contains("--ui-testing-compose") {
+        if arguments.contains("--ui-testing-settings") {
+            windows.showSettings()
+        } else if arguments.contains("--ui-testing-compose") {
             windows.showCompose(paths: [], recipient: nil)
         } else if arguments.contains("--ui-testing-onboarding")
                     || (model.accounts.isEmpty && model.recipients.isEmpty) {

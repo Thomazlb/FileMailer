@@ -17,19 +17,19 @@ public enum GmailSendError: Error, LocalizedError, Sendable {
 
     public var errorDescription: String? {
         switch self {
-        case .authenticationExpired: "La session Gmail a expiré. Reconnectez le compte."
-        case .accountRevoked: "L’accès Gmail a été révoqué."
-        case .administratorPolicy: "L’administrateur Google Workspace bloque cette application."
-        case .quota: "Le quota Gmail est temporairement dépassé."
-        case .messageTooLarge: "Le message dépasse la taille autorisée par Gmail."
-        case .invalidAddress: "Google a refusé une adresse de destinataire."
-        case .fileAccessLost: "Une pièce jointe n’est plus accessible."
-        case .networkUnavailable: "Le réseau est indisponible."
+        case .authenticationExpired: FileMailerLocalization.current.string("La session Gmail a expiré. Reconnectez le compte.")
+        case .accountRevoked: FileMailerLocalization.current.string("L’accès Gmail a été révoqué.")
+        case .administratorPolicy: FileMailerLocalization.current.string("L’administrateur Google Workspace bloque cette application.")
+        case .quota: FileMailerLocalization.current.string("Le quota Gmail est temporairement dépassé.")
+        case .messageTooLarge: FileMailerLocalization.current.string("Le message dépasse la taille autorisée par Gmail.")
+        case .invalidAddress: FileMailerLocalization.current.string("Google a refusé une adresse de destinataire.")
+        case .fileAccessLost: FileMailerLocalization.current.string("Une pièce jointe n’est plus accessible.")
+        case .networkUnavailable: FileMailerLocalization.current.string("Le réseau est indisponible.")
         case .ambiguousTimeout:
-            "État d’envoi incertain. Vérifiez le dossier Envoyés dans Gmail avant de réessayer."
-        case let .server(status): "Le serveur Gmail a répondu avec l’erreur \(status)."
-        case .malformedResponse: "La réponse Gmail est illisible."
-        case .cancelled: "L’envoi a été annulé."
+            FileMailerLocalization.current.string("État d’envoi incertain. Vérifiez le dossier Envoyés dans Gmail avant de réessayer.")
+        case let .server(status): FileMailerLocalization.current.format("Le serveur Gmail a répondu avec l’erreur %@.", String(status))
+        case .malformedResponse: FileMailerLocalization.current.string("La réponse Gmail est illisible.")
+        case .cancelled: FileMailerLocalization.current.string("L’envoi a été annulé.")
         }
     }
 }

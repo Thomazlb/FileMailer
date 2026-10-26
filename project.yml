@@ -131,6 +131,7 @@ targets:
     settings:
       base:
         TEST_TARGET_NAME: FileMailer
+        GENERATE_INFOPLIST_FILE: YES
         PRODUCT_BUNDLE_IDENTIFIER: $(BASE_BUNDLE_ID).UITests
     dependencies:
       - target: FileMailer

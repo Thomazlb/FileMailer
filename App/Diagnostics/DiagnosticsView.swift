@@ -9,10 +9,10 @@ struct DiagnosticsView: View {
         Form {
             Section("Extension Finder") {
                 LabeledContent("Heartbeat") {
-                    Text(model.lastExtensionHeartbeat?.formatted() ?? "Absent")
+                    Text(model.lastExtensionHeartbeat?.formatted(.dateTime.locale(model.interfaceLocale)) ?? model.localizedString("Absent"))
                 }
                 LabeledContent("Dernier snapshot") {
-                    Text(model.lastSnapshotDate?.formatted() ?? "Absent")
+                    Text(model.lastSnapshotDate?.formatted(.dateTime.locale(model.interfaceLocale)) ?? model.localizedString("Absent"))
                 }
                 LabeledContent("Schéma IPC") {
                     Text("1")
@@ -46,6 +46,6 @@ struct DiagnosticsView: View {
         .scrollContentBackground(.hidden)
         .padding()
         .background(Color.black)
-        .navigationTitle("Diagnostic")
+        .navigationTitle(model.localizedString("Diagnostic"))
     }
 }

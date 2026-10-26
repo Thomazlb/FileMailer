@@ -1,5 +1,29 @@
 # Release
 
+## Mac App Store status
+
+The current project targets Developer ID distribution outside the Mac App Store.
+It is **not ready for Mac App Store submission**: the main target explicitly
+sets `ENABLE_APP_SANDBOX = NO` and has an empty entitlements file. Apple requires
+Mac App Store apps to be sandboxed under
+[App Review Guideline 2.4.5(i)](https://developer.apple.com/app-store/review/guidelines/#hardware-compatibility).
+
+A store variant needs a sandbox-compatible file-access and Finder-to-app flow,
+appropriate network and user-selected-file entitlements, and validation of
+bookmarks and file access after relaunch. The existing Finder IPC sends file
+paths, which alone do not grant a sandboxed app permission to read those files.
+Turning the build setting on without adapting and testing that flow is not a
+completed store migration.
+
+The store archive also needs its own distribution signing and App Store Connect
+validation. No App Store upload or review acceptance is established by the
+Developer ID notarization procedure below.
+
+All 50 supported languages have interface and deterministic drafting resources.
+Before release, complete fluent-speaker review beyond the languages manually
+checked, and run the Finder-extension language checks in the manual test plan
+against the installed release build.
+
 ## Prerequisites
 
 - Apple Developer Program membership

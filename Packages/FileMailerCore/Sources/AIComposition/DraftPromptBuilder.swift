@@ -9,13 +9,11 @@ public struct DraftPromptBuilder: Sendable {
     }
 
     public func build(_ request: DraftGenerationRequest) -> String {
-        let language = switch request.language {
-        case .english: "anglais"
-        case .french: "français"
-        case .automatic: "langue de l’utilisateur"
-        }
+        let languageIdentifier = DraftLanguageResolver.resolve(request)
+        let language = Locale(identifier: "en").localizedString(forIdentifier: languageIdentifier)
+            ?? languageIdentifier
         var sections = [
-            "LANGUE: \(language)",
+            "LANGUE DE REDACTION OBLIGATOIRE: \(language) [\(languageIdentifier)]. Rédige intégralement l’objet et le corps dans cette langue, y compris l’appel et la formule de politesse. La langue des exemples et des fichiers ne doit jamais la remplacer.",
             "TON: \(request.tone.rawValue)",
             "DESTINATAIRE: \(clean(request.recipientName ?? "non précisé"))",
             "EXPEDITEUR: \(clean(request.senderName ?? "non précisé"))"

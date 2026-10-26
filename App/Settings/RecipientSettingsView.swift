@@ -47,7 +47,7 @@ struct RecipientSettingsView: View {
             .padding(10)
         }
         .background(Color.black)
-        .navigationTitle("Destinataires")
+        .navigationTitle(model.localizedString("Destinataires"))
         .sheet(isPresented: $isAdding) {
             RecipientEditor(
                 recipient: nil,
@@ -121,7 +121,7 @@ private struct RecipientRow: View {
                 Image(systemName: recipient.isPinned ? "pin.fill" : "pin")
             }
             .buttonStyle(.plain)
-            .accessibilityLabel(recipient.isPinned ? "Désépingler" : "Épingler")
+            .accessibilityLabel(LocalizedStringKey(recipient.isPinned ? "Désépingler" : "Épingler"))
             VStack(alignment: .leading) {
                 Text(recipient.displayName)
                 Text(recipient.email)
@@ -180,6 +180,7 @@ private struct RecipientEditor: View {
                 .font(.title2.weight(.semibold))
             Form {
                 TextField("Nom", text: $displayName)
+                    .accessibilityIdentifier("recipient-name")
                 TextField("Adresse e-mail", text: $email)
                 Toggle("Épinglé", isOn: $isPinned)
                 Toggle("Visible dans le classement", isOn: $isEnabled)
@@ -210,7 +211,7 @@ private struct RecipientEditor: View {
                     do {
                         let address = try EmailAddress(email)
                         guard !displayName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                            validationError = "Le nom est requis."
+                            validationError = FileMailerLocalization.current.string("Le nom est requis.")
                             return
                         }
                         onSave(

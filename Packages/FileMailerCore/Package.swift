@@ -3,6 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "FileMailerCore",
+    defaultLocalization: "fr",
     platforms: [.macOS("26.0")],
     products: [
         .library(name: "FileMailerDomain", targets: ["FileMailerDomain"]),
@@ -22,7 +23,7 @@ let package = Package(
         .package(url: "https://github.com/weichsel/ZIPFoundation.git", exact: "0.9.20")
     ],
     targets: [
-        .target(name: "FileMailerDomain"),
+        .target(name: "FileMailerDomain", resources: [.process("Resources")]),
         .target(name: "FileMailerIPC", dependencies: ["FileMailerDomain"]),
         .target(name: "RecipientRanking", dependencies: ["FileMailerDomain"]),
         .target(
