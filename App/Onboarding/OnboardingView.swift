@@ -100,7 +100,7 @@ struct OnboardingView: View {
         }
         .padding(28)
         .frame(width: 700, height: 520)
-        .background(Color.black)
+        .mailWindowBackground()
         .environment(\.locale, model.interfaceLocale)
         .environment(\.layoutDirection, model.interfaceLocale.language.characterDirection == .rightToLeft ? .rightToLeft : .leftToRight)
         .sheet(item: $authorizationDisclosure) { purpose in

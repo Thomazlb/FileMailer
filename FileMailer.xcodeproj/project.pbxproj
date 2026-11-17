@@ -31,6 +31,7 @@
 		881C973E1BBBA2ECADEC9FA0 /* DriveCleanupScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056DCF069B20312CA5BA1429 /* DriveCleanupScheduler.swift */; };
 		94310B2BE25DD439E90655E8 /* NativeMenuLocalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F04DDB4BF559BAAC624DD46 /* NativeMenuLocalizer.swift */; };
 		9D58D717D92A9037CA09D14C /* RecipientSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38899D31B1D63E63786769BF /* RecipientSettingsView.swift */; };
+		9F4785EE35819189168FBB09 /* MailBackdrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603F08ED3887EC3C1E4A17A3 /* MailBackdrop.swift */; };
 		A0AFFA2C352F6D2CE54F53FF /* SettingsRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30780AE177020003F069FFFC /* SettingsRootView.swift */; };
 		A771782DD50C672E34004F30 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FE6BF6D67C6C8653B13EF2F9 /* Localizable.xcstrings */; };
 		AF156F98E009A125363E4ACC /* ComposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8618A998C57C9BE0EA1BF70 /* ComposeViewModel.swift */; };
@@ -106,6 +107,7 @@
 		4EFE106E066CF25169C20B7D /* FileMailerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMailerUITests.swift; sourceTree = "<group>"; };
 		4F41ED9B241BE37529D7743B /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5F23680CFD8CB39091D80E09 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
+		603F08ED3887EC3C1E4A17A3 /* MailBackdrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailBackdrop.swift; sourceTree = "<group>"; };
 		62561A7C9A1A2DF0D903C8D6 /* AppStore.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppStore.xcconfig; sourceTree = "<group>"; };
 		62BB41D9B6324DB1CE8A3879 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "es-MX.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		67B512CD278D29074D73BA21 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				056DCF069B20312CA5BA1429 /* DriveCleanupScheduler.swift */,
 				F69CEE3D4A90BF710E540C7C /* FileAccessController.swift */,
 				68AB5057E54CED1CAE0C044F /* FileMailerApp.swift */,
+				603F08ED3887EC3C1E4A17A3 /* MailBackdrop.swift */,
 				9F04DDB4BF559BAAC624DD46 /* NativeMenuLocalizer.swift */,
 				E4FE0163FBC2B2B4808D48B0 /* WindowCoordinator.swift */,
 			);
@@ -567,6 +570,7 @@
 				237258A1799ECEBCBBF5B002 /* FileMailerApp.swift in Sources */,
 				78BE57DBDF4A68F67F02CF37 /* GeneralSettingsView.swift in Sources */,
 				CF6BBEBA1DB539A70E01E0E2 /* GoogleAuthorizationDisclosure.swift in Sources */,
+				9F4785EE35819189168FBB09 /* MailBackdrop.swift in Sources */,
 				64361A9D72682DECBCEB5B88 /* MenuBarController.swift in Sources */,
 				94310B2BE25DD439E90655E8 /* NativeMenuLocalizer.swift in Sources */,
 				7C4DF035B622A65AEA006FC1 /* OnboardingView.swift in Sources */,
@@ -736,6 +740,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_BUNDLE_ID)";
 				PRODUCT_NAME = "$(APP_NAME)";
 				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) FILEMAILER_ADJUSTABLE_BLUR";
 			};
 			name = Debug;
 		};
@@ -776,6 +781,7 @@
 				PRODUCT_NAME = "$(APP_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "$(FILEMAILER_DIRECT_PROFILE)";
 				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) FILEMAILER_ADJUSTABLE_BLUR";
 			};
 			name = Release;
 		};

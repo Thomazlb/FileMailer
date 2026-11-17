@@ -21,7 +21,6 @@ struct RecipientSettingsView: View {
                 .onMove(perform: model.reorderPinned)
             }
             .scrollContentBackground(.hidden)
-            .background(Color.black)
             .overlay {
                 if model.recipients.isEmpty {
                     ContentUnavailableView(
@@ -46,7 +45,6 @@ struct RecipientSettingsView: View {
             }
             .padding(10)
         }
-        .background(Color.black)
         .navigationTitle(model.localizedString("Recipients"))
         .sheet(isPresented: $isAdding) {
             RecipientEditor(
@@ -234,6 +232,7 @@ private struct RecipientEditor: View {
         }
         .padding(20)
         .frame(width: 480)
-        .background(Color.black)
+        .mailWindowBackground()
+        .presentationBackground(.clear)
     }
 }

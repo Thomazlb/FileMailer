@@ -1,0 +1,1 @@
+Use Liquid Glass in the message window, settings, and menu bar panel. Switch back to a solid background in General settings, or start a new message directly from the menu bar.

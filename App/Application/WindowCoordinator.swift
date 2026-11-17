@@ -56,7 +56,7 @@ final class WindowCoordinator: NSObject {
         )
         window.title = model.localizedString("New message")
         window.contentMinSize = Self.composeMinimumContentSize
-        configureWindow(window, transparentTitlebar: false)
+        configureWindow(window)
         window.contentViewController = NSHostingController(rootView: root)
         window.center()
         window.isReleasedWhenClosed = false
@@ -169,14 +169,12 @@ final class WindowCoordinator: NSObject {
         controller.window?.orderFrontRegardless()
     }
 
-    private func configureWindow(
-        _ window: NSWindow,
-        transparentTitlebar: Bool = true
-    ) {
+    private func configureWindow(_ window: NSWindow) {
         window.appearance = NSAppearance(named: .darkAqua)
-        window.isOpaque = true
-        window.backgroundColor = .black
-        window.titlebarAppearsTransparent = transparentTitlebar
+        window.styleMask.insert(.fullSizeContentView)
+        window.isOpaque = false
+        window.backgroundColor = .clear
+        window.titlebarAppearsTransparent = true
         window.hasShadow = true
         window.isRestorable = false
     }

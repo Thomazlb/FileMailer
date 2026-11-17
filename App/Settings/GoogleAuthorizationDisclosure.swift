@@ -57,6 +57,7 @@ struct GoogleAuthorizationDisclosure: View {
         }
         .padding(24)
         .frame(width: 560)
-        .background(Color.black)
+        .mailWindowBackground()
+        .presentationBackground(.clear)
     }
 }

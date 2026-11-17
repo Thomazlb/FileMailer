@@ -45,7 +45,6 @@ struct DiagnosticsView: View {
         .formStyle(.grouped)
         .scrollContentBackground(.hidden)
         .padding()
-        .background(Color.black)
         .navigationTitle(model.localizedString("Diagnostics"))
     }
 }

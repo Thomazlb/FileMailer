@@ -78,8 +78,10 @@ targets:
         ENABLE_APP_SANDBOX: YES
       configs:
         Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: $(inherited) FILEMAILER_ADJUSTABLE_BLUR
           CODE_SIGNING_ALLOWED: YES
         Release:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: $(inherited) FILEMAILER_ADJUSTABLE_BLUR
           ENABLE_HARDENED_RUNTIME: YES
           CODE_SIGN_IDENTITY: Developer ID Application
           CODE_SIGN_STYLE: Manual

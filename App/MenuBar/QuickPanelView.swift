@@ -3,6 +3,7 @@ import SwiftUI
 
 struct QuickPanelView: View {
     @ObservedObject var model: AppModel
+    let dismissPanel: () -> Void
 
     private var topRecipients: [RecipientProfile] {
         DefaultRecipientRanker().ranked(
@@ -25,6 +26,16 @@ struct QuickPanelView: View {
                 }
                 Spacer()
                 Button {
+                    dismissPanel()
+                    model.windows?.showCompose(urls: [], recipient: nil)
+                } label: {
+                    Image(systemName: "square.and.pencil")
+                }
+                .buttonStyle(.plain)
+                .help("New message")
+                .accessibilityLabel("New message")
+                Button {
+                    dismissPanel()
                     model.windows?.showSettings()
                 } label: {
                     Image(systemName: "gearshape")
@@ -70,6 +81,7 @@ struct QuickPanelView: View {
                     .foregroundStyle(.secondary)
                 Spacer()
                 Button("Extension") {
+                    dismissPanel()
                     model.windows?.showSettings(section: .diagnostics)
                 }
                 .buttonStyle(.link)
@@ -104,17 +116,13 @@ struct QuickPanelView: View {
 
 struct MenuBarPanelView: View {
     @ObservedObject var model: AppModel
+    let dismissPanel: () -> Void
 
     var body: some View {
-        QuickPanelView(model: model)
+        QuickPanelView(model: model, dismissPanel: dismissPanel)
             .padding(.top, 10)
             .background {
-                MenuBarPanelShape()
-                    .fill(Color.black)
-                    .overlay {
-                        MenuBarPanelShape()
-                            .stroke(Color.white.opacity(0.14), lineWidth: 1)
-                    }
+                MailBackdrop(outline: MenuBarPanelShape())
             }
             .fixedSize()
     }

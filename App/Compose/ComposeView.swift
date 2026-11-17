@@ -25,7 +25,7 @@ struct ComposeView: View {
             generationBar
         }
         .frame(minWidth: 760, minHeight: 620)
-        .background(Color.black)
+        .mailWindowBackground()
         .environment(\.locale, viewModel.interfaceLocale)
         .environment(\.layoutDirection, viewModel.interfaceLocale.language.characterDirection == .rightToLeft ? .rightToLeft : .leftToRight)
         .dropDestination(for: URL.self) { urls, _ in
@@ -77,7 +77,6 @@ struct ComposeView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 11)
-        .background(Color.black)
     }
 
     private func actionBarRow(compact: Bool) -> some View {
@@ -311,7 +310,6 @@ struct ComposeView: View {
             }
         }
         .padding(.horizontal, 16)
-        .background(Color.black)
     }
 
     private var fieldDivider: some View {
@@ -342,7 +340,6 @@ struct ComposeView: View {
             isStreaming: viewModel.processingPhase == .writing
         )
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black)
         .animation(.smooth(duration: 0.2), value: viewModel.processingPhase)
     }
 
@@ -424,7 +421,6 @@ struct ComposeView: View {
                 )
             }
         }
-        .background(Color.black)
     }
 
     private var attachmentCarouselHeight: CGFloat {
@@ -483,7 +479,6 @@ struct ComposeView: View {
         }
         .padding(.horizontal, 14)
         .frame(height: 48)
-        .background(Color.black)
     }
 
     private func handleRewriteButton() {

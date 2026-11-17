@@ -102,7 +102,7 @@ struct AttachmentCard: View {
             alignment: .topLeading
         )
         .fixedSize(horizontal: false, vertical: true)
-        .background(Color.black)
+        .background(Color.primary.opacity(0.035))
         .overlay {
             RoundedRectangle(cornerRadius: 8, style: .continuous)
                 .stroke(.white.opacity(0.16), lineWidth: 0.7)

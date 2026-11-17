@@ -12,26 +12,26 @@ final class MenuBarController: NSObject {
     init(model: AppModel) {
         self.model = model
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-        let hostingController = NSHostingController(
-            rootView: MenuBarPanelView(model: model)
-        )
-        hostingController.sizingOptions = [.preferredContentSize]
         panel = MenuBarPanel(
             contentRect: .zero,
             styleMask: [.borderless, .nonactivatingPanel],
             backing: .buffered,
             defer: false
         )
-        panel.contentViewController = hostingController
         super.init()
+        let hostingController = NSHostingController(
+            rootView: MenuBarPanelView(model: model, dismissPanel: { [weak self] in self?.closePanel() })
+        )
+        hostingController.sizingOptions = [.preferredContentSize]
+        panel.contentViewController = hostingController
         statusItem.autosaveName = "org.filemailer.status-item"
         statusItem.isVisible = true
         if let button = statusItem.button {
             button.image = Self.menuBarImage()
             button.imagePosition = .imageOnly
             button.imageScaling = .scaleProportionallyDown
-            button.setAccessibilityLabel(String(localized: "FileMailer"))
-            button.toolTip = String(localized: "FileMailer")
+            button.setAccessibilityLabel(AppConfiguration.appName)
+            button.toolTip = AppConfiguration.appName
             button.target = self
             button.action = #selector(handleStatusItemClick(_:))
             button.sendAction(on: [.leftMouseUp, .rightMouseUp])
@@ -53,8 +53,7 @@ final class MenuBarController: NSObject {
     }
 
     @objc private func handleStatusItemClick(_ sender: NSStatusBarButton) {
-        guard let event = NSApp.currentEvent else { return }
-        if event.type == .rightMouseUp {
+        if NSApp.currentEvent?.type == .rightMouseUp {
             showContextMenu(relativeTo: sender)
         } else {
             togglePopover(relativeTo: sender)

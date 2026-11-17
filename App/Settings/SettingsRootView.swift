@@ -18,7 +18,6 @@ struct SettingsRootView: View {
             }
             .listStyle(.sidebar)
             .scrollContentBackground(.hidden)
-            .background(Color.black)
             .frame(width: 190)
 
             Divider()
@@ -38,10 +37,9 @@ struct SettingsRootView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.black)
         }
         .frame(minWidth: 760, minHeight: 560)
-        .background(Color.black)
+        .mailWindowBackground()
         .environment(\.locale, model.interfaceLocale)
         .environment(\.layoutDirection, model.interfaceLocale.language.characterDirection == .rightToLeft ? .rightToLeft : .leftToRight)
     }

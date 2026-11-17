@@ -4,10 +4,42 @@ import SwiftUI
 
 struct GeneralSettingsView: View {
     @ObservedObject var model: AppModel
+    @AppStorage(MailAppearance.glassPreference) private var glassEnabled = true
+    @AppStorage(MailAppearance.blurPreference) private var blur = MailAppearance.defaultBlur
+    @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
     @State private var isDraftDeletionConfirmationPresented = false
 
     var body: some View {
         Form {
+            Section {
+                Toggle(isOn: $glassEnabled) {
+                    Label {
+                        Text(verbatim: "Liquid Glass")
+                    } icon: {
+                        Image(systemName: "circle.lefthalf.filled")
+                    }
+                }
+                .toggleStyle(.switch)
+                .accessibilityIdentifier("liquid-glass-toggle")
+
+                #if FILEMAILER_ADJUSTABLE_BLUR
+                if glassEnabled && WindowBlur.isAvailable {
+                    LabeledContent("Background blur") {
+                        Slider(value: $blur, in: 0...1, step: 0.05) {
+                            Text("Background blur")
+                        }
+                        .labelsHidden()
+                        .frame(maxWidth: 150)
+                        .accessibilityIdentifier("glass-blur-slider")
+                        Text(blur, format: .percent)
+                            .monospacedDigit()
+                            .frame(minWidth: 38, alignment: .trailing)
+                    }
+                    .disabled(reduceTransparency)
+                }
+                #endif
+            }
+
             Section("Language") {
                 Picker(
                     "Application language",
@@ -116,7 +148,6 @@ struct GeneralSettingsView: View {
         .formStyle(.grouped)
         .scrollContentBackground(.hidden)
         .padding()
-        .background(Color.black)
         .navigationTitle(model.localizedString("General"))
         .confirmationDialog(
             "Clear all saved drafts?",

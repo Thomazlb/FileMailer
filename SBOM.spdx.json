@@ -2,10 +2,10 @@
   "SPDXID": "SPDXRef-DOCUMENT",
   "spdxVersion": "SPDX-2.3",
   "dataLicense": "CC0-1.0",
-  "name": "FileMailer-0.1.0",
-  "documentNamespace": "https://filemailer.invalid/spdx/FileMailer-0.1.0",
+  "name": "FileMailer-1.1.0",
+  "documentNamespace": "https://github.com/Thomazlb/FileMailer/releases/tag/v1.1.0#sbom",
   "creationInfo": {
-    "created": "2026-07-23T00:00:00Z",
+    "created": "2026-11-17T23:47:11Z",
     "creators": [
       "Tool: FileMailer repository manifest"
     ]
@@ -14,7 +14,7 @@
     {
       "SPDXID": "SPDXRef-Package-FileMailer",
       "name": "FileMailer",
-      "versionInfo": "0.1.0",
+      "versionInfo": "1.1.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "licenseConcluded": "MIT",

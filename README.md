@@ -84,6 +84,11 @@ email addresses, private macOS paths and local signing material.
 The working app is written to `build/DerivedData/Build/Products/Debug/FileMailer.app`.
 `make run` opens it, but build and test targets do not launch it.
 
+## Appearance
+
+In General settings, turn on Liquid Glass for the compose window, settings, and
+the menu bar panel. The direct download also lets you adjust background blur.
+
 ## Languages
 
 The language selected in General settings applies to the interface, native window

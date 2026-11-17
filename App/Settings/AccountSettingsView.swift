@@ -44,7 +44,6 @@ struct AccountSettingsView: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(Color.black)
             .overlay {
                 if model.accounts.isEmpty {
                     ContentUnavailableView(
@@ -68,7 +67,6 @@ struct AccountSettingsView: View {
             }
             .padding(10)
         }
-        .background(Color.black)
         .navigationTitle(model.localizedString("Gmail accounts"))
         .confirmationDialog(
             "Remove This Account?",
