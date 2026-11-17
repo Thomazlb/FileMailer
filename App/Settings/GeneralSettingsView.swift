@@ -23,7 +23,7 @@ struct GeneralSettingsView: View {
                 .accessibilityIdentifier("liquid-glass-toggle")
 
                 #if FILEMAILER_ADJUSTABLE_BLUR
-                if glassEnabled && WindowBlur.isAvailable {
+                if glassEnabled {
                     LabeledContent("Background blur") {
                         Slider(value: $blur, in: 0...1, step: 0.05) {
                             Text("Background blur")

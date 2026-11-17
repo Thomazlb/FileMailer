@@ -4,7 +4,7 @@ import SwiftUI
 enum MailAppearance {
     static let glassPreference = "darkLiquidGlass"
     static let blurPreference = "glassBackgroundBlur"
-    static let defaultBlur = 0.4
+    static let defaultBlur = 0.5
 }
 
 struct MailBackdrop<Outline: Shape>: View {
@@ -13,24 +13,12 @@ struct MailBackdrop<Outline: Shape>: View {
     @AppStorage(MailAppearance.blurPreference) private var blur = MailAppearance.defaultBlur
     @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
 
-    private var nativeGlass: some View {
-        // Clip the glass to the window without drawing a second highlight around its edge.
-        Color.clear.glassEffect(.clear, in: Rectangle()).padding(-16)
-    }
-
     var body: some View {
         ZStack {
             if glassEnabled && !reduceTransparency {
+                WindowGlass(blur: blur)
+                    .padding(-1)
                 Color(white: 0.065).opacity(0.30)
-                #if FILEMAILER_ADJUSTABLE_BLUR
-                if WindowBlur.isAvailable {
-                    WindowBlur(radius: Int32((min(max(blur, 0), 1) * 64).rounded()))
-                } else {
-                    nativeGlass
-                }
-                #else
-                nativeGlass
-                #endif
             } else {
                 Color.black
             }
@@ -41,61 +29,72 @@ struct MailBackdrop<Outline: Shape>: View {
     }
 }
 
+private struct WindowGlass: NSViewRepresentable {
+    var blur: Double
+
+    func makeNSView(context: Context) -> NSGlassEffectView {
+        #if FILEMAILER_ADJUSTABLE_BLUR
+        let glass = AdjustableGlass()
+        #else
+        let glass = NSGlassEffectView()
+        #endif
+        glass.style = .clear
+        glass.cornerRadius = 18
+        return glass
+    }
+
+    func updateNSView(_ view: NSGlassEffectView, context: Context) {
+        #if FILEMAILER_ADJUSTABLE_BLUR
+        let strength = min(max(blur, 0), 1)
+        // Give subtle blur more travel near the start of the slider.
+        (view as? AdjustableGlass)?.radius = strength * strength * 18
+        #endif
+    }
+}
+
 #if FILEMAILER_ADJUSTABLE_BLUR
-// Only the direct distribution uses WindowServer's adjustable blur.
-struct WindowBlur: NSViewRepresentable {
-    let radius: Int32
-
-    private typealias Connection = @convention(c) () -> Int32
-    private typealias SetRadius = @convention(c) (Int32, UInt32, Int32) -> Int32
-
-    private static let process = dlopen(nil, RTLD_LAZY)
-    private static let connection = dlsym(process, "CGSMainConnectionID").map {
-        unsafeBitCast($0, to: Connection.self)
-    }
-    private static let setRadius = dlsym(process, "CGSSetWindowBackgroundBlurRadius").map {
-        unsafeBitCast($0, to: SetRadius.self)
+// Only the direct download adjusts the native glass compositor.
+private final class AdjustableGlass: NSGlassEffectView {
+    var radius: Double = 0 {
+        didSet { if radius != oldValue { tuneGlass() } }
     }
 
-    static var isAvailable: Bool { connection != nil && setRadius != nil }
-
-    func makeNSView(context: Context) -> Attachment { Attachment() }
-
-    func updateNSView(_ view: Attachment, context: Context) {
-        view.radius = radius
+    override func layout() {
+        super.layout()
+        tuneGlass()
     }
 
-    final class Attachment: NSView {
-        private var originalShadow: Bool?
+    override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        guard window != nil else { return }
+        // AppKit installs its backdrop after attaching and laying out the view.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) { [weak self] in self?.tuneGlass() }
+    }
 
-        var radius: Int32 = 0 {
-            didSet {
-                if radius != oldValue { apply(radius) }
+    private func tuneGlass() {
+        guard let layer else { return }
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        updateBackdrop(in: layer)
+        CATransaction.commit()
+    }
+
+    private func updateBackdrop(in layer: CALayer) {
+        for case let filter as NSObject in layer.filters ?? [] {
+            guard filter.responds(to: NSSelectorFromString("inputKeys")),
+                  let keys = filter.value(forKey: "inputKeys") as? [String],
+                  keys.contains("inputBlurOpacity0"),
+                  let name = filter.value(forKey: "name") as? String else { continue }
+            // Keep the optical edge active at zero blur. Only the radius follows the slider.
+            var inputs = ["inputBlurRadius": radius, "inputRefractionOpacity": 1.0]
+            for key in keys where key.hasPrefix("inputBlurOpacity") { inputs[key] = 1 }
+            for (key, value) in inputs where keys.contains(key) {
+                guard (filter.value(forKey: key) as? NSNumber)?.doubleValue != value else { continue }
+                layer.setValue(value, forKeyPath: "filters.\(name).\(key)")
             }
+            return
         }
-
-        override func viewWillMove(toWindow newWindow: NSWindow?) {
-            if window !== newWindow {
-                apply(0)
-                if let originalShadow { window?.hasShadow = originalShadow }
-                originalShadow = nil
-            }
-            super.viewWillMove(toWindow: newWindow)
-        }
-
-        override func viewDidMoveToWindow() {
-            super.viewDidMoveToWindow()
-            // A transparent window casts its own shadow through the unblurred background.
-            originalShadow = window?.hasShadow
-            window?.hasShadow = false
-            apply(radius)
-        }
-
-        private func apply(_ radius: Int32) {
-            guard let number = window?.windowNumber, number > 0,
-                  let connection = WindowBlur.connection, let setRadius = WindowBlur.setRadius else { return }
-            _ = setRadius(connection(), UInt32(number), radius)
-        }
+        layer.sublayers?.forEach { updateBackdrop(in: $0) }
     }
 }
 #endif
@@ -103,7 +102,8 @@ struct WindowBlur: NSViewRepresentable {
 extension View {
     func mailWindowBackground() -> some View {
         background {
-            MailBackdrop(outline: Rectangle()).ignoresSafeArea()
+            MailBackdrop(outline: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .ignoresSafeArea()
         }
     }
 }

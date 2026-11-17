@@ -87,7 +87,7 @@ The working app is written to `build/DerivedData/Build/Products/Debug/FileMailer
 ## Appearance
 
 In General settings, turn on Liquid Glass for the compose window, settings, and
-the menu bar panel. The direct download also lets you adjust background blur.
+the menu bar panel. The direct download also lets you adjust the background blur, which starts at 50% and remembers your selection.
 
 ## Languages
 
