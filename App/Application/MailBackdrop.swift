@@ -59,6 +59,9 @@ private final class AdjustableGlass: NSGlassEffectView {
         didSet { if radius != oldValue { tuneGlass() } }
     }
 
+    private var refreshTimer: Timer?
+    private var windowObservers: [NSObjectProtocol] = []
+
     override func layout() {
         super.layout()
         tuneGlass()
@@ -66,9 +69,35 @@ private final class AdjustableGlass: NSGlassEffectView {
 
     override func viewDidMoveToWindow() {
         super.viewDidMoveToWindow()
-        guard window != nil else { return }
-        // AppKit installs its backdrop after attaching and laying out the view.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) { [weak self] in self?.tuneGlass() }
+        let center = NotificationCenter.default
+        windowObservers.forEach(center.removeObserver)
+        windowObservers.removeAll()
+        if let window {
+            let events = [NSWindow.didChangeOcclusionStateNotification,
+                          NSWindow.didBecomeKeyNotification, NSWindow.didResignKeyNotification]
+            windowObservers = events.map { event in
+                center.addObserver(forName: event, object: window, queue: .main) { [weak self] _ in
+                    MainActor.assumeIsolated { self?.windowStateChanged() }
+                }
+            }
+        }
+        windowStateChanged()
+    }
+
+    private func windowStateChanged() {
+        refreshTimer?.invalidate()
+        refreshTimer = nil
+        guard let window, window.occlusionState.contains(.visible) else { return }
+        tuneGlass()
+        // AppKit may replace the backdrop after the focus or ordering notification.
+        // Reconcile only this visible view, without writing unchanged filter settings.
+        let timer = Timer(timeInterval: 0.12, repeats: true) { [weak self] timer in
+            guard let self else { timer.invalidate(); return }
+            MainActor.assumeIsolated { self.tuneGlass() }
+        }
+        timer.tolerance = 0.02
+        RunLoop.main.add(timer, forMode: .common)
+        refreshTimer = timer
     }
 
     private func tuneGlass() {
@@ -88,10 +117,14 @@ private final class AdjustableGlass: NSGlassEffectView {
             // Keep the optical edge active at zero blur. Only the radius follows the slider.
             var inputs = ["inputBlurRadius": radius, "inputRefractionOpacity": 1.0]
             for key in keys where key.hasPrefix("inputBlurOpacity") { inputs[key] = 1 }
+            var changed = false
             for (key, value) in inputs where keys.contains(key) {
                 guard (filter.value(forKey: key) as? NSNumber)?.doubleValue != value else { continue }
+                filter.setValue(value, forKey: key)
                 layer.setValue(value, forKeyPath: "filters.\(name).\(key)")
+                changed = true
             }
+            if changed, let filters = layer.filters { layer.filters = filters }
             return
         }
         layer.sublayers?.forEach { updateBackdrop(in: $0) }

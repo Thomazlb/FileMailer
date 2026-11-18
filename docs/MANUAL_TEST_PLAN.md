@@ -121,3 +121,10 @@ Finder activation and one reviewed Gmail send.
   have no userInfo and launch URLs must contain only a request UUID.
 - Check a fresh installation and migration from an older direct-download build
   separately. Never infer account, credential or database migration from a build.
+
+## Background blur in the direct download
+
+1. Place a striped image behind FileMailer. Enable Liquid Glass and set background blur to 50%.
+2. Open a message from the menu bar panel. Switch to another app and back three times. Reopen the panel between switches.
+3. Check the stripes through settings, the message body, and the panel. They should stay equally blurred after each return.
+4. Try 0% and 100% with the message still open. All three surfaces should follow the slider. Quit and reopen FileMailer and verify the last setting.
