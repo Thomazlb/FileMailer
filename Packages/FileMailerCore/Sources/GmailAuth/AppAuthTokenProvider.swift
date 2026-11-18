@@ -27,12 +27,18 @@ public actor AppAuthTokenProvider: TokenProviding {
                 }
             }
         }
-        try await store.save(AuthStateArchive.encode(state), for: accountID)
+        if states[accountID] === state {
+            try await store.save(AuthStateArchive.encode(state), for: accountID)
+        }
         return token
     }
 
-    public func purge(accountID: GmailAccountID) async throws {
+    public func forgetCachedState(for accountID: GmailAccountID) {
         states.removeValue(forKey: accountID)
+    }
+
+    public func purge(accountID: GmailAccountID) async throws {
+        forgetCachedState(for: accountID)
         try await store.delete(for: accountID)
     }
 

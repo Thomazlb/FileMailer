@@ -209,8 +209,11 @@ final class AppModel: ObservableObject {
                 clientID: AppConfiguration.googleClientID,
                 redirectScheme: AppConfiguration.googleRedirectScheme
             )
+            await tokenProvider.forgetCachedState(for: account.id)
             var value = account
-            if accounts.isEmpty { value.isDefault = true }
+            let existing = accounts.first { $0.id == account.id }
+            value.isDefault = existing?.isDefault ?? accounts.isEmpty
+            value.signature = existing?.signature
             try persistence?.upsert(account: value)
             reload()
         } catch {
@@ -229,6 +232,7 @@ final class AppModel: ObservableObject {
         guard authorized.id == account.id else {
             throw GoogleDriveError.authorizationRequired
         }
+        await tokenProvider.forgetCachedState(for: account.id)
         authorized.isDefault = account.isDefault
         authorized.signature = account.signature
         try persistence?.upsert(account: authorized)
@@ -249,6 +253,7 @@ final class AppModel: ObservableObject {
     }
 
     func removeAccount(_ account: GmailAccountSummary, revoke: Bool) async {
+        await tokenProvider.forgetCachedState(for: account.id)
         do {
             try await oauthCoordinator.remove(accountID: account.id, revoke: revoke)
         } catch {

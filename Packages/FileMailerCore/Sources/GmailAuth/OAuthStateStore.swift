@@ -23,23 +23,40 @@ public enum OAuthStoreError: Error, LocalizedError, Sendable {
 
 public actor KeychainOAuthStateStore: OAuthStateStoring {
     private let service: String
+    private let usesProtectedKeychain: Bool
 
     public init(baseBundleID: String) {
         service = "\(baseBundleID).oauth"
+        // Unsigned community builds can only use the file-based login keychain.
+        let task = SecTaskCreateFromSelf(nil)
+        usesProtectedKeychain = task.flatMap {
+            SecTaskCopyValueForEntitlement($0, "com.apple.application-identifier" as CFString, nil)
+        } is String
     }
 
     public func save(_ data: Data, for accountID: GmailAccountID) throws {
-        let query = baseQuery(accountID)
-        SecItemDelete(query as CFDictionary)
+        let query = baseQuery(accountID, protected: usesProtectedKeychain)
         var add = query
         add[kSecValueData as String] = data
         add[kSecAttrAccessible as String] = kSecAttrAccessibleWhenUnlockedThisDeviceOnly
-        let status = SecItemAdd(add as CFDictionary, nil)
+        var status = SecItemAdd(add as CFDictionary, nil)
+        if status == errSecDuplicateItem {
+            let changes = [kSecValueData as String: data]
+            status = SecItemUpdate(query as CFDictionary, changes as CFDictionary)
+        }
         guard status == errSecSuccess else { throw OAuthStoreError.keychain(status) }
     }
 
     public func load(for accountID: GmailAccountID) throws -> Data? {
-        var query = baseQuery(accountID)
+        if usesProtectedKeychain, let data = try read(baseQuery(accountID, protected: true)) {
+            return data
+        }
+        // Preserve sessions created by FileMailer before it selected a keychain explicitly.
+        return try read(baseQuery(accountID, protected: false))
+    }
+
+    private func read(_ attributes: [String: Any]) throws -> Data? {
+        var query = attributes
         query[kSecReturnData as String] = true
         query[kSecMatchLimit as String] = kSecMatchLimitOne
         var result: CFTypeRef?
@@ -52,19 +69,23 @@ public actor KeychainOAuthStateStore: OAuthStateStoring {
     }
 
     public func delete(for accountID: GmailAccountID) throws {
-        let status = SecItemDelete(baseQuery(accountID) as CFDictionary)
-        guard status == errSecSuccess || status == errSecItemNotFound else {
-            throw OAuthStoreError.keychain(status)
+        for protected in usesProtectedKeychain ? [false, true] : [false] {
+            let status = SecItemDelete(baseQuery(accountID, protected: protected) as CFDictionary)
+            guard status == errSecSuccess || status == errSecItemNotFound else {
+                throw OAuthStoreError.keychain(status)
+            }
         }
     }
 
-    private func baseQuery(_ accountID: GmailAccountID) -> [String: Any] {
-        [
+    private func baseQuery(_ accountID: GmailAccountID, protected: Bool) -> [String: Any] {
+        var query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
             kSecAttrAccount as String: accountID.rawValue,
             kSecAttrSynchronizable as String: kCFBooleanFalse as Any
         ]
+        if protected { query[kSecUseDataProtectionKeychain as String] = true }
+        return query
     }
 }
 

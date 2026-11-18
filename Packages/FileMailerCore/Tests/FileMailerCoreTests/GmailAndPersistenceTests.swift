@@ -1,9 +1,41 @@
 import FileMailerDomain
 import GmailAPI
+import GmailAuth
 import Persistence
+import Security
 import XCTest
 
 final class GmailAndPersistenceTests: XCTestCase {
+    func testReconnectingUpdatesTheExistingKeychainItem() async throws {
+        let domain = "org.filemailer.tests." + UUID().uuidString
+        let store = KeychainOAuthStateStore(baseBundleID: domain)
+        let account = GmailAccountID(rawValue: "test-account")
+        var query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: domain + ".oauth",
+            kSecAttrAccount as String: account.rawValue,
+            kSecAttrSynchronizable as String: false
+        ]
+        if let task = SecTaskCreateFromSelf(nil),
+           SecTaskCopyValueForEntitlement(task, "com.apple.application-identifier" as CFString, nil) is String {
+            query[kSecUseDataProtectionKeychain as String] = true
+        }
+        defer { SecItemDelete(query as CFDictionary) }
+        try await store.save(Data([1]), for: account)
+        let marker = [kSecAttrComment as String: "Regression test"]
+        XCTAssertEqual(SecItemUpdate(query as CFDictionary, marker as CFDictionary), errSecSuccess)
+
+        try await store.save(Data([2]), for: account)
+        let reopened = KeychainOAuthStateStore(baseBundleID: domain)
+        let saved = try await reopened.load(for: account)
+        XCTAssertEqual(saved, Data([2]))
+        var lookup = query
+        lookup[kSecReturnAttributes as String] = true
+        var attributes: CFTypeRef?
+        XCTAssertEqual(SecItemCopyMatching(lookup as CFDictionary, &attributes), errSecSuccess)
+        XCTAssertEqual((attributes as? [String: Any])?[kSecAttrComment as String] as? String, "Regression test")
+    }
+
     func testGmailStatusMappingAndMalformedResponse() async throws {
         let file = temporaryMessage()
         defer { try? FileManager.default.removeItem(at: file) }
